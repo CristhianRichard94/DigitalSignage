@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace DigitalSignage.Domain
 {
-    public class Class1
+    public class Text : Banner
     {
+        public string Data { get; set; }
     }
 }

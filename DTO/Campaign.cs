@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalSignage.BLL
+namespace DigitalSignage.DTO
 {
-    public class Class1
+    public class Campaign
     {
     }
 }

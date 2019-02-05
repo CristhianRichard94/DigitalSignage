@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Test
+namespace DigitalSignage.Test
 {
     [TestClass]
     public class UnitTest1

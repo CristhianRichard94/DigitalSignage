@@ -1,4 +1,4 @@
-﻿namespace UI
+﻿namespace DigitalSignage.UI
 {
     partial class Form1
     {

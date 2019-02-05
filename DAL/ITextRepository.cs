@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DigitalSignage.BLL
+namespace DigitalSignage.DAL
 {
-    public class Class1
+    public interface ITextRepository : IRepository
     {
+
     }
 }

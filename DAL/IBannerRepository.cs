@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DigitalSignage.DAL
 {
-    public class Class1
+    public interface IBannerRepository : IRepository
     {
+
     }
 }
