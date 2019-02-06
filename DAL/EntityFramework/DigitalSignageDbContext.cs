@@ -11,10 +11,16 @@ namespace DigitalSignage.DAL.EntityFramework
     public class DigitalSignageDbContext : DbContext
     {
         public DbSet<Campaign> Campaigns { get; set; }
+
         public DbSet<Banner> Banners { get; set; }
-        public DbSet<RSS> RSSes { get; set; }
+
+        public DbSet<RSSSource> RSSSources { get; set; }
+
         public DbSet<Text> Texts { get; set; }
+
         public DbSet<RSSItem> RSSItems { get; set; }
+
+        public DbSet<Image> Images { get; set; }
 
 
         public DigitalSignageDbContext() : base("DigitalSignage")

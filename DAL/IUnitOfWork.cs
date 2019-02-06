@@ -22,12 +22,12 @@ namespace DigitalSignage.DAL
         /// <summary>
         /// Da acceso al repositorio de Banners RSS
         /// </summary>
-        ICampaignRepository RSSRepository { get; }
+        IRSSSourceRepository RSSSourceRepository { get; }
         
         /// <summary>
         /// Da acceso al repositorio de Banners de texto
         /// </summary>
-        ICampaignRepository TextRepository { get; }
+        ITextRepository TextRepository { get; }
 
 
         void Complete();

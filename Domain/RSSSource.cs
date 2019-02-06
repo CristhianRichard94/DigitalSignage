@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.Domain
 {
-    public class RSS : Banner
+    public class RSSSource : Banner
     {
         public string Url { get; set; }
         public RSSItem RSSItems { get; set; }
