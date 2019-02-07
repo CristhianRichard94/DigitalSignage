@@ -6,10 +6,15 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.Domain
 {
-    public class RSSSource : Banner
+    public class RSSSource : BannerSource
     {
         public string Url { get; set; }
-        public RSSItem RSSItems { get; set; }
+
+        public IList<RSSItem> RSSItems { get; set; }
         
+        public override string GetText()
+        {
+            return "";
+        }
     }
 }

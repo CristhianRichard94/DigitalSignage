@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
-    class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
 
         private readonly DigitalSignageDbContext iDbContext;
@@ -35,7 +35,7 @@ namespace DigitalSignage.DAL.EntityFramework
         /// Constructor de la clase, utiliza el contexto para inicializar los repositorios
         /// </summary>
         /// <param name="pContext">Contexto que representa una sesión con la base de datos</param>
-        UnitOfWork(DigitalSignageDbContext pContext)
+        public UnitOfWork(DigitalSignageDbContext pContext)
         {
             if (pContext is null)
             {

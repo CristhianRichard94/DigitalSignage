@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.Domain
 {
-    public abstract class BannerType
+    public abstract class BannerSource
     {
         /// <summary>
-        /// Id del tipo
+        /// Id de la fuente
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
         /// Todo banner debe implementar este método para devolver su texto
         /// </summary>
-        /// <returns>texto que será mostrado del banner en pantalla</returns>
+        /// <returns>Texto que será mostrado en pantalla</returns>
         public abstract string GetText();
     }
 }

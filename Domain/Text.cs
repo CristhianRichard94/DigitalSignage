@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.Domain
 {
-    public class Text : Banner
+    public class Text : BannerSource
     {
         public string Data { get; set; }
+
+        public override string GetText()
+        {
+            return Data;
+        }
     }
 }

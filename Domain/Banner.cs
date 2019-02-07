@@ -9,14 +9,23 @@ namespace DigitalSignage.Domain
     public class Banner
     {
         public int Id { get; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
         public DateTime InitialDate { get; set; }
+
         public DateTime EndDate { get; set; }
+
         public TimeSpan InitialTime { get; set; }
+
         public TimeSpan EndTime { get; set; }
-        public virtual BannerType Type { get; set; }
+
+        public virtual BannerSource Source { get; set; }
 
         /// <summary>
-        /// Clave foránea para el tipo de banner
+        /// Clave foránea para la fuente del banner
         /// </summary>
         public int SourceId { get; set; }
 
@@ -42,7 +51,7 @@ namespace DigitalSignage.Domain
         public string GetText()
         {
 
-            return Type.GetText();
+            return Source.GetText();
 
         }
     }
