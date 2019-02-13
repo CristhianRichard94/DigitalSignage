@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework.Mappings
 {
-    class BannerTypeMap : EntityTypeConfiguration<BannerSource>
+    class BannerSourceMap : EntityTypeConfiguration<BannerSource>
     {
         public void BannerType()
         {
-            ToTable("BannerTypes");
+            ToTable("BannerSources");
 
             this.HasKey(pBannerType => pBannerType.Id)
                 .Property(pBannerType => pBannerType.Id)

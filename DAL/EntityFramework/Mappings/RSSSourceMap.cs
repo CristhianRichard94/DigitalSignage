@@ -22,7 +22,7 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
             
             this.HasMany<RSSItem>(pRssSource => pRssSource.RSSItems)
                 .WithRequired()
-                .HasForeignKey<int>(i => i.IdRSSSource)
+                .HasForeignKey<int>(i => i.RSSSourceId)
                 .WillCascadeOnDelete();
 
         }

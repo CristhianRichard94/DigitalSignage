@@ -8,7 +8,7 @@ namespace DigitalSignage.Domain
 {
     public class Banner
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

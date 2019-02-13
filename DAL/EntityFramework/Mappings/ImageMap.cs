@@ -16,22 +16,18 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
 
             this.HasKey(pImage => pImage.Id)
                 .Property(pImage => pImage.Id)
-                .HasColumnName("Id")
+                .HasColumnName("ImageId")
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 
             this.Property(pImage => pImage.Description)
                 .IsRequired();
 
             this.Property(pImage => pImage.Data)
-                .IsRequired();
-
-            this.Property(pImage => pImage.Duration)
+                .HasColumnName("Bytes")
                 .IsRequired();
 
             this.Property(pImage => pImage.Position)
-                .IsRequired();
-
-            this.Property(pImage => pImage.CampaignId)
+                .HasColumnName("Order")
                 .IsRequired();
 
         }

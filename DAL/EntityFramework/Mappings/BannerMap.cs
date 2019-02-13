@@ -38,7 +38,7 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
                 .IsRequired();
 
         }
-    {
+    
 
     }
 }

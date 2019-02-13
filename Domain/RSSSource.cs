@@ -10,6 +10,8 @@ namespace DigitalSignage.Domain
     {
         public string Url { get; set; }
 
+        public string Description { get; set; }
+
         public IList<RSSItem> RSSItems { get; set; }
         
         public override string GetText()

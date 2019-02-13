@@ -52,8 +52,9 @@
     <Compile Include="EntityFramework\CampaignRepository.cs" />
     <Compile Include="EntityFramework\DigitalSignageDbContext.cs" />
     <Compile Include="EntityFramework\Mappings\BannerMap.cs" />
-    <Compile Include="EntityFramework\Mappings\BannerTypeMap.cs" />
+    <Compile Include="EntityFramework\Mappings\BannerSourceMap.cs" />
     <Compile Include="EntityFramework\Mappings\CampaignMap.cs" />
+    <Compile Include="EntityFramework\DatabaseInitialization.cs" />
     <Compile Include="EntityFramework\Mappings\ImageMap.cs" />
     <Compile Include="EntityFramework\Mappings\RSSItemMap.cs" />
     <Compile Include="EntityFramework\Mappings\RSSSourceMap.cs" />

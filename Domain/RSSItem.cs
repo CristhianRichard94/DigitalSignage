@@ -8,7 +8,7 @@ namespace DigitalSignage.Domain
 {
     public class RSSItem
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public string Url { get; set; }
 

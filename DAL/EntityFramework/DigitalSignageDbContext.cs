@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using DigitalSignage.Domain;
+using DigitalSignage.DAL.EntityFramework.Mappings;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
@@ -31,8 +32,30 @@ namespace DigitalSignage.DAL.EntityFramework
 
             // Se establece la estrategia personalizada de inicialización de la BBDD.
             this.Configuration.LazyLoadingEnabled = true;
-           // Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
+           //Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
 
+        }
+
+
+        public DigitalSignageDbContext(String name) : base(name)
+        {
+            this.Configuration.LazyLoadingEnabled = true;
+            // Se establece la estrategia personalizada de inicialización de la BBDD.
+            Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>());
+        }
+
+
+        protected override void OnModelCreating(DbModelBuilder pModelBuilder)
+        {
+            pModelBuilder.Configurations.Add(new CampaignMap());
+            pModelBuilder.Configurations.Add(new BannerMap());
+            pModelBuilder.Configurations.Add(new BannerSourceMap());
+            pModelBuilder.Configurations.Add(new RSSSourceMap());
+            pModelBuilder.Configurations.Add(new TextMap());
+            pModelBuilder.Configurations.Add(new RSSItemMap());
+            pModelBuilder.Configurations.Add(new ImageMap());
+
+            base.OnModelCreating(pModelBuilder);
         }
     }
 }
