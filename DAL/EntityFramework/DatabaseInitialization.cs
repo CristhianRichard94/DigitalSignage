@@ -9,7 +9,7 @@ using System.IO;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
-    class DatabaseInitialization : DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>
+    public class DatabaseInitialization : DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>
     {
         protected override void Seed(DigitalSignageDbContext pContext)
         {

@@ -14,9 +14,9 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
         {
             ToTable("Banners");
 
-            this.HasKey(pCampign => pCampign.Id)
-                .Property(pCampign => pCampign.Id)
-                .HasColumnName("Id")
+            this.HasKey(pBanner => pBanner.Id)
+                .Property(pBanner => pBanner.Id)
+                .HasColumnName("BannerId")
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             
             this.Property(pBanner => pBanner.Name)
@@ -26,15 +26,21 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
                 .IsRequired();
 
             this.Property(pBanner => pBanner.InitialDate)
+                .HasColumnName("InitDate")
                 .IsRequired();
 
             this.Property(pBanner => pBanner.EndDate)
                 .IsRequired();
 
             this.Property(pBanner => pBanner.InitialTime)
+                .HasColumnName("InitTime")
                 .IsRequired();
 
             this.Property(pBanner => pBanner.EndDate)
+                .IsRequired();
+
+            this.Property(pBanner => pBanner.SourceId)
+                .HasColumnName("Source")
                 .IsRequired();
 
         }

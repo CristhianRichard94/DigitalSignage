@@ -10,13 +10,13 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
 {
     class BannerSourceMap : EntityTypeConfiguration<BannerSource>
     {
-        public void BannerType()
+        public void BannerSource()
         {
             ToTable("BannerSources");
 
-            this.HasKey(pBannerType => pBannerType.Id)
-                .Property(pBannerType => pBannerType.Id)
-                .HasColumnName("Id")
+            this.HasKey(pBannerSource => pBannerSource.Id)
+                .Property(pBannerSource => pBannerSource.Id)
+                .HasColumnName("BannerSourceId")
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
         }
     }

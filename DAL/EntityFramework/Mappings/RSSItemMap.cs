@@ -16,7 +16,7 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
 
             this.HasKey(pRSSItem => pRSSItem.Id)
                 .Property(pRSSItem => pRSSItem.Id)
-                .HasColumnName("Id")
+                .HasColumnName("RSSItemId")
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 
             this.Property(pRSSItem => pRSSItem.Description)
