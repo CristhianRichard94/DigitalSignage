@@ -40,7 +40,7 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
                 .IsRequired();
 
             this.Property(pBanner => pBanner.SourceId)
-                .HasColumnName("Source")
+                .HasColumnName("SourceId")
                 .IsRequired();
 
         }

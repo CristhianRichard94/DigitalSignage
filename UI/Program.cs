@@ -20,7 +20,7 @@ namespace DigitalSignage.UI
             DigitalSignageDbContext context = new DigitalSignageDbContext();
             UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
 
-            Campaign campaign = new Campaign()
+        /*   Campaign campaign = new Campaign()
             {
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
@@ -52,11 +52,11 @@ namespace DigitalSignage.UI
                         Data = File.ReadAllBytes("../../../assets/images/3.jpeg")
                     },
                 }
-            };
+            }; 
             uow.CampaignRepository.Add(campaign);
 
             uow.Complete();
-
+            */
             IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
             IEnumerator<Campaign> e = result.GetEnumerator();
 

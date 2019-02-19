@@ -26,13 +26,15 @@ namespace DigitalSignage.DAL.EntityFramework
 
         public DigitalSignageDbContext() : base("DigitalSignage")
         {
-            Database.SetInitializer<DigitalSignageDbContext>(new CreateDatabaseIfNotExists<DigitalSignageDbContext>());
-            ///Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>());
+            //Database.SetInitializer<DigitalSignageDbContext>(new CreateDatabaseIfNotExists<DigitalSignageDbContext>());
+            //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>());
             //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseAlways<DigitalSignageDbContext>());
 
             // Se establece la estrategia personalizada de inicialización de la BBDD.
             this.Configuration.LazyLoadingEnabled = true;
-           //Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
+           Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
+           //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseAlways<DigitalSignageDbContext>());
+
 
         }
 

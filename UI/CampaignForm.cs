@@ -23,9 +23,17 @@ namespace DigitalSignage.UI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             cp.MoveNext();
-            label1.Text += "\n" +cp.Current.Description;
+            try
+            {
+                label1.Text += "\n" + cp.Current.Description;
+            }
+            catch (Exception exception)
+            {
+                label1.Text += "\n No mas campañas";
+                this.Close();
+            }
         }
     }
 }

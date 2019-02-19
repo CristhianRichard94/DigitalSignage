@@ -128,7 +128,7 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            Assert.AreEqual(banner, uow.BannerRepository.Get(banner.Id));
+            Assert.AreEqual( uow.BannerRepository.Get(banner.Id), banner);
 
         }
     }
