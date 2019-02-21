@@ -61,13 +61,11 @@
     <Compile Include="EntityFramework\Mappings\TextMap.cs" />
     <Compile Include="EntityFramework\Repository.cs" />
     <Compile Include="EntityFramework\RSSSourceRepository.cs" />
-    <Compile Include="EntityFramework\TextRepository.cs" />
     <Compile Include="EntityFramework\UnitOfWork.cs" />
     <Compile Include="IBannerRepository.cs" />
     <Compile Include="ICampaignRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IRSSSourceRepository.cs" />
-    <Compile Include="ITextRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

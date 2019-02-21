@@ -23,11 +23,6 @@ namespace DigitalSignage.DAL
         /// Da acceso al repositorio de Banners RSS
         /// </summary>
         IRSSSourceRepository RSSSourceRepository { get; }
-        
-        /// <summary>
-        /// Da acceso al repositorio de Banners de texto
-        /// </summary>
-        ITextRepository TextRepository { get; }
 
 
         void Complete();

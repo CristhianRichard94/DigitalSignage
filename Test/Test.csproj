@@ -59,6 +59,7 @@
     <Compile Include="CampaignRepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BannerRepositoryTest.cs" />
+    <Compile Include="RSSSourceRepositoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

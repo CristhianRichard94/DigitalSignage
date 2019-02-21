@@ -9,5 +9,18 @@ namespace DigitalSignage.DAL
 {
     public interface IRSSSourceRepository : IRepository<RSSSource>
     {
+
+        /// <summary>
+        /// Actualiza una fuente RSS  
+        /// </summary>
+        /// <param name="updatedRssSource"></param>
+        void Update(RSSSource updatedRssSource);
+
+        /// <summary>
+        /// obtiene los banners que estan asociados a una fuente RSS especifica
+        /// </summary>
+        /// <param name="pSourceId"></param>
+        /// <returns></returns>
+        IEnumerable<Banner> GetBannersWithSource(int pSourceId);
     }
 }

@@ -10,5 +10,12 @@ namespace DigitalSignage.DAL
     public interface IBannerRepository : IRepository<Banner>
     {
 
+        IEnumerable<Banner> GetBannersByName(string pName);
+
+
+        IEnumerable<Banner> GetBannersActiveInDate(DateTime pDate);
+
+        
+        IEnumerable<Banner> GetBannersActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime);
     }
 }

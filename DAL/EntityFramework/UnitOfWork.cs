@@ -26,10 +26,6 @@ namespace DigitalSignage.DAL.EntityFramework
         /// </summary>
         public IRSSSourceRepository RSSSourceRepository { get; private set; }
 
-        /// <summary>
-        /// Da acceso al repositorio de Banners de texto
-        /// </summary>
-        public ITextRepository TextRepository { get; private set; }
 
         /// <summary>
         /// Constructor de la clase, utiliza el contexto para inicializar los repositorios
@@ -47,7 +43,6 @@ namespace DigitalSignage.DAL.EntityFramework
             this.CampaignRepository = new CampaignRepository(this.iDbContext);
             this.BannerRepository = new BannerRepository(this.iDbContext);
             this.RSSSourceRepository = new RSSSourceRepository(this.iDbContext);
-            this.TextRepository = new TextRepository(this.iDbContext);
         }
 
         public void Complete()
