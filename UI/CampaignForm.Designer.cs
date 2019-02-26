@@ -60,6 +60,7 @@
             this.Controls.Add(this.label1);
             this.Name = "CampaignForm";
             this.Text = "CampaignForm";
+            this.Load += new System.EventHandler(this.CampaignForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

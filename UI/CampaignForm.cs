@@ -31,9 +31,14 @@ namespace DigitalSignage.UI
             }
             catch (Exception exception)
             {
-                label1.Text += "\n No mas campañas";
+                label1.Text += "\n No mas campañas" + exception.Message;
                 this.Close();
             }
+        }
+
+        private void CampaignForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

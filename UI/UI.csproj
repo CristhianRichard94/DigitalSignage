@@ -59,26 +59,35 @@
     <Compile Include="CampaignForm.Designer.cs">
       <DependentUpon>CampaignForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="HomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomeForm.Designer.cs">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="CampaignForm.resx">
       <DependentUpon>CampaignForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="HomeForm.resx">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -97,6 +106,18 @@
       <Project>{11B4B9AA-3E70-447E-9B5E-8DD0631528FE}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NY-Signage %281%29.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\coollogo_com-25963166.png" />
+    <Content Include="Resources\down-arrow %281%29 - copia.png" />
+    <Content Include="Resources\down-arrow %281%29.png" />
+    <Content Include="Resources\dropdownarrow1.png" />
+    <None Include="Resources\dropdownarrow21.png" />
+    <None Include="Resources\dropdownarrow11.png" />
+    <Content Include="Resources\dropdownarrow2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

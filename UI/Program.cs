@@ -17,10 +17,10 @@ namespace DigitalSignage.UI
         [STAThread]
         static void Main()
         {
-            DigitalSignageDbContext context = new DigitalSignageDbContext();
+          /*  DigitalSignageDbContext context = new DigitalSignageDbContext();
             UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
 
-        /*   Campaign campaign = new Campaign()
+           Campaign campaign = new Campaign()
             {
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
@@ -56,14 +56,14 @@ namespace DigitalSignage.UI
             uow.CampaignRepository.Add(campaign);
 
             uow.Complete();
-            */
+            
             IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
             IEnumerator<Campaign> e = result.GetEnumerator();
 
-
+    */
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CampaignForm(e));
+            Application.Run(new campaignManagement());
         }
     }
 }
