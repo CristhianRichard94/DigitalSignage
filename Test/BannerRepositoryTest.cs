@@ -52,6 +52,75 @@ namespace DigitalSignage.Test
         }
 
         [TestMethod]
+        public void UpdateCampaignRepository()
+        {
+            Banner banner = new Banner()
+            {
+                Name = "Prueba",
+                Description = "Prueba de una Banner",
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
+                InitialDate = new DateTime(2018, 02, 07),
+                EndDate = new DateTime(2018, 02, 08),
+                Source = new RSSSource()
+                {
+
+                    Description = "Fuente RSS",
+                    Url = "URL",
+                    RSSItems = new List<RSSItem> {
+                        new RSSItem()
+                        {
+                            Description = "Item RSS",
+                            Url = "URL",
+                            Title = "Titulo",
+                            Date = DateTime.Now
+                        }
+                    }
+
+                }
+            };
+            uow.BannerRepository.Add(banner);
+
+            uow.Complete();
+
+            IEnumerable<Banner> result = uow.BannerRepository.GetAll();
+
+            IEnumerator<Banner> e = result.GetEnumerator();
+            e.MoveNext();
+
+            Banner updatedBanner = e.Current;
+            updatedBanner.Name = "Prueba2";
+            updatedBanner.Description = "Prueba de un banner 2";
+            updatedBanner.InitialTime = new TimeSpan(0, 8, 1);
+            updatedBanner.EndTime = new TimeSpan(0, 7, 30);
+            updatedBanner.InitialDate = new DateTime(2015, 02, 07);
+            updatedBanner.EndDate = new DateTime(2017, 02, 08);
+            updatedBanner.Source = new RSSSource()
+            {
+
+                Description = "Fuente RSS actualizada",
+                Url = "URL actualizada",
+                RSSItems = new List<RSSItem>
+                {
+                    new RSSItem()
+                    {
+                        Description = "Item RSS2",
+                        Url = "URL2",
+                        Title = "Titulo2",
+                        Date = DateTime.Now
+                    }
+                }
+
+            };
+            uow.BannerRepository.Update(updatedBanner);
+
+            uow.Complete();
+
+            Assert.AreEqual(updatedBanner, uow.BannerRepository.Get(updatedBanner.Id));
+
+        }
+
+        [TestMethod]
         public void RemoveBannerRepositoryTest()
         {
             Banner banner = new Banner()

@@ -15,6 +15,37 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
+        public void Update(Banner updatedBanner)
+        {
+            var oldBanner = this.iDbContext.Banners
+                .SingleOrDefault(p => p.Id == updatedBanner.Id);
+
+            //Actualiza los datos
+            oldBanner.Description = updatedBanner.Description;
+            oldBanner.InitialDate = updatedBanner.InitialDate;
+            oldBanner.EndDate = updatedBanner.EndDate;
+            oldBanner.InitialTime = updatedBanner.InitialTime;
+            oldBanner.EndTime = updatedBanner.EndTime;
+            oldBanner.Name = updatedBanner.Name;
+
+            if (updatedBanner.Source.Id > 0)
+            {
+
+                oldBanner.SourceId = updatedBanner.Source.Id;
+
+            }
+            else
+            {
+
+                oldBanner.Source = updatedBanner.Source;
+
+            }
+
+            //Guardando los cambios
+            this.iDbContext.SaveChanges();
+            
+        }
+
         public IEnumerable<Banner> GetBannersByName(string pName)
         {
             if (pName == null)

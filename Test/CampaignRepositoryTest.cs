@@ -60,6 +60,77 @@ namespace DigitalSignage.Test
 
         }
 
+
+        [TestMethod]
+        public void UpdateCampaignRepository()
+        {
+            Campaign campaign = new Campaign()
+            {
+                Name = "Prueba",
+                Description = "Prueba de una campaña",
+                InitialTime = new TimeSpan(0,0,1),
+                EndTime = new TimeSpan(0,0,30),
+                InitialDate = new DateTime(2018, 02, 07),
+                EndDate = new DateTime(2018, 02, 08),
+                Images = new List<Image>
+                {
+                    new Image()
+                    {
+                        Description = "Imagen 1",
+                        Duration = 1,
+                        Position = 1,
+                        Data = File.ReadAllBytes("../../../assets/images/1.jpg")
+                    },
+                    new Image()
+                    {
+                        Description = "Imagen 2",
+                        Duration = 2,
+                        Position = 2,
+                        Data = File.ReadAllBytes("../../../assets/images/2.jpg")
+                    },
+                    new Image()
+                    {
+                        Description = "Imagen 3",
+                        Duration = 3,
+                        Position = 3,
+                        Data = File.ReadAllBytes("../../../assets/images/3.jpeg")
+                    },
+                }
+            };
+            uow.CampaignRepository.Add(campaign);
+
+            uow.Complete();
+
+            IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
+
+            IEnumerator<Campaign> e = result.GetEnumerator();
+            e.MoveNext();
+
+            Campaign camp = e.Current;
+            camp.Name = "Prueba2";
+            camp.Description = "Prueba de una campaña2";
+            camp.InitialTime = new TimeSpan(0, 8, 1);
+            camp.EndTime = new TimeSpan(0, 7, 30);
+            camp.InitialDate = new DateTime(2015, 02, 07);
+            camp.EndDate = new DateTime(2017, 02, 08);
+            camp.Images = new List<Image>()
+            {
+                new Image()
+                {
+                    Description = "Imagen 2",
+                    Duration = 2,
+                    Position = 2,
+                    Data = File.ReadAllBytes("../../../assets/images/2.jpg")
+                },
+            };
+            uow.CampaignRepository.Update(camp);
+
+            uow.Complete();
+
+            Assert.AreEqual(camp, uow.CampaignRepository.Get(camp.Id));
+
+        }
+
         [TestMethod]
         public void RemoveCampaignRepository()
         {

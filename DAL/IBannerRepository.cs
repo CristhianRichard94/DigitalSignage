@@ -10,6 +10,9 @@ namespace DigitalSignage.DAL
     public interface IBannerRepository : IRepository<Banner>
     {
 
+        void Update(Banner updatedBanner);
+
+
         IEnumerable<Banner> GetBannersByName(string pName);
 
 
