@@ -63,7 +63,7 @@ namespace DigitalSignage.UI
     */
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new campaignManagement());
+            Application.Run(new HomeForm());
         }
     }
 }
