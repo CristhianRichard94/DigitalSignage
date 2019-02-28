@@ -21,5 +21,6 @@ namespace DigitalSignage.UI.Campaign_Forms
         {
             this.Close();
         }
+        
     }
 }

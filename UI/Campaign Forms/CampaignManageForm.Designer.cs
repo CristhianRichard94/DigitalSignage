@@ -28,8 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampaignManageForm));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.logoPanel = new System.Windows.Forms.PictureBox();
+            this.title = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
+            this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -37,11 +47,13 @@
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(193, 325);
+            this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.button1.Location = new System.Drawing.Point(0, 99);
+            this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(205, 104);
+            this.button1.Size = new System.Drawing.Size(266, 58);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Salir";
+            this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -50,13 +62,82 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(193, 183);
+            this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.button2.Location = new System.Drawing.Point(0, 49);
+            this.button2.Margin = new System.Windows.Forms.Padding(0);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(205, 104);
+            this.button2.Size = new System.Drawing.Size(266, 50);
             this.button2.TabIndex = 2;
             this.button2.Text = "Editar";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(210)))), ((int)(((byte)(138)))));
+            this.panel2.Controls.Add(this.logoPanel);
+            this.panel2.Controls.Add(this.title);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(266, 49);
+            this.panel2.TabIndex = 4;
+            // 
+            // logoPanel
+            // 
+            this.logoPanel.BackColor = System.Drawing.Color.Transparent;
+            this.logoPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.logoPanel.Cursor = System.Windows.Forms.Cursors.Default;
+            this.logoPanel.Image = ((System.Drawing.Image)(resources.GetObject("logoPanel.Image")));
+            this.logoPanel.Location = new System.Drawing.Point(0, 0);
+            this.logoPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.logoPanel.Name = "logoPanel";
+            this.logoPanel.Padding = new System.Windows.Forms.Padding(3);
+            this.logoPanel.Size = new System.Drawing.Size(61, 49);
+            this.logoPanel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logoPanel.TabIndex = 3;
+            this.logoPanel.TabStop = false;
+            // 
+            // title
+            // 
+            this.title.AutoSize = true;
+            this.title.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.title.Location = new System.Drawing.Point(64, 9);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(172, 25);
+            this.title.TabIndex = 0;
+            this.title.Text = "Digital Signage";
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(210)))), ((int)(((byte)(138)))));
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(266, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(934, 49);
+            this.panel3.TabIndex = 5;
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(43)))), ((int)(((byte)(64)))));
+            this.flowLayoutPanel1.Controls.Add(this.panel2);
+            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 720);
+            this.flowLayoutPanel1.TabIndex = 6;
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(347, 99);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(926, 621);
+            this.listView1.TabIndex = 7;
+            this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // CampaignManageForm
             // 
@@ -64,13 +145,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(1200, 720);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CampaignManageForm";
             this.Text = "CampaignForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.CampaignForm_Load);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
+            this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -78,5 +164,11 @@
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.PictureBox logoPanel;
+        private System.Windows.Forms.Label title;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.ListView listView1;
     }
 }

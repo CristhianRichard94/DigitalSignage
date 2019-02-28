@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
-    public class Campaign
+    class RSSSourceDTO
     {
     }
 }
