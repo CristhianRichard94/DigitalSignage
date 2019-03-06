@@ -18,6 +18,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         public CampaignManageForm()
         {
             InitializeComponent();
+            campaignsGridView.AutoGenerateColumns = false;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -34,5 +35,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         {
             new CampaignEditForm().ShowDialog();
         }
+
+
     }
 }

@@ -8,5 +8,17 @@ namespace DigitalSignage.DTO
 {
     class ImageDTO
     {
+        public int Id { get; set; }
+
+        public byte[] Data { get; set; }
+
+        public string Description { get; set; }
+
+        public int Duration { get; set; }
+
+        public int Position { get; set; }
+
+        public int CampaignId { get; set; }
+
     }
 }

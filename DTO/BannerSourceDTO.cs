@@ -8,5 +8,6 @@ namespace DigitalSignage.DTO
 {
     class BannerSourceDTO
     {
+        public int Id { get; set; }
     }
 }

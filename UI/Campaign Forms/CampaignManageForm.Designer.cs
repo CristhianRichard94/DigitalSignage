@@ -36,10 +36,11 @@
             this.title = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.campaignsGridView = new System.Windows.Forms.DataGridView();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.campaignsGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -131,13 +132,14 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 720);
             this.flowLayoutPanel1.TabIndex = 6;
             // 
-            // listView1
+            // campaignsGridView
             // 
-            this.listView1.Location = new System.Drawing.Point(347, 99);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(926, 621);
-            this.listView1.TabIndex = 7;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.campaignsGridView.AllowUserToOrderColumns = true;
+            this.campaignsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.campaignsGridView.Location = new System.Drawing.Point(342, 99);
+            this.campaignsGridView.Name = "campaignsGridView";
+            this.campaignsGridView.Size = new System.Drawing.Size(941, 513);
+            this.campaignsGridView.TabIndex = 7;
             // 
             // CampaignManageForm
             // 
@@ -145,7 +147,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(1200, 720);
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.campaignsGridView);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -157,6 +159,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.campaignsGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -169,6 +172,6 @@
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.DataGridView campaignsGridView;
     }
 }

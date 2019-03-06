@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
-    class RSSSourceDTO
+    class RSSSourceDTO : BannerSourceDTO
     {
+
+        public string Url { get; set; }
+
+        public string Description { get; set; }
+
+        public IList<RSSItemDTO> RssItems { get; set; }
     }
 }
