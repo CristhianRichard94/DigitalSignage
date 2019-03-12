@@ -1,4 +1,5 @@
-﻿using DigitalSignage.Domain;
+﻿using DigitalSignage.BLL;
+using DigitalSignage.Domain;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,12 +14,14 @@ namespace DigitalSignage.UI.Campaign_Forms
 {
     public partial class CampaignManageForm : Form
     {
-
+        private CampaignService iCampaignService;
 
         public CampaignManageForm()
         {
+            this.iCampaignService = new CampaignService();
             InitializeComponent();
             campaignsGridView.AutoGenerateColumns = false;
+            campaignsGridView.DataSource = this.iCampaignService.GetAll();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -31,11 +34,19 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void editButton_Click(object sender, EventArgs e)
         {
-            new CampaignEditForm().ShowDialog();
+            new CampaignEditForm(Convert.ToInt32(this.campaignsGridView.CurrentRow.Cells["Id"].Value.ToString())).ShowDialog();
         }
 
+        private void campaignsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
+
+        private void createButton_Click(object sender, EventArgs e)
+        {
+            new CampaignEditForm(-1).ShowDialog();
+        }
     }
 }

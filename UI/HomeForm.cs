@@ -74,18 +74,21 @@ namespace DigitalSignage.UI
         {
             CampaignManageForm campaignManageForm = new CampaignManageForm();
             campaignManageForm.ShowDialog();
+
         }
 
         private void bannersManage_Click(object sender, EventArgs e)
         {
             BannerManageForm bannerManageForm = new BannerManageForm();
             bannerManageForm.ShowDialog();
+
         }
 
         private void rssManage_Click(object sender, EventArgs e)
         {
             RSSManageForm rSSManageForm= new RSSManageForm();
             rSSManageForm.ShowDialog();
+
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)

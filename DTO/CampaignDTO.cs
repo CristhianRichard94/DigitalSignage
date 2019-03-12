@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
-    class CampaignDTO
+    public class CampaignDTO
     {
         public int Id { get; set; }
 
@@ -22,6 +22,6 @@ namespace DigitalSignage.DTO
 
         public TimeSpan EndTime { get; set; }
 
-        public IList<Image> Images { get; set; }
+        public IList<ImageDTO> Images { get; set; }
     }
 }

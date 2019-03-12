@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
-    class BannerDTO
+    public class BannerDTO
     {
         public int Id { get; set; }
 

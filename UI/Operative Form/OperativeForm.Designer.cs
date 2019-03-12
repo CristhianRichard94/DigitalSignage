@@ -98,7 +98,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(266, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(934, 49);
+            this.panel3.Size = new System.Drawing.Size(1100, 49);
             this.panel3.TabIndex = 7;
             // 
             // flowLayoutPanel1
@@ -109,7 +109,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 720);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 768);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // OperativeForm
@@ -117,7 +117,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.ClientSize = new System.Drawing.Size(1200, 720);
+            this.ClientSize = new System.Drawing.Size(1366, 768);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel1);
             this.ForeColor = System.Drawing.Color.WhiteSmoke;

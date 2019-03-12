@@ -36,21 +36,21 @@
             this.exit = new System.Windows.Forms.Button();
             this.operativeScreen = new System.Windows.Forms.Button();
             this.dropdownPanel = new System.Windows.Forms.Panel();
-            this.manageOptions = new System.Windows.Forms.Button();
-            this.campManage = new System.Windows.Forms.Button();
-            this.bannersManage = new System.Windows.Forms.Button();
             this.rssManage = new System.Windows.Forms.Button();
+            this.bannersManage = new System.Windows.Forms.Button();
+            this.campManage = new System.Windows.Forms.Button();
+            this.manageOptions = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.title = new System.Windows.Forms.Label();
-            this.logoPanel = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.logoPanel = new System.Windows.Forms.PictureBox();
+            this.title = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.dropdownPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // timer1
@@ -130,6 +130,57 @@
             this.dropdownPanel.Size = new System.Drawing.Size(266, 50);
             this.dropdownPanel.TabIndex = 90;
             // 
+            // rssManage
+            // 
+            this.rssManage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(80)))), ((int)(((byte)(100)))));
+            this.rssManage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.rssManage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.rssManage.FlatAppearance.BorderSize = 0;
+            this.rssManage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.rssManage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.rssManage.Location = new System.Drawing.Point(0, 114);
+            this.rssManage.Margin = new System.Windows.Forms.Padding(0);
+            this.rssManage.Name = "rssManage";
+            this.rssManage.Size = new System.Drawing.Size(266, 32);
+            this.rssManage.TabIndex = 8;
+            this.rssManage.Text = "Fuentes RSS";
+            this.rssManage.UseVisualStyleBackColor = false;
+            this.rssManage.Click += new System.EventHandler(this.rssManage_Click);
+            // 
+            // bannersManage
+            // 
+            this.bannersManage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(80)))), ((int)(((byte)(100)))));
+            this.bannersManage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bannersManage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.bannersManage.FlatAppearance.BorderSize = 0;
+            this.bannersManage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bannersManage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.bannersManage.Location = new System.Drawing.Point(0, 82);
+            this.bannersManage.Margin = new System.Windows.Forms.Padding(0);
+            this.bannersManage.Name = "bannersManage";
+            this.bannersManage.Size = new System.Drawing.Size(266, 32);
+            this.bannersManage.TabIndex = 7;
+            this.bannersManage.Text = "Banners";
+            this.bannersManage.UseVisualStyleBackColor = false;
+            this.bannersManage.Click += new System.EventHandler(this.bannersManage_Click);
+            // 
+            // campManage
+            // 
+            this.campManage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(80)))), ((int)(((byte)(100)))));
+            this.campManage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.campManage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.campManage.FlatAppearance.BorderSize = 0;
+            this.campManage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.campManage.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.campManage.Location = new System.Drawing.Point(0, 50);
+            this.campManage.Margin = new System.Windows.Forms.Padding(0);
+            this.campManage.Name = "campManage";
+            this.campManage.Size = new System.Drawing.Size(266, 32);
+            this.campManage.TabIndex = 6;
+            this.campManage.Text = "Campañas";
+            this.campManage.UseVisualStyleBackColor = false;
+            this.campManage.Click += new System.EventHandler(this.campManage_Click);
+            // 
             // manageOptions
             // 
             this.manageOptions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
@@ -150,57 +201,6 @@
             this.manageOptions.UseVisualStyleBackColor = false;
             this.manageOptions.Click += new System.EventHandler(this.manageOptions_Click);
             // 
-            // campManage
-            // 
-            this.campManage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(80)))), ((int)(((byte)(100)))));
-            this.campManage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.campManage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.campManage.FlatAppearance.BorderSize = 0;
-            this.campManage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.campManage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.campManage.Location = new System.Drawing.Point(0, 50);
-            this.campManage.Margin = new System.Windows.Forms.Padding(0);
-            this.campManage.Name = "campManage";
-            this.campManage.Size = new System.Drawing.Size(266, 32);
-            this.campManage.TabIndex = 6;
-            this.campManage.Text = "Campañas";
-            this.campManage.UseVisualStyleBackColor = false;
-            this.campManage.Click += new System.EventHandler(this.campManage_Click);
-            // 
-            // bannersManage
-            // 
-            this.bannersManage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(80)))), ((int)(((byte)(100)))));
-            this.bannersManage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bannersManage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.bannersManage.FlatAppearance.BorderSize = 0;
-            this.bannersManage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bannersManage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.bannersManage.Location = new System.Drawing.Point(0, 82);
-            this.bannersManage.Margin = new System.Windows.Forms.Padding(0);
-            this.bannersManage.Name = "bannersManage";
-            this.bannersManage.Size = new System.Drawing.Size(266, 32);
-            this.bannersManage.TabIndex = 7;
-            this.bannersManage.Text = "Banners";
-            this.bannersManage.UseVisualStyleBackColor = false;
-            this.bannersManage.Click += new System.EventHandler(this.bannersManage_Click);
-            // 
-            // rssManage
-            // 
-            this.rssManage.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(80)))), ((int)(((byte)(100)))));
-            this.rssManage.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rssManage.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.rssManage.FlatAppearance.BorderSize = 0;
-            this.rssManage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rssManage.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.rssManage.Location = new System.Drawing.Point(0, 114);
-            this.rssManage.Margin = new System.Windows.Forms.Padding(0);
-            this.rssManage.Name = "rssManage";
-            this.rssManage.Size = new System.Drawing.Size(266, 32);
-            this.rssManage.TabIndex = 8;
-            this.rssManage.Text = "Fuentes RSS";
-            this.rssManage.UseVisualStyleBackColor = false;
-            this.rssManage.Click += new System.EventHandler(this.rssManage_Click);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(43)))), ((int)(((byte)(64)))));
@@ -210,7 +210,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 49);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 671);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 719);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // panel3
@@ -220,20 +220,20 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1200, 49);
+            this.panel3.Size = new System.Drawing.Size(1366, 49);
             this.panel3.TabIndex = 2;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
-            // title
+            // panel2
             // 
-            this.title.AutoSize = true;
-            this.title.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.title.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.title.Location = new System.Drawing.Point(64, 9);
-            this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(172, 25);
-            this.title.TabIndex = 0;
-            this.title.Text = "Digital Signage";
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(210)))), ((int)(((byte)(138)))));
+            this.panel2.Controls.Add(this.logoPanel);
+            this.panel2.Controls.Add(this.title);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Margin = new System.Windows.Forms.Padding(0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(266, 49);
+            this.panel2.TabIndex = 1;
             // 
             // logoPanel
             // 
@@ -250,23 +250,23 @@
             this.logoPanel.TabIndex = 3;
             this.logoPanel.TabStop = false;
             // 
-            // panel2
+            // title
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(210)))), ((int)(((byte)(138)))));
-            this.panel2.Controls.Add(this.logoPanel);
-            this.panel2.Controls.Add(this.title);
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(266, 49);
-            this.panel2.TabIndex = 1;
+            this.title.AutoSize = true;
+            this.title.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.title.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.title.Location = new System.Drawing.Point(64, 9);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(172, 25);
+            this.title.TabIndex = 0;
+            this.title.Text = "Digital Signage";
             // 
             // HomeForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1200, 720);
+            this.ClientSize = new System.Drawing.Size(1366, 768);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -283,9 +283,9 @@
             this.dropdownPanel.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
