@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampaignManageForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -42,6 +42,11 @@
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CampaignName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.searchLabel = new System.Windows.Forms.Label();
+            this.searchComboBox = new System.Windows.Forms.ComboBox();
+            this.searchButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.searchDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -166,14 +171,14 @@
             this.Id,
             this.CampaignName,
             this.Description});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.campaignsGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.campaignsGridView.DefaultCellStyle = dataGridViewCellStyle3;
             this.campaignsGridView.Location = new System.Drawing.Point(342, 99);
             this.campaignsGridView.MultiSelect = false;
             this.campaignsGridView.Name = "campaignsGridView";
@@ -209,14 +214,77 @@
             this.Description.Name = "Description";
             this.Description.ReadOnly = true;
             // 
+            // searchLabel
+            // 
+            this.searchLabel.AutoSize = true;
+            this.searchLabel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.searchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.searchLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.searchLabel.Location = new System.Drawing.Point(350, 66);
+            this.searchLabel.Name = "searchLabel";
+            this.searchLabel.Size = new System.Drawing.Size(53, 16);
+            this.searchLabel.TabIndex = 8;
+            this.searchLabel.Text = "Buscar:";
+            // 
+            // searchComboBox
+            // 
+            this.searchComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.searchComboBox.FormattingEnabled = true;
+            this.searchComboBox.Items.AddRange(new object[] {
+            "Mostrar todas las campañas",
+            "Buscar por nombre",
+            "Buscar por fecha",
+            "Buscar por ID"});
+            this.searchComboBox.Location = new System.Drawing.Point(449, 65);
+            this.searchComboBox.Name = "searchComboBox";
+            this.searchComboBox.Size = new System.Drawing.Size(176, 21);
+            this.searchComboBox.TabIndex = 9;
+            this.searchComboBox.SelectedIndexChanged += new System.EventHandler(this.searchComboBox_SelectedIndexChanged);
+            // 
+            // searchButton
+            // 
+            this.searchButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.searchButton.FlatAppearance.BorderSize = 0;
+            this.searchButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.searchButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.searchButton.Location = new System.Drawing.Point(814, 66);
+            this.searchButton.Margin = new System.Windows.Forms.Padding(0);
+            this.searchButton.Name = "searchButton";
+            this.searchButton.Size = new System.Drawing.Size(77, 21);
+            this.searchButton.TabIndex = 6;
+            this.searchButton.Text = "Buscar";
+            this.searchButton.UseVisualStyleBackColor = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(667, 67);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.Size = new System.Drawing.Size(100, 20);
+            this.searchTextBox.TabIndex = 10;
+            // 
+            // searchDateTimePicker
+            // 
+            this.searchDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.searchDateTimePicker.Location = new System.Drawing.Point(667, 66);
+            this.searchDateTimePicker.Name = "searchDateTimePicker";
+            this.searchDateTimePicker.Size = new System.Drawing.Size(100, 20);
+            this.searchDateTimePicker.TabIndex = 11;
+            this.searchDateTimePicker.Visible = false;
+            // 
             // CampaignManageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(1366, 768);
+            this.Controls.Add(this.searchDateTimePicker);
+            this.Controls.Add(this.searchTextBox);
+            this.Controls.Add(this.searchComboBox);
+            this.Controls.Add(this.searchLabel);
             this.Controls.Add(this.campaignsGridView);
             this.Controls.Add(this.panel3);
+            this.Controls.Add(this.searchButton);
             this.Controls.Add(this.flowLayoutPanel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CampaignManageForm";
@@ -229,6 +297,7 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.campaignsGridView)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -245,5 +314,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CampaignName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.Button createButton;
+        private System.Windows.Forms.Label searchLabel;
+        private System.Windows.Forms.ComboBox searchComboBox;
+        private System.Windows.Forms.Button searchButton;
+        private System.Windows.Forms.TextBox searchTextBox;
+        private System.Windows.Forms.DateTimePicker searchDateTimePicker;
     }
 }

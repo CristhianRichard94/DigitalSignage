@@ -69,7 +69,7 @@ namespace DigitalSignage.DAL.EntityFramework
 
             return base.iDbContext.Set<Campaign>()
                 //Busca las campañas que contengan el nombre especificado
-                .Where(c => c.Name.IndexOf(pName, StringComparison.Ordinal) >= 0)
+                .Where(c => c.Name.IndexOf(pName) >= 0)
                 .ToList();
         }
 

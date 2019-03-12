@@ -54,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BannerService.cs" />
     <Compile Include="CampaignService.cs" />
+    <Compile Include="IBannerService.cs" />
     <Compile Include="ICampaignService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
