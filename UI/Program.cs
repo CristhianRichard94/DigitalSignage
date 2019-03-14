@@ -19,32 +19,28 @@ namespace DigitalSignage.UI
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             AutoMapperConfig.RegisterMappings();
-
+            //addCampaign();
             Application.Run(new HomeForm());
         }
-    }
-}
 
 
+        static void addCampaign()
+        {
+            DigitalSignageDbContext context = new DigitalSignageDbContext();
+            UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
 
-
-
-/*  DigitalSignageDbContext context = new DigitalSignageDbContext();
-  UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
-
- Campaign campaign = new Campaign()
-  {
-      Name = "Prueba",
-      Description = "Prueba de una campaña",
-      InitialTime = new TimeSpan(0, 0, 1),
-      EndTime = new TimeSpan(0, 0, 30),
-      InitialDate = new DateTime(2018, 02, 07),
-      EndDate = new DateTime(2018, 02, 08),
-      Images = new List<Image>
+            Campaign campaign = new Campaign()
+            {
+                Name = "Prueba",
+                Description = "Prueba de una campaña",
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
+                InitialDate = new DateTime(2018, 02, 07),
+                EndDate = new DateTime(2019, 08, 08),
+                Images = new List<Image>
       {
           new Image()
           {
@@ -68,12 +64,20 @@ namespace DigitalSignage.UI
               Data = File.ReadAllBytes("../../../assets/images/3.jpeg")
           },
       }
-  }; 
-  uow.CampaignRepository.Add(campaign);
+            };
+            uow.CampaignRepository.Add(campaign);
 
-  uow.Complete();
+            uow.Complete();
 
-  IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
-  IEnumerator<Campaign> e = result.GetEnumerator();
+            IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
+            IEnumerator<Campaign> e = result.GetEnumerator();
+        }
+    }
 
-*/
+}
+
+
+
+
+
+

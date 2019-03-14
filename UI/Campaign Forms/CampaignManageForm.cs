@@ -16,14 +16,17 @@ namespace DigitalSignage.UI.Campaign_Forms
     public partial class CampaignManageForm : Form
     {
         private CampaignService iCampaignService;
-
+        private IEnumerable<CampaignDTO> iCampaigns;
         public CampaignManageForm()
         {
+            iCampaigns = new List<CampaignDTO>();
             this.iCampaignService = new CampaignService();
             InitializeComponent();
             campaignsGridView.AutoGenerateColumns = false;
+
             // Opcion de mostrar todas las campañas
             searchComboBox.SelectedIndex = 0;
+
             getCampaigns();
         }
 
@@ -39,7 +42,21 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void editButton_Click(object sender, EventArgs e)
         {
-            new CampaignEditForm(Convert.ToInt32(this.campaignsGridView.CurrentRow.Cells["Id"].Value.ToString())).ShowDialog();
+            CampaignEditForm cef = new CampaignEditForm((CampaignDTO)campaignsGridView.SelectedRows[0].DataBoundItem);
+            if (cef.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+
+                    this.iCampaignService.Update(cef.Campaign);
+                    MessageBox.Show(this, "Se ha modificado la campaña", "Exito al modificar la campaña", MessageBoxButtons.OK);
+                    getCampaigns();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, "Error: " + ex.Message, "Error al modificar la campaña", MessageBoxButtons.OK);
+                }
+            }
         }
 
         private void campaignsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -49,7 +66,21 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void createButton_Click(object sender, EventArgs e)
         {
-            new CampaignEditForm(-1).ShowDialog();
+            CampaignEditForm cef = new CampaignEditForm(null);
+            if (cef.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+
+                    this.iCampaignService.Create(cef.Campaign);
+                    MessageBox.Show(this, "Se ha creado la campaña", "Exito al crear la campaña", MessageBoxButtons.OK);
+                    getCampaigns();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, "Error: " + ex.Message, "Error al modificar la campaña", MessageBoxButtons.OK);
+                }
+            }
         }
 
 
@@ -59,7 +90,8 @@ namespace DigitalSignage.UI.Campaign_Forms
             switch (searchComboBox.SelectedItem)
             {
                 case "Mostrar todas las campañas":
-                    campaignsGridView.DataSource = this.iCampaignService.GetAll();
+                    this.iCampaigns = this.iCampaignService.GetAll();
+                    campaignsGridView.DataSource = this.iCampaigns;
                     break;
                 case "Buscar por nombre":
                     try
@@ -69,7 +101,8 @@ namespace DigitalSignage.UI.Campaign_Forms
                         {
                             MessageBox.Show("No se ha encontrado ninguna campaña con el nombre ingresado.");
                         }
-                        campaignsGridView.DataSource = resultCampaigns;
+                        this.iCampaigns = resultCampaigns;
+                        campaignsGridView.DataSource = this.iCampaigns;
                     }
                     catch (Exception exc)
                     {
@@ -92,7 +125,8 @@ namespace DigitalSignage.UI.Campaign_Forms
                     {
                         campaigns.Add(resultCampaign);
                     }
-                    campaignsGridView.DataSource = campaigns;
+                    this.iCampaigns = campaigns;
+                    campaignsGridView.DataSource = this.iCampaigns;
                     break;
             }
         }

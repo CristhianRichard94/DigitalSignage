@@ -40,9 +40,9 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
                 .IsRequired();
 
             this.HasMany<Image>(pCampaign => pCampaign.Images)
-                 .WithRequired()
-                 .HasForeignKey<int>(i => i.CampaignId)
-                 .WillCascadeOnDelete();
+                .WithRequired()
+                .HasForeignKey<int>(i => i.CampaignId)
+                .WillCascadeOnDelete();
 
         }
     }

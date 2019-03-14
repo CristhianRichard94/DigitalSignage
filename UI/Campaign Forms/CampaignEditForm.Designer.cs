@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampaignEditForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.title = new System.Windows.Forms.Label();
@@ -48,15 +49,23 @@
             this.endTimeLabel = new System.Windows.Forms.Label();
             this.initDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.imgDataGridView = new System.Windows.Forms.DataGridView();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Data = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Position = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.addImageButton = new System.Windows.Forms.Button();
+            this.editImageButton = new System.Windows.Forms.Button();
+            this.deleteImageButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.imgDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -243,7 +252,7 @@
             this.initDateTimePicker.CustomFormat = "";
             this.initDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.initDateTimePicker.Location = new System.Drawing.Point(334, 479);
-            this.initDateTimePicker.MinDate = new System.DateTime(2019, 3, 12, 0, 0, 0, 0);
+            this.initDateTimePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.initDateTimePicker.Name = "initDateTimePicker";
             this.initDateTimePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.initDateTimePicker.Size = new System.Drawing.Size(100, 20);
@@ -259,15 +268,6 @@
             this.endDateTimePicker.Size = new System.Drawing.Size(100, 20);
             this.endDateTimePicker.TabIndex = 24;
             this.endDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 15, 31, 0);
-            // 
-            // imgDataGridView
-            // 
-            this.imgDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.imgDataGridView.Location = new System.Drawing.Point(738, 124);
-            this.imgDataGridView.Name = "imgDataGridView";
-            this.imgDataGridView.Size = new System.Drawing.Size(606, 460);
-            this.imgDataGridView.TabIndex = 25;
-            this.imgDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // comboBox1
             // 
@@ -473,17 +473,124 @@
             this.comboBox4.Size = new System.Drawing.Size(45, 21);
             this.comboBox4.TabIndex = 29;
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Data,
+            this.Description,
+            this.Duration,
+            this.Position});
+            this.dataGridView1.GridColor = System.Drawing.Color.Silver;
+            this.dataGridView1.Location = new System.Drawing.Point(657, 99);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 100;
+            this.dataGridView1.Size = new System.Drawing.Size(681, 535);
+            this.dataGridView1.TabIndex = 30;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            // 
+            // Data
+            // 
+            this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Data.DataPropertyName = "Data";
+            dataGridViewCellStyle1.NullValue = "null";
+            this.Data.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Data.HeaderText = "Imagen";
+            this.Data.MinimumWidth = 200;
+            this.Data.Name = "Data";
+            this.Data.ReadOnly = true;
+            this.Data.Width = 200;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Descripción";
+            this.Description.Name = "Description";
+            this.Description.ReadOnly = true;
+            // 
+            // Duration
+            // 
+            this.Duration.DataPropertyName = "Duration";
+            this.Duration.HeaderText = "Duración";
+            this.Duration.Name = "Duration";
+            this.Duration.ReadOnly = true;
+            // 
+            // Position
+            // 
+            this.Position.DataPropertyName = "Position";
+            this.Position.HeaderText = "Posición";
+            this.Position.Name = "Position";
+            this.Position.ReadOnly = true;
+            // 
+            // addImageButton
+            // 
+            this.addImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.addImageButton.FlatAppearance.BorderSize = 0;
+            this.addImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addImageButton.Location = new System.Drawing.Point(657, 653);
+            this.addImageButton.Margin = new System.Windows.Forms.Padding(0);
+            this.addImageButton.Name = "addImageButton";
+            this.addImageButton.Size = new System.Drawing.Size(210, 50);
+            this.addImageButton.TabIndex = 6;
+            this.addImageButton.Text = "Agregar Imagen";
+            this.addImageButton.UseVisualStyleBackColor = false;
+            this.addImageButton.Click += new System.EventHandler(this.addImageButton_Click);
+            // 
+            // editImageButton
+            // 
+            this.editImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.editImageButton.FlatAppearance.BorderSize = 0;
+            this.editImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editImageButton.Location = new System.Drawing.Point(894, 653);
+            this.editImageButton.Margin = new System.Windows.Forms.Padding(0);
+            this.editImageButton.Name = "editImageButton";
+            this.editImageButton.Size = new System.Drawing.Size(210, 50);
+            this.editImageButton.TabIndex = 31;
+            this.editImageButton.Text = "Editar Imagen";
+            this.editImageButton.UseVisualStyleBackColor = false;
+            this.editImageButton.Click += new System.EventHandler(this.editImageButton_Click);
+            // 
+            // deleteImageButton
+            // 
+            this.deleteImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.deleteImageButton.FlatAppearance.BorderSize = 0;
+            this.deleteImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteImageButton.Location = new System.Drawing.Point(1128, 653);
+            this.deleteImageButton.Margin = new System.Windows.Forms.Padding(0);
+            this.deleteImageButton.Name = "deleteImageButton";
+            this.deleteImageButton.Size = new System.Drawing.Size(210, 50);
+            this.deleteImageButton.TabIndex = 32;
+            this.deleteImageButton.Text = "Editar Imagen";
+            this.deleteImageButton.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(959, 60);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 24);
+            this.label1.TabIndex = 33;
+            this.label1.Text = "Imágenes";
+            this.label1.Visible = false;
+            // 
             // CampaignEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(1366, 768);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.deleteImageButton);
+            this.Controls.Add(this.editImageButton);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.comboBox4);
             this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.addImageButton);
             this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.imgDataGridView);
             this.Controls.Add(this.endDateTimePicker);
             this.Controls.Add(this.initDateTimePicker);
             this.Controls.Add(this.endTimeLabel);
@@ -508,7 +615,7 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imgDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -535,10 +642,18 @@
         private System.Windows.Forms.Label endTimeLabel;
         private System.Windows.Forms.DateTimePicker initDateTimePicker;
         private System.Windows.Forms.DateTimePicker endDateTimePicker;
-        private System.Windows.Forms.DataGridView imgDataGridView;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewImageColumn Data;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
+        private System.Windows.Forms.Button addImageButton;
+        private System.Windows.Forms.Button editImageButton;
+        private System.Windows.Forms.Button deleteImageButton;
+        private System.Windows.Forms.Label label1;
     }
 }

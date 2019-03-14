@@ -15,6 +15,15 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
+        public override IEnumerable<Campaign> GetAll()
+        {
+            IEnumerable<Campaign> campaigns = base.GetAll();
+            foreach (Campaign campaign in campaigns)
+            {
+                this.iDbContext.Entry(campaign).Collection(p => p.Images).Load();
+            }
+            return campaigns;
+        }
 
         public void Update(Campaign updatedCampaign)
         {
@@ -70,6 +79,7 @@ namespace DigitalSignage.DAL.EntityFramework
             return base.iDbContext.Set<Campaign>()
                 //Busca las campañas que contengan el nombre especificado
                 .Where(c => c.Name.IndexOf(pName) >= 0)
+                .Include("Images")
                 .ToList();
         }
 
@@ -82,6 +92,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 //Compara si la campaña esta activa en la fecha
                 .Where(c => DbFunctions.TruncateTime(c.InitialDate) <= DbFunctions.TruncateTime(pDate))
                 .Where(c => DbFunctions.TruncateTime(c.EndDate) >= DbFunctions.TruncateTime(pDate))
+                .Include("Images")
                 .ToList();
         }
 
@@ -102,6 +113,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 .Where(b => DbFunctions.TruncateTime(b.EndDate) >= DbFunctions.TruncateTime(pDate))
                 //Compara si la campaña esta activa en el rango horario
                 .Where(b => b.InitialTime <= pToTime && b.EndTime >= pFromTime)
+                .Include("Images")
                 .ToList();
         }
     }

@@ -23,5 +23,18 @@ namespace DigitalSignage.Domain
         public TimeSpan EndTime { get; set; }
 
         public IList<Image> Images {get; set;}
+
+        /*
+        public bool IsActiveNow()
+        {
+
+            bool isActive;
+            var today = DateTime.Now;
+            //se encuentra activo en la fecha
+            isActive = this.InitDate.Date <= today.Date && today.Date <= this.EndDate.Date;
+            isActive &= this.InitTime <= today.TimeOfDay && today.TimeOfDay <= this.EndTime;
+            return isActive;
+
+        }*/
     }
 }
