@@ -33,7 +33,10 @@ namespace DigitalSignage.UI.Campaign_Forms
                 this.loadCampaign();
                 this.iImages = pCampaign.Images;
                 this.dataGridView1.DataSource = pCampaign.Images;
-
+            }
+            else
+            {
+                this.dataGridView1.Columns["Data"].DefaultHeaderCellType = null;
             }
             dataGridView1.ForeColor = Color.Black;
         }
@@ -94,6 +97,12 @@ namespace DigitalSignage.UI.Campaign_Forms
             this.iCampaign.EndDate = endDateTimePicker.Value;
             this.iCampaign.InitialTime = new TimeSpan(Convert.ToInt32(comboBox1.Text), Convert.ToInt32(comboBox2.Text), 0);
             this.iCampaign.EndTime = new TimeSpan(Convert.ToInt32(comboBox3.Text), Convert.ToInt32(comboBox4.Text), 0);
+            List<ImageDTO> list = new List<ImageDTO>();
+            foreach (DataGridViewRow image in this.dataGridView1.Rows)
+            {
+                list.Add((ImageDTO)image.DataBoundItem);
+            }
+            this.iCampaign.Images = list;
         }
 
  
@@ -132,12 +141,18 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void addImageButton_Click(object sender, EventArgs e)
         {
-
+            ImageForm imgform = new ImageForm(null, this.Campaign.Images.Count);
         }
 
         private void editImageButton_Click(object sender, EventArgs e)
         {
+            ImageForm imgform = new ImageForm((ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem, this.Campaign.Images.Count);
+            //DialogResult
+        }
 
+        private void deleteImageButton_Click(object sender, EventArgs e)
+        {
+            this.dataGridView1.Rows.Remove(this.dataGridView1.SelectedRows[0]);
         }
     }
 }
