@@ -15,7 +15,9 @@ namespace DigitalSignage.UI.Campaign_Forms
     public partial class ImageForm : Form
     {
         private ImageDTO iImage;
-        
+
+        public ImageDTO Image { get => iImage; set => iImage = value; }
+
         public ImageForm(ImageDTO pImage, int pImageListLength)
         {
             InitializeComponent();
@@ -26,17 +28,23 @@ namespace DigitalSignage.UI.Campaign_Forms
 
             if (pImage != null)
             {
-                this.iImage = pImage;
-                this.pictureBox1.Image = byteArrayToImage(this.iImage.Data);
-                this.textBox1.Text = this.iImage.Description;
-                this.textBox2.Text = this.iImage.Duration.ToString();
-                this.comboBox2.Text = this.iImage.Position.ToString();
+                this.Image = pImage;
+                this.pictureBox1.Image = byteArrayToImage(this.Image.Data);
+                this.textBox1.Text = this.Image.Description;
+                this.textBox2.Text = this.Image.Duration.ToString();
+                this.comboBox2.Text = this.Image.Position.ToString();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            var confirmResult = MessageBox.Show("¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                                     "Cancelar",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -54,13 +62,37 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Controlar campos vacíos
+                //Guardar Imagen
+                DialogResult = DialogResult.OK;
 
+                this.Close();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
 
-        // Image conversion aux functions
+            }
+        }
+
+        public void saveImage()
+        {
+            //VALIDAR CAMPOS
+            this.Image.Data = this.imageToByteArray(pictureBox1.Image);
+            this.Image.Description = this.textBox1.Text;
+            this.Image.Duration = Convert.ToInt32(this.textBox2.Text);
+            this.Image.Position = Convert.ToInt32(this.comboBox2.Text);
+        }
+
+        // Funciones auxiliares para convertir imagenes
         public Image byteArrayToImage(byte[] byteArrayIn)
         {
             MemoryStream ms = new MemoryStream(byteArrayIn);
-            Image returnImage = Image.FromStream(ms);
+            Image returnImage = System.Drawing.Image.FromStream(ms);
             return returnImage;
         }
 
@@ -70,5 +102,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
             return ms.ToArray();
         }
+
+      
     }
 }

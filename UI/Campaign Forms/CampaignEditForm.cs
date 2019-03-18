@@ -18,7 +18,7 @@ namespace DigitalSignage.UI.Campaign_Forms
     
         private CampaignService iCampaignService;
         private CampaignDTO iCampaign = new CampaignDTO();
-        private IEnumerable<ImageDTO> iImages;
+        private IList<ImageDTO> iImages;
 
         public CampaignDTO Campaign { get => iCampaign; set => iCampaign = value; }
 
@@ -44,7 +44,13 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            this.Close();
+            var confirmResult = MessageBox.Show("¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                                     "Cancelar",
+                                     MessageBoxButtons.YesNo);
+            if (confirmResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
 
         private void CampaignEditForm_Load(object sender, EventArgs e)
@@ -91,21 +97,21 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void saveCampaign()
         {
-            this.iCampaign.Name = nameTextBox.Text;
-            this.iCampaign.Description = descTextBox.Text;
-            this.iCampaign.InitialDate = initDateTimePicker.Value;
-            this.iCampaign.EndDate = endDateTimePicker.Value;
-            this.iCampaign.InitialTime = new TimeSpan(Convert.ToInt32(comboBox1.Text), Convert.ToInt32(comboBox2.Text), 0);
-            this.iCampaign.EndTime = new TimeSpan(Convert.ToInt32(comboBox3.Text), Convert.ToInt32(comboBox4.Text), 0);
+            this.Campaign.Name = nameTextBox.Text;
+            this.Campaign.Description = descTextBox.Text;
+            this.Campaign.InitialDate = initDateTimePicker.Value;
+            this.Campaign.EndDate = endDateTimePicker.Value;
+            this.Campaign.InitialTime = new TimeSpan(Convert.ToInt32(comboBox1.Text), Convert.ToInt32(comboBox2.Text), 0);
+            this.Campaign.EndTime = new TimeSpan(Convert.ToInt32(comboBox3.Text), Convert.ToInt32(comboBox4.Text), 0);
             List<ImageDTO> list = new List<ImageDTO>();
             foreach (DataGridViewRow image in this.dataGridView1.Rows)
             {
                 list.Add((ImageDTO)image.DataBoundItem);
             }
-            this.iCampaign.Images = list;
+            this.Campaign.Images = list;
         }
 
- 
+
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
 
@@ -141,18 +147,83 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void addImageButton_Click(object sender, EventArgs e)
         {
-            ImageForm imgform = new ImageForm(null, this.Campaign.Images.Count);
+            ImageForm imgform = new ImageForm(null, this.dataGridView1.RowCount + 1);
+            if (imgform.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+
+                    var newImage = imgform.Image;
+                    var lastIndex = 1 + this.dataGridView1.RowCount;
+
+                    //Verificar que no ocupe el orden de otra imagen
+                    if (newImage.Position != lastIndex)
+                    {
+
+                        var solapedImage = this.Campaign.Images.Where(image => image.Position == newImage.Position).First();
+                        solapedImage.Position = lastIndex;
+
+                    }
+
+                    this.Campaign.Images.Add(imgform.Image);
+                    this.updateImagesGridView();
+
+                    MessageBox.Show(this, "Se ha añadido la imagen a la lista ", "Imagen añadida", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, "Error: " + ex.Message, "Error al añadir imagen", MessageBoxButtons.OK);
+                }
+            }
         }
 
         private void editImageButton_Click(object sender, EventArgs e)
         {
-            ImageForm imgform = new ImageForm((ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem, this.Campaign.Images.Count);
-            //DialogResult
+            ImageDTO img = (ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem;
+            ImageForm imgform = new ImageForm(img, this.Campaign.Images.Count);
+            if (imgform.ShowDialog(this) == DialogResult.OK)
+            {
+                try
+                {
+                    var updatedImage = imgform.Image;
+                    var oldImage = this.Campaign.Images.Where(i => i.Id == updatedImage.Id).First();
+
+                    //Verificar que no ocupe el orden de otra imagen
+                    if (updatedImage.Position != oldImage.Position)
+                    {
+
+                        var editImg = this.Campaign.Images.Where(image => image.Position == updatedImage.Position).First();
+                        editImg.Position = oldImage.Position;
+
+                    }
+
+                    this.Campaign.Images[this.Campaign.Images.IndexOf(oldImage)] = updatedImage;
+                    updateImagesGridView();
+                    MessageBox.Show(this, "Se ha editado correctamente la imagen", "Imagen editada", MessageBoxButtons.OK);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, "Error: " + ex.Message, "Error al añadir imagen", MessageBoxButtons.OK);
+                }
+            }
         }
 
         private void deleteImageButton_Click(object sender, EventArgs e)
         {
-            this.dataGridView1.Rows.Remove(this.dataGridView1.SelectedRows[0]);
+            var selectedImg = (ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem;
+            var index = this.Campaign.Images.IndexOf(selectedImg);
+            this.Campaign.Images.RemoveAt(index);
+            updateImagesGridView();
+
+        }
+
+
+        private void updateImagesGridView()
+        {
+            this.Campaign.Images = this.Campaign.Images.OrderBy(i => i.Position).ToList();
+            this.dataGridView1.DataSource = this.Campaign.Images;
+            this.dataGridView1.Update();
+
         }
     }
 }
