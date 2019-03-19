@@ -36,18 +36,20 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
             else
             {
-                this.dataGridView1.Columns["Data"].DefaultHeaderCellType = null;
+                this.Campaign = new CampaignDTO();
+                this.Campaign.Images = new List<ImageDTO>();
             }
             dataGridView1.ForeColor = Color.Black;
         }
-
+        //FALTA REACOMODAR ORDENES DE IMAGENES, CUANDO UNA SOLAPA A OTRA SE COPIAN, 
+        //CUANDO SE ELIMINA UNA DE ORDEN INTERMEDIO SE ROMPE TODO
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show("¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
-                                     "Cancelar",
-                                     MessageBoxButtons.YesNo);
-            if (confirmResult == DialogResult.Yes)
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo,"¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                                     "Cancelar");
+            confirmResult.ShowDialog();
+            if (confirmResult.DialogResult == DialogResult.Yes)
             {
                 this.Close();
             }
@@ -75,7 +77,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
             catch(Exception exc)
             {
-                MessageBox.Show(exc.Message);
+                new NotificationForm(MessageBoxButtons.OK,exc.Message,"Error").ShowDialog();
 
             }
         }
@@ -151,7 +153,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             if (imgform.ShowDialog(this) == DialogResult.OK)
             {
                 try
-                {
+                { 
 
                     var newImage = imgform.Image;
                     var lastIndex = 1 + this.dataGridView1.RowCount;
@@ -167,14 +169,14 @@ namespace DigitalSignage.UI.Campaign_Forms
 
                     this.Campaign.Images.Add(imgform.Image);
                     this.updateImagesGridView();
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha añadido la imagen a la lista ", "Imagen añadida").ShowDialog();
 
-                    MessageBox.Show(this, "Se ha añadido la imagen a la lista ", "Imagen añadida", MessageBoxButtons.OK);
                 }
                 catch (Exception ex)
-                {
-                    MessageBox.Show(this, "Error: " + ex.Message, "Error al añadir imagen", MessageBoxButtons.OK);
+            {
+                    new NotificationForm(MessageBoxButtons.OK, "Error: "+ ex.Message, "Error").ShowDialog();
                 }
-            }
+        }
         }
 
         private void editImageButton_Click(object sender, EventArgs e)
@@ -199,21 +201,29 @@ namespace DigitalSignage.UI.Campaign_Forms
 
                     this.Campaign.Images[this.Campaign.Images.IndexOf(oldImage)] = updatedImage;
                     updateImagesGridView();
-                    MessageBox.Show(this, "Se ha editado correctamente la imagen", "Imagen editada", MessageBoxButtons.OK);
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha editado correctamente la imagen", "Imagen editada").ShowDialog();
+
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "Error: " + ex.Message, "Error al añadir imagen", MessageBoxButtons.OK);
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error").ShowDialog();
                 }
             }
         }
 
         private void deleteImageButton_Click(object sender, EventArgs e)
         {
-            var selectedImg = (ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem;
-            var index = this.Campaign.Images.IndexOf(selectedImg);
-            this.Campaign.Images.RemoveAt(index);
-            updateImagesGridView();
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la imagen seleccionada?",
+                                    "Cancelar");
+            confirmResult.ShowDialog();
+            if (confirmResult.DialogResult == DialogResult.Yes)
+            {
+                var selectedImg = (ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem;
+                var index = this.Campaign.Images.IndexOf(selectedImg);
+                this.Campaign.Images.RemoveAt(index);
+                updateImagesGridView();
+            }
+
 
         }
 

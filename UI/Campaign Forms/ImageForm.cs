@@ -33,15 +33,19 @@ namespace DigitalSignage.UI.Campaign_Forms
                 this.textBox1.Text = this.Image.Description;
                 this.textBox2.Text = this.Image.Duration.ToString();
                 this.comboBox2.Text = this.Image.Position.ToString();
+            } else
+            {
+                this.iImage = new ImageDTO();
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var confirmResult = MessageBox.Show("¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
-                                     "Cancelar",
-                                     MessageBoxButtons.YesNo);
-            if (confirmResult == DialogResult.Yes)
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                                    "Cancelar");
+            confirmResult.ShowDialog();
+
+            if (confirmResult.DialogResult == DialogResult.Yes)
             {
                 this.Close();
             }
@@ -64,19 +68,11 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
                 //Controlar campos vacíos
-                //Guardar Imagen
+                this.saveImage();
                 DialogResult = DialogResult.OK;
 
                 this.Close();
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show(exc.Message);
-
-            }
         }
 
         public void saveImage()
@@ -103,6 +99,9 @@ namespace DigitalSignage.UI.Campaign_Forms
             return ms.ToArray();
         }
 
-      
+        private void ImageForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

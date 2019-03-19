@@ -130,7 +130,6 @@
             this.label3.Size = new System.Drawing.Size(136, 16);
             this.label3.TabIndex = 36;
             this.label3.Text = "Duración (segundos):";
-            this.label3.Visible = false;
             // 
             // label4
             // 
@@ -142,7 +141,6 @@
             this.label4.Size = new System.Drawing.Size(140, 16);
             this.label4.TabIndex = 37;
             this.label4.Text = "Orden en la campaña:";
-            this.label4.Visible = false;
             // 
             // button3
             // 
@@ -222,6 +220,7 @@
             this.Name = "ImageForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Carga de imagen";
+            this.Load += new System.EventHandler(this.ImageForm_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

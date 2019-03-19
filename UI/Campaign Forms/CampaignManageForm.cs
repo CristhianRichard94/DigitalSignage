@@ -49,12 +49,12 @@ namespace DigitalSignage.UI.Campaign_Forms
                 {
 
                     this.iCampaignService.Update(cef.Campaign);
-                    MessageBox.Show(this, "Se ha modificado la campaña", "Exito al modificar la campaña", MessageBoxButtons.OK);
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha modificado la campaña", "Exito al modificar la campaña").ShowDialog();
                     getCampaigns();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "Error: " + ex.Message, "Error al modificar la campaña", MessageBoxButtons.OK);
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar la campaña").ShowDialog();
                 }
             }
         }
@@ -73,12 +73,13 @@ namespace DigitalSignage.UI.Campaign_Forms
                 {
 
                     this.iCampaignService.Create(cef.Campaign);
-                    MessageBox.Show(this, "Se ha creado la campaña", "Exito al crear la campaña", MessageBoxButtons.OK);
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha creado la campaña", "Exito al crear la campaña").ShowDialog();
+
                     getCampaigns();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, "Error: " + ex.Message, "Error al modificar la campaña", MessageBoxButtons.OK);
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear la campaña").ShowDialog();
                 }
             }
         }
@@ -99,16 +100,16 @@ namespace DigitalSignage.UI.Campaign_Forms
                         IEnumerable<CampaignDTO> resultCampaigns = this.iCampaignService.getCampaignsByName(searchTextBox.Text);
                         if (resultCampaigns.Count() == 0)
                         {
-                            MessageBox.Show("No se ha encontrado ninguna campaña con el nombre ingresado.");
+                            new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña con el nombre ingresado.", "Error en la búsqueda").ShowDialog();
                         }
                         this.iCampaigns = resultCampaigns;
                         campaignsGridView.DataSource = this.iCampaigns;
                     }
                     catch (Exception exc)
                     {
-                        MessageBox.Show("Error: "+ exc.Message);
+                        new NotificationForm(MessageBoxButtons.OK,exc.Message, "Error").ShowDialog();
                     }
-                    
+
                     break;
                 case "Buscar por fecha":
                     // Implementar Buscar por fecha
@@ -119,7 +120,8 @@ namespace DigitalSignage.UI.Campaign_Forms
                     CampaignDTO resultCampaign = this.iCampaignService.Get(Convert.ToInt32(searchTextBox.Text));
                     if (resultCampaign.Name == null)
                     {
-                        MessageBox.Show("No se ha encontrado la campaña con el ID ingresado.");
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado la campaña con el ID ingresado.", "Error en la búsqueda").ShowDialog();
+
                     }
                     else
                     {
@@ -161,6 +163,19 @@ namespace DigitalSignage.UI.Campaign_Forms
         {
             //Comprobaciones del campo de busqueda
             getCampaigns();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la imagen seleccionada?",
+                                    "Cancelar");
+            confirmResult.ShowDialog();
+            if (confirmResult.DialogResult == DialogResult.Yes)
+            {
+                var selectedCampaign = (CampaignDTO)this.campaignsGridView.SelectedRows[0].DataBoundItem;
+                this.iCampaignService.Remove(selectedCampaign);
+                getCampaigns();
+            }
         }
     }
 }

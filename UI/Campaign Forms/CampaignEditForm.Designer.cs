@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampaignEditForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.title = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.logoPanel = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.saveButton = new System.Windows.Forms.Button();
             this.nameTextBox = new System.Windows.Forms.TextBox();
@@ -61,11 +62,10 @@
             this.editImageButton = new System.Windows.Forms.Button();
             this.deleteImageButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.logoPanel = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -113,6 +113,21 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(266, 49);
             this.panel2.TabIndex = 4;
+            // 
+            // logoPanel
+            // 
+            this.logoPanel.BackColor = System.Drawing.Color.Transparent;
+            this.logoPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.logoPanel.Cursor = System.Windows.Forms.Cursors.Default;
+            this.logoPanel.Image = ((System.Drawing.Image)(resources.GetObject("logoPanel.Image")));
+            this.logoPanel.Location = new System.Drawing.Point(0, 0);
+            this.logoPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.logoPanel.Name = "logoPanel";
+            this.logoPanel.Padding = new System.Windows.Forms.Padding(3);
+            this.logoPanel.Size = new System.Drawing.Size(61, 49);
+            this.logoPanel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.logoPanel.TabIndex = 3;
+            this.logoPanel.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
@@ -460,6 +475,8 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -471,6 +488,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(657, 99);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 100;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(681, 535);
             this.dataGridView1.TabIndex = 30;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
@@ -479,9 +497,10 @@
             // 
             this.Data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Data.DataPropertyName = "Data";
-            dataGridViewCellStyle2.NullValue = "null";
-            this.Data.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.NullValue = "null";
+            this.Data.DefaultCellStyle = dataGridViewCellStyle1;
             this.Data.HeaderText = "Imagen";
+            this.Data.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
             this.Data.MinimumWidth = 200;
             this.Data.Name = "Data";
             this.Data.ReadOnly = true;
@@ -562,21 +581,6 @@
             this.label1.Text = "Imágenes";
             this.label1.Visible = false;
             // 
-            // logoPanel
-            // 
-            this.logoPanel.BackColor = System.Drawing.Color.Transparent;
-            this.logoPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.logoPanel.Cursor = System.Windows.Forms.Cursors.Default;
-            this.logoPanel.Image = ((System.Drawing.Image)(resources.GetObject("logoPanel.Image")));
-            this.logoPanel.Location = new System.Drawing.Point(0, 0);
-            this.logoPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.logoPanel.Name = "logoPanel";
-            this.logoPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.logoPanel.Size = new System.Drawing.Size(61, 49);
-            this.logoPanel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.logoPanel.TabIndex = 3;
-            this.logoPanel.TabStop = false;
-            // 
             // CampaignEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -614,9 +618,9 @@
             this.Load += new System.EventHandler(this.CampaignEditForm_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -648,13 +652,13 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewImageColumn Data;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
         private System.Windows.Forms.Button addImageButton;
         private System.Windows.Forms.Button editImageButton;
         private System.Windows.Forms.Button deleteImageButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewImageColumn Data;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Position;
     }
 }
