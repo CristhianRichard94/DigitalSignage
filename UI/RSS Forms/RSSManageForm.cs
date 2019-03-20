@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DigitalSignage.BLL;
+using DigitalSignage.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +14,19 @@ namespace DigitalSignage.UI.RSS_Forms
 {
     public partial class RSSManageForm : Form
     {
+
+        private RSSSourceService iRSSSourceService;
+        private IEnumerable<RSSSourceDTO> iRSSSources;
+
+        public IEnumerable<RSSSourceDTO> RSSSources { get => iRSSSources; set => iRSSSources = value; }
+
         public RSSManageForm()
         {
             InitializeComponent();
+            this.iRSSSourceService = new RSSSourceService();
+            this.RSSSources = this.iRSSSourceService.GetAll();
+            this.dataGridView1.AutoGenerateColumns = false;
+            this.dataGridView1.DataSource = this.RSSSources;
         }
 
         private void RSSManageForm_Load(object sender, EventArgs e)
@@ -29,7 +41,14 @@ namespace DigitalSignage.UI.RSS_Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new RSSEditForm().ShowDialog();
+            RSSEditForm rSSEditForm = new RSSEditForm(null);
+            rSSEditForm.ShowDialog();
+        }
+
+        private void editButton_Click(object sender, EventArgs e)
+        {
+            RSSEditForm rSSEditForm = new RSSEditForm((RSSSourceDTO)this.dataGridView1.SelectedRows[0].DataBoundItem);
+            rSSEditForm.ShowDialog();
         }
     }
 }

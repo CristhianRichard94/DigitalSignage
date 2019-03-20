@@ -39,14 +39,6 @@ namespace DigitalSignage.DAL.EntityFramework
         }
 
 
-        public DigitalSignageDbContext(String name) : base(name)
-        {
-            this.Configuration.LazyLoadingEnabled = false;
-            // Se establece la estrategia personalizada de inicialización de la BBDD.
-            Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>());
-        }
-
-
         protected override void OnModelCreating(DbModelBuilder pModelBuilder)
         {
             pModelBuilder.Configurations.Add(new CampaignMap());

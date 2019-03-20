@@ -22,12 +22,12 @@ namespace DigitalSignage.UI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             AutoMapperConfig.RegisterMappings();
-            //addCampaign();
+            //addTestData();
             Application.Run(new HomeForm());
         }
 
 
-        static void addCampaign()
+        static void addTestData()
         {
             DigitalSignageDbContext context = new DigitalSignageDbContext();
             UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
@@ -69,10 +69,58 @@ namespace DigitalSignage.UI
 
             uow.Complete();
 
-            IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
-            IEnumerator<Campaign> e = result.GetEnumerator();
+            RSSSource sourceRSS = new RSSSource()
+            {
+                Description = "Prueba de source",
+                Url = "http://www.bbc.co.uk/mundo/temas/tecnologia/index.xml",
+                RSSItems = new List<RSSItem>
+                {
+                    new RSSItem()
+                    {
+                        Date = DateTime.Now,
+                        Url ="https://www.bbc.com/mundo/internacional/2016/06/160603_sociedad_corea_del_sur_miedo_ventiladores_causa_muerte_ps",
+                        Title = "Por qué en Corea del Sur tanta gente tiene pánico de los ventiladores",
+                        Description = "¿Qué pasa si duermes en una habitación cerrada con un ventilador encendido?",
+                    }
+                }
+            };
+            uow.RSSSourceRepository.Add(sourceRSS);
+            uow.Complete();
+
+            Banner banner1 = new Banner()
+            {
+                Name = "Prueba",
+                Description = "Prueba de banner",
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
+                InitialDate = new DateTime(2018, 02, 07),
+                EndDate = new DateTime(2019, 08, 08),
+                Source = sourceRSS,
+                SourceId = sourceRSS.Id
+            };
+            uow.BannerRepository.Add(banner1);
+
+            uow.Complete();
+
+            Text textSource = new Text()
+            {
+                Data = "Prueba de texto",
+            };
+
+            Banner banner2 = new Banner()
+            {
+                Name = "Prueba",
+                Description = "Prueba de banner",
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
+                InitialDate = new DateTime(2018, 02, 07),
+                EndDate = new DateTime(2019, 08, 08),
+                Source = textSource
+            };
+            uow.BannerRepository.Add(banner2);
         }
     }
+
 
 }
 
