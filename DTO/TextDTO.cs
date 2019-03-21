@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
+    /// <summary>
+    /// Clase que representa el DTO de un texto
+    /// </summary>
     public class TextDTO : BannerSourceDTO
     {
         public string Text { get; set; }

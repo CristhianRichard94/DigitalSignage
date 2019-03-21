@@ -9,6 +9,9 @@ using DigitalSignage.DAL.EntityFramework.Mappings;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
+    /// <summary>
+    /// Clase que representa un contexto de acceso a la base de datos
+    /// </summary>
     public class DigitalSignageDbContext : DbContext
     {
         public DbSet<Campaign> Campaigns { get; set; }
@@ -24,12 +27,11 @@ namespace DigitalSignage.DAL.EntityFramework
         public DbSet<Image> Images { get; set; }
 
 
+        /// <summary>
+        /// Constructor, contiene estrategias de inicialización de la base de datos
+        /// </summary>
         public DigitalSignageDbContext() : base("DigitalSignage")
         {
-            //Database.SetInitializer<DigitalSignageDbContext>(new CreateDatabaseIfNotExists<DigitalSignageDbContext>());
-            //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseIfModelChanges<DigitalSignageDbContext>());
-            //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseAlways<DigitalSignageDbContext>());
-
             // Se establece la estrategia personalizada de inicialización de la BBDD.
             this.Configuration.LazyLoadingEnabled = false;
            Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
@@ -38,7 +40,10 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
-
+        /// <summary>
+        /// Realiza los mapeos cuando se genera el modelo
+        /// </summary>
+        /// <param name="pModelBuilder"></param>
         protected override void OnModelCreating(DbModelBuilder pModelBuilder)
         {
             pModelBuilder.Configurations.Add(new CampaignMap());

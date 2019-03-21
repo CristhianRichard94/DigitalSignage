@@ -12,15 +12,12 @@ namespace DigitalSignage.BLL
     class BannerService : IBannerService
     {
         private UnitOfWork iUnitOfWork;
-        private List<IObserver<string>> observers;
 
         private string iCurrentText;
 
         public BannerService()
         {
             this.iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
-
-            this.observers = new List<IObserver<string>>();
         }
 
 
@@ -64,51 +61,6 @@ namespace DigitalSignage.BLL
             this.iUnitOfWork.BannerRepository.Remove(banner);
             this.iUnitOfWork.Complete();
 
-        }
-
-
-
-        public void UpdateBanners()
-        {
-            /*
-            tokenSource.Cancel();
-            tokenSource.Dispose();
-
-            tokenSource = new CancellationTokenSource();
-            cancellationToken = tokenSource.Token;
-
-            GetNextActiveBannersLoop();
-            UpdateBannerListsLoop();
-            */
-        }
-
-        public IDisposable Subscribe(IObserver<string> observer)
-        {
-            // Verifica que el observador no exista en la lista
-            if (!observers.Contains(observer))
-            {
-                observers.Add(observer);
-                observer.OnNext(iCurrentText);
-            }
-            return new Unsubscriber<string>(observers, observer);
-        }
-    }
-
-    public class Unsubscriber<T> : IDisposable
-    {
-        private List<IObserver<T>> _observers;
-        private IObserver<T> _observer;
-
-        public Unsubscriber(List<IObserver<T>> observers, IObserver<T> observer)
-        {
-            this._observers = observers;
-            this._observer = observer;
-        }
-
-        public void Dispose()
-        {
-            if (_observers.Contains(_observer))
-                _observers.Remove(_observer);
         }
     }
 }

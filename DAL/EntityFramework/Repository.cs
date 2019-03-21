@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
+
+    /// <summary>
+    /// Clase abstracta que implementa el patron Repository
+    /// </summary>
+    /// <typeparam name="TEntity">Entidades que manejará</typeparam>
+    /// <typeparam name="TDbContext">Contexto de sesion de la base de datos</typeparam>
     public abstract class Repository<TEntity, TDbContext> : IRepository<TEntity>
         where TEntity : class
         where TDbContext : DbContext

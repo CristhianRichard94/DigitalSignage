@@ -8,14 +8,31 @@ using System.Xml;
 
 namespace DigitalSignage.Domain
 {
+    /// <summary>
+    /// Clase que representa una fuente RSS
+    /// </summary>
     public class RSSSource : BannerSource
     {
+
+        /// <summary>
+        /// Url de la fuente
+        /// </summary>
         public string Url { get; set; }
 
+        /// <summary>
+        /// Descripcion de la fuente
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Lista de items de la fuente
+        /// </summary>
         public IList<RSSItem> RSSItems { get; set; }
         
+        /// <summary>
+        /// Obtiene el texto de cada item
+        /// </summary>
+        /// <returns>Texto con todos los items RSS</returns>
         public override string GetText()
         {
             string text = "";
@@ -35,18 +52,6 @@ namespace DigitalSignage.Domain
 
             return text;
 
-
         }
     }
 }
-/*   try
-   {
-       XmlTextReader reader = new XmlTextReader(item.Url);
-       DataSet ds = new DataSet();
-       ds.ReadXml(reader);
-   }
-   catch (Exception e)
-   {
-       Console.WriteLine("No hay conexión, mostrando feed anterior");
-       item.Title
-   }*/

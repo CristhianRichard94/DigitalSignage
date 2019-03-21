@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
+    /// <summary>
+    /// Clase que representa el DTO de una campaña
+    /// </summary>
     public class CampaignDTO
     {
         public int Id { get; set; }

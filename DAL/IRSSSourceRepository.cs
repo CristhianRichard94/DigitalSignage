@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL
 {
+
+    /// <summary>
+    /// Interfaz de repositorio de Fuentes RSS
+    /// </summary>
     public interface IRSSSourceRepository : IRepository<RSSSource>
     {
 

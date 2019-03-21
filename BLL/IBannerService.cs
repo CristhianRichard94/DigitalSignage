@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.BLL
 {
-    interface IBannerService : IObservable<string>
+    /// <summary>
+    /// Interfaz del servicio de Banners
+    /// </summary>
+    interface IBannerService
     {
         IEnumerable<BannerDTO> GetAll();
 
@@ -19,6 +22,5 @@ namespace DigitalSignage.BLL
 
         void Remove(BannerDTO pBanner);
 
-        void UpdateBanners();
     }
 }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.BLL
 {
+    /// <summary>
+    /// Interfaz del servicio de fuentes RSS
+    /// </summary>
     interface IRSSSourceService
     {
         IEnumerable<RSSSourceDTO> GetAll();

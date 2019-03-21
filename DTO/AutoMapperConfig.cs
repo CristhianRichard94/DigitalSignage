@@ -8,8 +8,14 @@ using DigitalSignage.Domain;
 
 namespace DigitalSignage.DTO
 {
+    /// <summary>
+    /// Clase que representa la configuración de mapeo de clases entre la vista y el modelo
+    /// </summary>
     public class AutoMapperConfig
     {
+        /// <summary>
+        /// Registra los mapeos entre el modelo y la vista
+        /// </summary>
         public static void RegisterMappings()
         {
             Mapper.Initialize(cfg => {

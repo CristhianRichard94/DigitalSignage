@@ -6,20 +6,44 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.Domain
 {
+    /// <summary>
+    /// Clase que representa un banner
+    /// </summary>
     public class Banner
     {
+        /// <summary>
+        /// Id de banner
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Nombre del banner
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Descripcion del banner
+        /// </summary>
         public string Description { get; set; }
 
+        /// <summary>
+        /// Fecha a partir de la cual debería transmitirse
+        /// </summary>
         public DateTime InitialDate { get; set; }
 
+        /// <summary>
+        /// Fecha desde la cual debería dejar de transmitirse
+        /// </summary>
         public DateTime EndDate { get; set; }
 
+        /// <summary>
+        /// Horario a partir del cual debería transmitirse
+        /// </summary>
         public TimeSpan InitialTime { get; set; }
 
+        /// <summary>
+        /// Horario a partir del cual debería dejar de transmitirse
+        /// </summary>
         public TimeSpan EndTime { get; set; }
 
         public virtual BannerSource Source { get; set; }

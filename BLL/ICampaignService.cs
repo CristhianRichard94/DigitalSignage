@@ -7,7 +7,10 @@ using DigitalSignage.DTO;
 
 namespace DigitalSignage.BLL
 {
-    interface ICampaignService: IObservable<byte[]>
+    /// <summary>
+    /// Interfaz del servicio de campañas
+    /// </summary>
+    interface ICampaignService
     {
         IEnumerable<CampaignDTO> GetAll();
 
@@ -19,6 +22,5 @@ namespace DigitalSignage.BLL
 
         void Remove(CampaignDTO pCampaign);
 
-        void UpdateCampaigns();
     }
 }

@@ -12,8 +12,11 @@ namespace DigitalSignage.Test
     {
         UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
 
+        /// <summary>
+        /// Prueba de agregar una camapaña al repositorio
+        /// </summary>
         [TestMethod]
-        public void CreateCampaignRepository()
+        public void AddCampaignRepository()
         {
             Campaign campaign = new Campaign()
             {
@@ -52,15 +55,14 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
 
-            IEnumerator<Campaign> e = result.GetEnumerator();
-            e.MoveNext();
-            Assert.IsNotNull(e.Current);
+            Assert.IsNotNull(uow.CampaignRepository.Get(campaign.Id));
 
         }
 
-
+        /// <summary>
+        /// Prueba de actualizar una camapaña del repositorio
+        /// </summary>
         [TestMethod]
         public void UpdateCampaignRepository()
         {
@@ -101,36 +103,36 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
-
-            IEnumerator<Campaign> e = result.GetEnumerator();
-            e.MoveNext();
-
-            Campaign camp = e.Current;
-            camp.Name = "Prueba2";
-            camp.Description = "Prueba de una campaña2";
-            camp.InitialTime = new TimeSpan(0, 8, 1);
-            camp.EndTime = new TimeSpan(0, 7, 30);
-            camp.InitialDate = new DateTime(2015, 02, 07);
-            camp.EndDate = new DateTime(2017, 02, 08);
-            camp.Images = new List<Image>()
-            {
-                new Image()
+            Campaign updatedCampaign = new Campaign() {
+                Id = campaign.Id,
+                Name = "Prueba2",
+                Description = "Prueba de una campaña2",
+                InitialTime = new TimeSpan(0, 8, 1),
+                EndTime = new TimeSpan(0, 7, 30),
+                InitialDate = new DateTime(2015, 02, 07),
+                EndDate = new DateTime(2017, 02, 08),
+                Images = new List<Image>()
                 {
-                    Description = "Imagen 2",
-                    Duration = 2,
-                    Position = 2,
-                    Data = File.ReadAllBytes("../../../assets/images/2.jpg")
+                        new Image()
+                        {
+                            Description = "asdasdasdasd",
+                            Duration = 2,
+                            Position = 1,
+                            Data = File.ReadAllBytes("../../../assets/images/1.jpg")
+                        },
                 },
-            };
-            uow.CampaignRepository.Update(camp);
+                };
+            uow.CampaignRepository.Update(updatedCampaign);
 
             uow.Complete();
 
-            Assert.AreEqual(camp, uow.CampaignRepository.Get(camp.Id));
+            Assert.AreEqual(campaign, uow.CampaignRepository.Get(updatedCampaign.Id));
 
         }
 
+        /// <summary>
+        /// Prueba de eliminar una camapaña del repositorio
+        /// </summary>
         [TestMethod]
         public void RemoveCampaignRepository()
         {
@@ -171,11 +173,6 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<Campaign> result = uow.CampaignRepository.GetAll();
-
-            IEnumerator<Campaign> e = result.GetEnumerator();
-            e.MoveNext();
-
             uow.CampaignRepository.Remove(campaign);
 
             uow.Complete();
@@ -184,6 +181,9 @@ namespace DigitalSignage.Test
 
         }
 
+        /// <summary>
+        /// Prueba de obtener una camapaña del repositorio
+        /// </summary>
         [TestMethod]
         public void GetCampaignRepository()
         {

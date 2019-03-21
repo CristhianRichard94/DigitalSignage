@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL
 {
+    /// <summary>
+    /// Interfaz generica que realiza transacciones con la base de datos
+    /// </summary>
     public interface IUnitOfWork : IDisposable
     {
 
@@ -24,7 +27,9 @@ namespace DigitalSignage.DAL
         /// </summary>
         IRSSSourceRepository RSSSourceRepository { get; }
 
-
+        /// <summary>
+        /// Guarda los cambios
+        /// </summary>
         void Complete();
     }
 }

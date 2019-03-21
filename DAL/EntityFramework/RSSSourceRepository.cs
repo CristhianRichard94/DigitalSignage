@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
+    /// <summary>
+    /// Clase que implementa el repositorio de fuentes RSS
+    /// </summary>
     public class RSSSourceRepository : Repository<RSSSource, DigitalSignageDbContext>, IRSSSourceRepository
     {
         public RSSSourceRepository(DigitalSignageDbContext pContext) : base(pContext)
@@ -14,6 +17,11 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
+        /// <summary>
+        /// Obtiene los banners asociados a una fuente RSS
+        /// </summary>
+        /// <param name="pSourceId"> Id de la fuente RSS</param>
+        /// <returns>Enumerable de banners</returns>
         public IEnumerable<Banner> GetBannersWithSource(int pSourceId)
         {
             return this.iDbContext.Banners
@@ -21,24 +29,30 @@ namespace DigitalSignage.DAL.EntityFramework
                 .ToList();
         }
 
-        public void Update(RSSSource updatedRssSource)
-        {
-            //Verifica y actualiza el estado de los Items RSS 
-            var oldRssSource = this.iDbContext.RSSSources
-                .SingleOrDefault(p => p.Id == updatedRssSource.Id);
 
-            if (oldRssSource != null)
+        /// <summary>
+        /// Actualiza una fuente RSS
+        /// </summary>
+        /// <param name="updatedRSSSource"></param>
+        public void Update(RSSSource updatedRSSSource)
+        {
+            //Verifica y actualiza los Items RSS 
+            var oldRSSSource = this.iDbContext.RSSSources
+                .Include("RSSItems")
+                .SingleOrDefault(p => p.Id == updatedRSSSource.Id);
+
+            if (oldRSSSource != null)
             {
                 // Actualiza padre
-                this.iDbContext.Entry(oldRssSource).CurrentValues.SetValues(updatedRssSource);
+                this.iDbContext.Entry(oldRSSSource).CurrentValues.SetValues(updatedRSSSource);
 
                 // Elimina los items anteriores
-                foreach (var rssItem in oldRssSource.RSSItems.ToList())
+                foreach (var iRSSItem in oldRSSSource.RSSItems.ToList())
                 {
-                    this.iDbContext.RSSItems.Remove(rssItem);
+                    this.iDbContext.RSSItems.Remove(iRSSItem);
                 }
 
-                oldRssSource.RSSItems = updatedRssSource.RSSItems;
+                oldRSSSource.RSSItems = updatedRSSSource.RSSItems;
 
                 this.iDbContext.SaveChanges();
             }

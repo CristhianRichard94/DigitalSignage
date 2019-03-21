@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
+    /// <summary>
+    /// Clase que implementa el patrón Unit Of Work
+    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
 
@@ -45,11 +48,17 @@ namespace DigitalSignage.DAL.EntityFramework
             this.RSSSourceRepository = new RSSSourceRepository(this.iDbContext);
         }
 
+        /// <summary>
+        /// Guarda los cambios realizados
+        /// </summary>
         public void Complete()
         {
             this.iDbContext.SaveChanges();
         }
 
+        /// <summary>
+        /// Dispone la instancia de la sesión de la base de datos
+        /// </summary>
         public void Dispose()
         {
             this.iDbContext.Dispose();

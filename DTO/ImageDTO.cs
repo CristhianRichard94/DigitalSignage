@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
+    /// <summary>
+    /// Clase que representa el DTO de una imagen
+    /// </summary>
     public class ImageDTO
     {
         public int Id { get; set; }

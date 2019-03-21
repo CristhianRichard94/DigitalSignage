@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DTO
 {
+    /// <summary>
+    /// Clase que representa el DTO de una fuente RSS
+    /// </summary>
     public class RSSSourceDTO : BannerSourceDTO
     {
-
         public string Url { get; set; }
 
         public string Description { get; set; }

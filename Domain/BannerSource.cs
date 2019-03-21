@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.Domain
 {
+
+    /// <summary>
+    /// Clase abstracta que representa una fuente de banner
+    /// </summary>
     public abstract class BannerSource
     {
         /// <summary>

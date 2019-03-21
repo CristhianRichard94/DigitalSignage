@@ -10,50 +10,40 @@ using DigitalSignage.DTO;
 
 namespace DigitalSignage.BLL
 {
+
+    /// <summary>
+    /// Clase que implementa la interfaz de IRSSSource que brinda servicios a la vista
+    /// </summary>
     public class CampaignService : ICampaignService
     {
         private UnitOfWork iUnitOfWork;
 
-        private List<IObserver<byte[]>> observers;
-
-        private List<Campaign> iCurrentCampaigns;
-
-        private List<Image> iCurrentImages;
-
-        private int iCurrentImageIndex;
-
-        private byte[] iDefaultImage = File.ReadAllBytes("../../../assets/images/1.jpg");
-
+        /// <summary>
+        /// Constructor para usar contexto por defecto
+        /// </summary>
         public CampaignService()
         {
 
             this.iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
-
-            observers = new List<IObserver<byte[]>>();
-            iCurrentCampaigns = new List<Campaign>();
-            iCurrentImages = new List<Image>();
-            iCurrentImageIndex = 0;
-
-           // tokenSource = new CancellationTokenSource();
-           // cancellationToken = tokenSource.Token;
-
-          //  log.Info("Iniciando tareas asincronas...");
-          //  GetNextActiveCampaignsLoop();
-          //  UpdateCampaignListsLoop();
-          //  UpdateCurrentImageIndex();
-
         }
 
+
         /// <summary>
-        /// Obtiene las campañas del repositorio, las mapea y devuelve a la vista.
+        /// Obtiene todas las campañas del repositorio
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Enumerable de campañas</returns>
         public IEnumerable<CampaignDTO> GetAll()
         {
             IEnumerable<Campaign> campaigns = this.iUnitOfWork.CampaignRepository.GetAll();
             return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
         }
 
+
+        /// <summary>
+        /// Obtiene una campaña por su id
+        /// </summary>
+        /// <param name="pId">Id de la campaña</param>
+        /// <returns>Campaña</returns>
         public CampaignDTO Get(int pId)
         {
             var campaign = iUnitOfWork.CampaignRepository.Get(pId);
@@ -64,6 +54,11 @@ namespace DigitalSignage.BLL
 
         }
 
+
+        /// <summary>
+        /// Actualiza una campaña
+        /// </summary>
+        /// <param name="pCampaign">Campaña modificada</param>
         public void Update(CampaignDTO pCampaign)
         {
             Campaign campaign = new Campaign();
@@ -72,6 +67,11 @@ namespace DigitalSignage.BLL
             this.iUnitOfWork.Complete();
         }
 
+
+        /// <summary>
+        /// Crea una campaña
+        /// </summary>
+        /// <param name="pCampaign">Campaña creada</param>
         public void Create(CampaignDTO pCampaign)
         {
             Campaign campaign = new Campaign();
@@ -80,6 +80,10 @@ namespace DigitalSignage.BLL
             this.iUnitOfWork.Complete();
         }
 
+        /// <summary>
+        /// Elimina una campaña
+        /// </summary>
+        /// <param name="pCampaign">Campaña a eliminar</param>
         public void Remove(CampaignDTO pCampaign)
         {
             Campaign campaign = new Campaign();
@@ -89,50 +93,33 @@ namespace DigitalSignage.BLL
 
         }
 
+
+        /// <summary>
+        /// Obtiene campañas por nombre
+        /// </summary>
+        /// <param name="pName">nombre de campaña por el cual buscar</param>
+        /// <returns></returns>
         public IEnumerable<CampaignDTO> getCampaignsByName(string pName)
         {
             IEnumerable<Campaign> campaigns = this.iUnitOfWork.CampaignRepository.GetCampaignsByName(pName);
             return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
         }
 
-        public void UpdateCampaigns()
+
+        /// <summary>
+        /// Obtiene todas las camapañas activas en un dia determinado
+        /// </summary>
+        /// <param name="pDate">Fecha</param>
+        /// <returns></returns>
+        public IEnumerable<CampaignDTO> GetCampaignsActiveInDate(DateTime pDate)
         {
 
-           // tokenSource.Cancel();
-            //tokenSource.Dispose();
+                IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInDate(pDate);
 
-            //tokenSource = new CancellationTokenSource();
-            //cancellationToken = tokenSource.Token;
+                var campaignsDTO = AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
 
-            //GetNextActiveCampaignsLoop();
-            //UpdateCampaignListsLoop();
-            //UpdateCurrentImageIndex();
+                return campaignsDTO;
+
         }
-
-
-        public IDisposable Subscribe(IObserver<byte[]> observer)
-        {
-            // verifica que el observador no exista en la lista
-            if (!observers.Contains(observer))
-            {
-                observers.Add(observer);
-
-                if (iCurrentImages.Count > 0)
-                {
-                    // Envia al nuevo observador la imagen actual.
-                    observer.OnNext(iCurrentImages[iCurrentImageIndex].Data);
-
-                }
-                else
-                {
-                    // Envia al nuevo observador la imagen por defecto
-                    observer.OnNext(iDefaultImage);
-
-                }
-
-            }
-            return new Unsubscriber<byte[]>(observers, observer);
-        }
-
     }
 }

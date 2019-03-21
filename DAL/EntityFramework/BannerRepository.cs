@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
+
+    /// <summary>
+    /// Clase que implementa el repositorio de banners
+    /// </summary>
     public class BannerRepository : Repository<Banner, DigitalSignageDbContext>, IBannerRepository
     {
         public BannerRepository(DigitalSignageDbContext pContext) : base(pContext)
@@ -15,6 +19,11 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
+
+        /// <summary>
+        /// Actualiza un banner del repositorio
+        /// </summary>
+        /// <param name="updatedBanner">Banner actualizado</param>
         public void Update(Banner updatedBanner)
         {
             var oldBanner = this.iDbContext.Banners
@@ -46,6 +55,11 @@ namespace DigitalSignage.DAL.EntityFramework
             
         }
 
+        /// <summary>
+        /// Obtiene los banners que contengan cierta cadena en su nombre
+        /// </summary>
+        /// <param name="pName">Cadena de caracteres a cumplir</param>
+        /// <returns></returns>
         public IEnumerable<Banner> GetBannersByName(string pName)
         {
             if (pName == null)
@@ -57,6 +71,11 @@ namespace DigitalSignage.DAL.EntityFramework
                 .ToList();
         }
 
+        /// <summary>
+        /// Obtiene los banners activos en una fecha
+        /// </summary>
+        /// <param name="pDate">Fecha</param>
+        /// <returns></returns>
         public IEnumerable<Banner> GetBannersActiveInDate(DateTime pDate)
         {
             if (pDate == null)
@@ -69,6 +88,14 @@ namespace DigitalSignage.DAL.EntityFramework
                 .ToList();
         }
 
+
+        /// <summary>
+        /// Obtiene los banners activos en un rango horario en una fecha
+        /// </summary>
+        /// <param name="pDate">Fecha</param>
+        /// <param name="pFromTime">Tiempo de inicio</param>
+        /// <param name="pToTime">Tiempo de fin</param>
+        /// <returns></returns>
         public IEnumerable<Banner> GetBannersActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime)
         {
             if (pDate == null)

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework
 {
+    /// <summary>
+    /// Clase que implementa el repositorio de campañas
+    /// </summary>
     public class CampaignRepository : Repository<Campaign, DigitalSignageDbContext>, ICampaignRepository
     {
         public CampaignRepository(DigitalSignageDbContext pContext) : base(pContext)
@@ -15,16 +18,25 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
+        /// <summary>
+        /// Obtiene todas las campañas
+        /// </summary>
+        /// <returns>Enumerable de campañas</returns>
         public override IEnumerable<Campaign> GetAll()
         {
             IEnumerable<Campaign> campaigns = base.GetAll();
             foreach (Campaign campaign in campaigns)
             {
+                //Incluye las imagenes de la campaña
                 this.iDbContext.Entry(campaign).Collection(p => p.Images).Load();
             }
             return campaigns;
         }
 
+        /// <summary>
+        /// Actualiza una campaña
+        /// </summary>
+        /// <param name="updatedCampaign">Campaña actualizada</param>
         public void Update(Campaign updatedCampaign)
         {
             //Verifica y actualiza las Imagenes relacionadas con la campaña
@@ -34,34 +46,35 @@ namespace DigitalSignage.DAL.EntityFramework
 
             if (oldCampaign != null)
             {
-                // Actualiza el padre
+                // Actualiza la campaña
                 this.iDbContext.Entry(oldCampaign).CurrentValues.SetValues(updatedCampaign);
 
-                // Elimina imagenes anteriores
+                // Elimina imagenes
                 foreach (var existingImage in oldCampaign.Images.ToList())
                 {
-                    if (updatedCampaign.Images.All(c => c.Id != existingImage.Id))
+                    if (!updatedCampaign.Images.Any(c => c.Id == existingImage.Id))
                         this.iDbContext.Images.Remove(existingImage);
                 }
 
-                // Actualiza e inserta las nuevas imagenes
+                // Actualiza e inserta nuevas imagenes
                 foreach (var updatedImage in updatedCampaign.Images)
                 {
                     var existingImage = oldCampaign.Images
-                        .SingleOrDefault(c => c.Id == updatedImage.Id);
+                        .Where(c => c.Id == updatedImage.Id)
+                        .SingleOrDefault();
 
                     if (existingImage != null)
-                        // Actualiza los hijos
+                        // Actualiza imagen
                         this.iDbContext.Entry(existingImage).CurrentValues.SetValues(updatedImage);
                     else
                     {
-                        // Inserta hijo
+                        // Inserta imagen
                         var newImage = new Image()
                         {
                             Description = updatedImage.Description,
-                            Data= updatedImage.Data,
+                            Data = updatedImage.Data,
                             Duration = updatedImage.Duration,
-                            Position= updatedImage.Position
+                            Position = updatedImage.Position
                         };
                         oldCampaign.Images.Add(newImage);
                     }
@@ -71,6 +84,11 @@ namespace DigitalSignage.DAL.EntityFramework
             }
         }
 
+        /// <summary>
+        /// Obtiene campañas que cumplan contengan una cadena en su nombre
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
         public IEnumerable<Campaign> GetCampaignsByName(string pName)
         {
             if (pName == null)
@@ -83,6 +101,11 @@ namespace DigitalSignage.DAL.EntityFramework
                 .ToList();
         }
 
+        /// <summary>
+        /// Obtiene las campañas activas en una fecha
+        /// </summary>
+        /// <param name="pDate"></param>
+        /// <returns></returns>
         public IEnumerable<Campaign> GetCampaignsActiveInDate(DateTime pDate)
         {
             if (pDate == null)
@@ -96,6 +119,13 @@ namespace DigitalSignage.DAL.EntityFramework
                 .ToList();
         }
 
+        /// <summary>
+        /// Obtiene las campañas activas en un rango horario en una fecha
+        /// </summary>
+        /// <param name="pDate">Fecha</param>
+        /// <param name="pFromTime">Tiempo de inicio</param>
+        /// <param name="pToTime">Tiempo de fin</param>
+        /// <returns></returns>
         public IEnumerable<Campaign> GetCampaignsActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime)
         {
             if (pDate == null)

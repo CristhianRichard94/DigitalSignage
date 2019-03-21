@@ -11,8 +11,11 @@ namespace DigitalSignage.Test
     {
         UnitOfWork uow = new UnitOfWork(new DigitalSignageDbContext());
 
+        /// <summary>
+        /// Prueba de agregar un banner al repositorio
+        /// </summary>
         [TestMethod]
-        public void CreateBannerRepositoryTest()
+        public void AddBannerRepositoryTest()
         {
             Banner banner = new Banner()
             {
@@ -43,16 +46,15 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<Banner> result = uow.BannerRepository.GetAll();
-
-            IEnumerator<Banner> e = result.GetEnumerator();
-            e.MoveNext();
-            Assert.IsNotNull(e.Current);
+            Assert.IsNotNull(uow.BannerRepository.Get(banner.Id));
 
         }
 
+        /// <summary>
+        /// Prueba de actualizar un banner del repositorio
+        /// </summary>
         [TestMethod]
-        public void UpdateCampaignRepository()
+        public void UpdateBannerRepository()
         {
             Banner banner = new Banner()
             {
@@ -83,12 +85,7 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<Banner> result = uow.BannerRepository.GetAll();
-
-            IEnumerator<Banner> e = result.GetEnumerator();
-            e.MoveNext();
-
-            Banner updatedBanner = e.Current;
+            Banner updatedBanner = uow.BannerRepository.Get(banner.Id);
             updatedBanner.Name = "Prueba2";
             updatedBanner.Description = "Prueba de un banner 2";
             updatedBanner.InitialTime = new TimeSpan(0, 8, 1);
@@ -120,6 +117,10 @@ namespace DigitalSignage.Test
 
         }
 
+
+        /// <summary>
+        /// Prueba de eliminar un banner del repositorio
+        /// </summary>
         [TestMethod]
         public void RemoveBannerRepositoryTest()
         {
@@ -152,11 +153,6 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<Banner> result = uow.BannerRepository.GetAll();
-
-            IEnumerator<Banner> e = result.GetEnumerator();
-            e.MoveNext();
-
             uow.BannerRepository.Remove(banner);
 
             uow.Complete();
@@ -165,6 +161,9 @@ namespace DigitalSignage.Test
 
         }
 
+        /// <summary>
+        /// Prueba de obtener un banner del repositorio
+        /// </summary>
         [TestMethod]
         public void GetBannerRepository()
         {

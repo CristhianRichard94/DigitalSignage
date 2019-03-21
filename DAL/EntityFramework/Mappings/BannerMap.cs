@@ -8,17 +8,24 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.DAL.EntityFramework.Mappings
 {
+    /// <summary>
+    /// Clase de mapeo de Banner en la DB
+    /// </summary>
     class BannerMap : EntityTypeConfiguration<Banner>
     {
         public BannerMap()
         {
+            // Tabla en la que se mapea
             ToTable("Banners");
 
+            // Clave primaria de la entidad, se encuentra en la columna BannerId, generada por la DB
             this.HasKey(pBanner => pBanner.Id)
                 .Property(pBanner => pBanner.Id)
                 .HasColumnName("BannerId")
                 .HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
-            
+
+            // Propiedades Requeridas (No nulas)
+
             this.Property(pBanner => pBanner.Name)
                 .IsRequired();
 
@@ -26,21 +33,15 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
                 .IsRequired();
 
             this.Property(pBanner => pBanner.InitialDate)
-                .HasColumnName("InitDate")
                 .IsRequired();
 
             this.Property(pBanner => pBanner.EndDate)
                 .IsRequired();
 
             this.Property(pBanner => pBanner.InitialTime)
-                .HasColumnName("InitTime")
                 .IsRequired();
 
             this.Property(pBanner => pBanner.EndDate)
-                .IsRequired();
-
-            this.Property(pBanner => pBanner.SourceId)
-                .HasColumnName("SourceId")
                 .IsRequired();
 
         }
