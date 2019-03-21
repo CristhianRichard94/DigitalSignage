@@ -26,7 +26,9 @@ namespace DigitalSignage.UI
             Application.Run(new HomeForm());
         }
 
-
+        /// <summary>
+        /// agrega datos de prueba a la DB 
+        /// </summary>
         static void addTestData()
         {
             DigitalSignageDbContext context = new DigitalSignageDbContext();

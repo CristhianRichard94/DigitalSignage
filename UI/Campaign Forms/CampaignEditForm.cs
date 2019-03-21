@@ -13,15 +13,35 @@ using System.Windows.Forms;
 
 namespace DigitalSignage.UI.Campaign_Forms
 {
+    /// <summary>
+    /// Form de creacion y edicion de una campaña 
+    /// </summary>
     public partial class CampaignEditForm : Form
     {
-    
+        /// <summary>
+        /// instancia del servicio de campañas
+        /// </summary>
         private CampaignService iCampaignService;
+
+        /// <summary>
+        /// Campaña siendo creada/modificada
+        /// </summary>
         private CampaignDTO iCampaign = new CampaignDTO();
+        
+        /// <summary>
+        /// Lista de imagenes
+        /// </summary>
         private IList<ImageDTO> iImages;
 
         public CampaignDTO Campaign { get => iCampaign; set => iCampaign = value; }
 
+        /// <summary>
+        /// Inicializa el servicio 
+        /// asigna la campaña a editar o Inicializa una nueva campaña
+        /// Asigna imagenes o genera una lista
+        /// Agrega Imagenes a la lista
+        /// </summary>
+        /// <param name="pCampaign"></param>
         public CampaignEditForm(CampaignDTO pCampaign)
         {
             this.iCampaignService = new CampaignService();
@@ -41,9 +61,16 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
             dataGridView1.ForeColor = Color.Black;
         }
-        //FALTA REACOMODAR ORDENES DE IMAGENES, CUANDO UNA SOLAPA A OTRA SE COPIAN, 
-        //CUANDO SE ELIMINA UNA DE ORDEN INTERMEDIO SE ROMPE TODO
+        // FALTA REACOMODAR ORDENES DE IMAGENES, CUANDO UNA SOLAPA A OTRA SE COPIAN, 
+        // CUANDO SE ELIMINA UNA DE ORDEN INTERMEDIO SE ROMPE TODO
+        // Falta validar cambio en los campos para el boton de volver
+        // Falta agregar un error provider para guardar
 
+            /// <summary>
+            /// Boton para volver
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo,"¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
@@ -55,16 +82,11 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
-        private void CampaignEditForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Guarda la camapaña y cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveButton_Click(object sender, EventArgs e)
         {
             try
@@ -82,6 +104,9 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
+        /// <summary>
+        /// Carga la campaña en la vista
+        /// </summary>
         private void loadCampaign()
         {
             idLabel.Visible = true;
@@ -97,6 +122,9 @@ namespace DigitalSignage.UI.Campaign_Forms
             comboBox4.SelectedIndex = iCampaign.EndTime.Minutes;
         }
 
+        /// <summary>
+        /// Guarda la campaña de la vista al modelo
+        /// </summary>
         private void saveCampaign()
         {
             this.Campaign.Name = nameTextBox.Text;
@@ -113,17 +141,10 @@ namespace DigitalSignage.UI.Campaign_Forms
             this.Campaign.Images = list;
         }
 
-
-        private void nameTextBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Comprueba si el tiempo de inicio esta antes del de fin
+        /// </summary>
+        /// <returns></returns>
         private bool initTimeIsBeforeEndTime()
         {
             int hours = int.Parse(comboBox1.SelectedItem.ToString());
@@ -136,20 +157,25 @@ namespace DigitalSignage.UI.Campaign_Forms
 
             return initTimespan.CompareTo(endTimespan) < 0;
         }
-        
+
+        /// <summary>
+        /// Comprueba si la fecha de inicio esta antes de la de fin
+        /// </summary>
+        /// <returns></returns>
         private bool initDateIsBeforeEndDate()
         {
             return initDateTimePicker.Value.CompareTo(endDateTimePicker.Value) < 0;
         }
 
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Abre form para agregar una nueva imagen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void addImageButton_Click(object sender, EventArgs e)
         {
             ImageForm imgform = new ImageForm(null, this.dataGridView1.RowCount + 1);
+            // Al cerrar el form
             if (imgform.ShowDialog(this) == DialogResult.OK)
             {
                 try
@@ -158,7 +184,7 @@ namespace DigitalSignage.UI.Campaign_Forms
                     var newImage = imgform.Image;
                     var lastIndex = 1 + this.dataGridView1.RowCount;
 
-                    //Verificar que no ocupe el orden de otra imagen
+                    //Verificar que no ocupe el orden de otra imagen              - falta arreglar
                     if (newImage.Position != lastIndex)
                     {
 
@@ -166,7 +192,7 @@ namespace DigitalSignage.UI.Campaign_Forms
                         solapedImage.Position = lastIndex;
 
                     }
-
+                    // Agrega imagen a la lista, actualiza la lista de la vista y notifica
                     this.Campaign.Images.Add(imgform.Image);
                     this.updateImagesGridView();
                     new NotificationForm(MessageBoxButtons.OK, "Se ha añadido la imagen a la lista ", "Imagen añadida").ShowDialog();
@@ -179,6 +205,11 @@ namespace DigitalSignage.UI.Campaign_Forms
         }
         }
 
+        /// <summary>
+        /// Abre form para editar una imagen existente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editImageButton_Click(object sender, EventArgs e)
         {
             ImageDTO img = (ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem;
@@ -211,11 +242,18 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
+        /// <summary>
+        /// Elimina una imagen de la lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteImageButton_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la imagen seleccionada?",
                                     "Cancelar");
             confirmResult.ShowDialog();
+
+            // Luego de confirmado elimina la imagen de la lista de la campaña y actualiza la lista de la vista
             if (confirmResult.DialogResult == DialogResult.Yes)
             {
                 var selectedImg = (ImageDTO)this.dataGridView1.SelectedRows[0].DataBoundItem;
@@ -227,7 +265,9 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         }
 
-
+        /// <summary>
+        /// Ordena las imagenes por orden y actualiza la lista de la vista
+        /// </summary>
         private void updateImagesGridView()
         {
             this.Campaign.Images = this.Campaign.Images.OrderBy(i => i.Position).ToList();

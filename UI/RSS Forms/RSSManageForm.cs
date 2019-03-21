@@ -12,14 +12,26 @@ using System.Windows.Forms;
 
 namespace DigitalSignage.UI.RSS_Forms
 {
+    /// <summary>
+    /// Form de gestion de fuentes RSS
+    /// </summary>
     public partial class RSSManageForm : Form
     {
-
+        /// <summary>
+        /// Instancia del servicio de fuentes RSS - FALTA IMPLEMENTAR CONTAINER IOC
+        /// </summary>
         private RSSSourceService iRSSSourceService;
+
+        /// <summary>
+        /// Lista de fuentes RSS
+        /// </summary>
         private IEnumerable<RSSSourceDTO> iRSSSources;
 
         public IEnumerable<RSSSourceDTO> RSSSources { get => iRSSSources; set => iRSSSources = value; }
 
+        /// <summary>
+        /// Constructor, Obtiene la lista de fuentes RSS y las carga en la vista
+        /// </summary>
         public RSSManageForm()
         {
             InitializeComponent();
@@ -29,22 +41,32 @@ namespace DigitalSignage.UI.RSS_Forms
             this.dataGridView1.DataSource = this.RSSSources;
         }
 
-        private void RSSManageForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Abre el form para creacion de una nueva fuente RSS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             RSSEditForm rSSEditForm = new RSSEditForm(null);
             rSSEditForm.ShowDialog();
         }
 
+        /// <summary>
+        /// Abre form para edicion de una fuente RSS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editButton_Click(object sender, EventArgs e)
         {
             RSSEditForm rSSEditForm = new RSSEditForm((RSSSourceDTO)this.dataGridView1.SelectedRows[0].DataBoundItem);

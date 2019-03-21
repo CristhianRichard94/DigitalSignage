@@ -190,7 +190,6 @@
             this.campaignsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.campaignsGridView.Size = new System.Drawing.Size(941, 513);
             this.campaignsGridView.TabIndex = 7;
-            this.campaignsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.campaignsGridView_CellContentClick);
             // 
             // Id
             // 
@@ -307,7 +306,6 @@
             this.Name = "CampaignManageForm";
             this.Text = "CampaignForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.CampaignForm_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();

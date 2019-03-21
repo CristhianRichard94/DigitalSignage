@@ -15,6 +15,9 @@ using DigitalSignage.UI.RSS_Forms;
 
 namespace DigitalSignage.UI
 {
+    /// <summary>
+    /// Form de inicio, da acceso a las demas vistas
+    /// </summary>
     public partial class HomeForm : Form
     {
         private bool isCollapsed = true;
@@ -24,20 +27,24 @@ namespace DigitalSignage.UI
             InitializeComponent();
         }
 
-        private void HomeForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
+        /// <summary>
+        /// Cierra la aplicacion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exit_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-
+        /// <summary>
+        /// Timer usado para desplegar y comprimir la lista de opciones de gestion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void timer1_Tick(object sender, EventArgs e)
         {
+            // Despliega lista
             if (isCollapsed)
             {
                 manageOptions.Image = Resources.dropdownarrow2;
@@ -48,6 +55,7 @@ namespace DigitalSignage.UI
                     this.isCollapsed = false;
                 }
             }
+            // Colapsa lista
             else
             {
                 manageOptions.Image = Resources.dropdownarrow1;
@@ -60,16 +68,32 @@ namespace DigitalSignage.UI
             }
         }
 
+        /// <summary>
+        /// Dispara el timer para desplegar o comprimir la lista de opciones de gestion
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void manageOptions_Click(object sender, EventArgs e)
         {
             timer1.Start();
         }
 
+        /// <summary>
+        /// Abre form de la vista operativa
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void operativeScreen_Click(object sender, EventArgs e)
         {
             OperativeForm operativeForm = new OperativeForm();
             operativeForm.ShowDialog();
         }
+
+        /// <summary>
+        /// Abre form de gestion de campañas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void campManage_Click(object sender, EventArgs e)
         {
             CampaignManageForm campaignManageForm = new CampaignManageForm();
@@ -77,6 +101,11 @@ namespace DigitalSignage.UI
 
         }
 
+        /// <summary>
+        /// Abre form de gestion de banners
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bannersManage_Click(object sender, EventArgs e)
         {
             BannerManageForm bannerManageForm = new BannerManageForm();
@@ -84,15 +113,16 @@ namespace DigitalSignage.UI
 
         }
 
+
+        /// <summary>
+        /// Abre form de gestion de fuentes RSS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rssManage_Click(object sender, EventArgs e)
         {
             RSSManageForm rSSManageForm= new RSSManageForm();
             rSSManageForm.ShowDialog();
-
-        }
-
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
 
         }
     }

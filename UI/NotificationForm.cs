@@ -10,8 +10,17 @@ using System.Windows.Forms;
 
 namespace DigitalSignage.UI
 {
+    /// <summary>
+    /// Form de mensajes personalizado, despliega notificaciones o confirmaciones
+    /// </summary>
     public partial class NotificationForm : Form
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="pMessageBoxButtons">tipo de botones, usado para modificar los botones mostrados</param>
+        /// <param name="pText"> Informacion a mostrar</param>
+        /// <param name="pTitle">Titulo del form</param>
         public NotificationForm(MessageBoxButtons pMessageBoxButtons, string pText, string pTitle)
         {
             InitializeComponent();
@@ -32,18 +41,33 @@ namespace DigitalSignage.UI
             }
         }
 
+        /// <summary>
+        /// Accion de aceptar el mensaje
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void acceptButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Yes;
             this.Close();
         }
 
+        /// <summary>
+        /// Cierra el mensaje
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void okButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
+        /// <summary>
+        /// Rechaza/Cancela el mensaje
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

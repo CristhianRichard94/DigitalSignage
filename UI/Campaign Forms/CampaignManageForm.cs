@@ -13,10 +13,24 @@ using System.Windows.Forms;
 
 namespace DigitalSignage.UI.Campaign_Forms
 {
+    /// <summary>
+    /// Pantalla de gestion de campañas
+    /// </summary>
     public partial class CampaignManageForm : Form
     {
+        /// <summary>
+        /// instancia del servicio de campañas - FALTA IMPLEMENTAR CONTAINER IOC
+        /// </summary>
         private CampaignService iCampaignService;
+
+        /// <summary>
+        /// Lista de campañas
+        /// </summary>
         private IEnumerable<CampaignDTO> iCampaigns;
+
+        /// <summary>
+        /// Constructor, obtiene todas las campañas y las muestra
+        /// </summary>
         public CampaignManageForm()
         {
             iCampaigns = new List<CampaignDTO>();
@@ -30,20 +44,25 @@ namespace DigitalSignage.UI.Campaign_Forms
             getCampaigns();
         }
 
+        /// <summary>
+        /// Cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void CampaignForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Abre form de edicion de una campaña, edita una campaña
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editButton_Click(object sender, EventArgs e)
         {
             CampaignEditForm cef = new CampaignEditForm((CampaignDTO)campaignsGridView.SelectedRows[0].DataBoundItem);
-            if (cef.ShowDialog(this) == DialogResult.OK)
+            if (cef.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
@@ -59,15 +78,15 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
-        private void campaignsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// Abre form de creacion de una campaña, crea una campaña
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void createButton_Click(object sender, EventArgs e)
         {
             CampaignEditForm cef = new CampaignEditForm(null);
-            if (cef.ShowDialog(this) == DialogResult.OK)
+            if (cef.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
@@ -85,7 +104,9 @@ namespace DigitalSignage.UI.Campaign_Forms
         }
 
 
-
+        /// <summary>
+        /// Obtiene campañas dependiendo de la opcion seleccionada en searchComboBox y el texto en searchTextBox
+        /// </summary>
         public void getCampaigns()
         {
             switch (searchComboBox.SelectedItem)
@@ -133,6 +154,11 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
+        /// <summary>
+        /// Cambiar el modo de ingreso de valor de busqueda segun searchCombobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch(searchComboBox.SelectedItem)
@@ -159,12 +185,23 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
         
+        /// <summary>
+        /// Dispara la busqueda de campañas
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchButton_Click(object sender, EventArgs e)
         {
             //Comprobaciones del campo de busqueda
             getCampaigns();
         }
 
+
+        /// <summary>
+        ///  Elimina una campaña
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteButton_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la imagen seleccionada?",
