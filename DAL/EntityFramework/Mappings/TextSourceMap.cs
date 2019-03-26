@@ -11,9 +11,9 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
     /// <summary>
     /// Clase de mapeo de Textos de banners
     /// </summary>
-    class TextMap : EntityTypeConfiguration<Text>
+    class TextSourceMap : EntityTypeConfiguration<TextSource>
     {
-        public TextMap()
+        public TextSourceMap()
         {
             // Tabla en la que se mapea la entidad
             this.ToTable("Texts");

@@ -24,7 +24,7 @@ namespace DigitalSignage.DTO
                 cfg.CreateMap<RSSSource, RSSSourceDTO>()
                     .IncludeBase<BannerSource, BannerSourceDTO>()
                     .ReverseMap();
-                cfg.CreateMap<Text, TextDTO>()
+                cfg.CreateMap<TextSource, TextSourceDTO>()
                     .IncludeBase<BannerSource, BannerSourceDTO>()
                     .ReverseMap();
                 cfg.CreateMap<Campaign, CampaignDTO>().ReverseMap();

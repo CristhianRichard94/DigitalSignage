@@ -20,7 +20,7 @@ namespace DigitalSignage.DAL.EntityFramework
 
         public DbSet<RSSSource> RSSSources { get; set; }
 
-        public DbSet<Text> Texts { get; set; }
+        public DbSet<TextSource> Texts { get; set; }
 
         public DbSet<RSSItem> RSSItems { get; set; }
 
@@ -50,7 +50,7 @@ namespace DigitalSignage.DAL.EntityFramework
             pModelBuilder.Configurations.Add(new BannerMap());
             pModelBuilder.Configurations.Add(new BannerSourceMap());
             pModelBuilder.Configurations.Add(new RSSSourceMap());
-            pModelBuilder.Configurations.Add(new TextMap());
+            pModelBuilder.Configurations.Add(new TextSourceMap());
             pModelBuilder.Configurations.Add(new RSSItemMap());
             pModelBuilder.Configurations.Add(new ImageMap());
 

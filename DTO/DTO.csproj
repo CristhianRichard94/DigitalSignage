@@ -71,7 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSSItemDTO.cs" />
     <Compile Include="RSSSourceDTO.cs" />
-    <Compile Include="TextDTO.cs" />
+    <Compile Include="TextSourceDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

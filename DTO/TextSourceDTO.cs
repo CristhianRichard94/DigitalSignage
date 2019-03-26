@@ -9,8 +9,8 @@ namespace DigitalSignage.DTO
     /// <summary>
     /// Clase que representa el DTO de un texto
     /// </summary>
-    public class TextDTO : BannerSourceDTO
+    public class TextSourceDTO : BannerSourceDTO
     {
-        public string Text { get; set; }
+        public string Data { get; set; }
     }
 }

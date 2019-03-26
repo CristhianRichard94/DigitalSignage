@@ -9,7 +9,7 @@ namespace DigitalSignage.Domain
     /// <summary>
     /// Clase que representa una fuente de Texto Fijo
     /// </summary>
-    public class Text : BannerSource
+    public class TextSource : BannerSource
     {
         /// <summary>
         /// Texto a mostrar

@@ -83,7 +83,7 @@ namespace DigitalSignage.DAL.EntityFramework
 
             pContext.Banners.Add(banner1);
 
-            Text textSource = new Text()
+            TextSource textSource = new TextSource()
             {
                 Data = "Prueba de texto",
             };

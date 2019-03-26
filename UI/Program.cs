@@ -104,7 +104,7 @@ namespace DigitalSignage.UI
 
             uow.Complete();
 
-            Text textSource = new Text()
+            TextSource textSource = new TextSource()
             {
                 Data = "Prueba de texto",
             };

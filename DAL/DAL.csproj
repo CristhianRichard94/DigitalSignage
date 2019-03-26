@@ -73,7 +73,7 @@
     <Compile Include="EntityFramework\Mappings\ImageMap.cs" />
     <Compile Include="EntityFramework\Mappings\RSSItemMap.cs" />
     <Compile Include="EntityFramework\Mappings\RSSSourceMap.cs" />
-    <Compile Include="EntityFramework\Mappings\TextMap.cs" />
+    <Compile Include="EntityFramework\Mappings\TextSourceMap.cs" />
     <Compile Include="EntityFramework\Repository.cs" />
     <Compile Include="EntityFramework\RSSSourceRepository.cs" />
     <Compile Include="EntityFramework\UnitOfWork.cs" />
