@@ -22,23 +22,52 @@ namespace DigitalSignage.UI.RSS_Forms
         /// </summary>
         private RSSSourceService iRSSSourceService;
 
+        private RSSSourceDTO iRSSSourceSelected;
+
         /// <summary>
         /// Lista de fuentes RSS
         /// </summary>
         private IEnumerable<RSSSourceDTO> iRSSSources;
-
+        string ALL_SOURCES = "Mostrar todas las Fuentes";
+        string ID_SOURCE = "Buscar por ID";
         public IEnumerable<RSSSourceDTO> RSSSources { get => iRSSSources; set => iRSSSources = value; }
+        public RSSSourceDTO RSSSourceSelected { get => iRSSSourceSelected; set => iRSSSourceSelected = value; }
 
         /// <summary>
         /// Constructor, Obtiene la lista de fuentes RSS y las carga en la vista
         /// </summary>
-        public RSSManageForm()
+        public RSSManageForm(int pId)
         {
             InitializeComponent();
             this.iRSSSourceService = new RSSSourceService();
-            this.RSSSources = this.iRSSSourceService.GetAll();
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.DataSource = this.RSSSources;
+            this.searchComboBox.Items.Add(ALL_SOURCES);
+            this.searchComboBox.Items.Add(ID_SOURCE);
+
+            // Opcion de mostrar todas las fuentes
+            this.searchComboBox.SelectedIndex = 0;
+            this.rSSGridView1.AutoGenerateColumns = false;
+            this.rSSGridView1.DataSource = this.RSSSources;
+            // Caso de que se inicie desde pantalla principal 
+            if (pId == -1)
+            {
+                this.button2.Visible = true;
+                this.button1.Visible = false;
+                this.button3.Visible = false;
+                this.label1.Visible = false;
+            } else // Caso de que se inicie desde seleccionar fuente en banner, sin una fuente previa
+            {
+                this.button2.Visible = false;
+                this.button1.Visible = true;
+                this.button3.Visible = true;
+                this.label1.Visible = true;
+                if (pId > 0) // Caso de que se inicie desde seleccionar fuente en banner, con una fuente previa
+                {
+                    this.searchTextBox.Text = pId.ToString();
+                    this.searchComboBox.SelectedIndex = 1;
+                }
+            }
+            this.getSources();
+
         }
 
         /// <summary>
@@ -48,6 +77,8 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            this.RSSSourceSelected = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -59,7 +90,22 @@ namespace DigitalSignage.UI.RSS_Forms
         private void button2_Click(object sender, EventArgs e)
         {
             RSSEditForm rSSEditForm = new RSSEditForm(null);
-            rSSEditForm.ShowDialog();
+
+            if (rSSEditForm.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    this.iRSSSourceService.Create(rSSEditForm.RSSSource);
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha creado la fuente RSS", "Exito al crear la Fuente RSS").ShowDialog();
+                    this.getSources();
+                }
+                catch (Exception ex)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear la fuente RSS").ShowDialog();
+                }
+            }
+
+
         }
 
         /// <summary>
@@ -69,8 +115,93 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <param name="e"></param>
         private void editButton_Click(object sender, EventArgs e)
         {
-            RSSEditForm rSSEditForm = new RSSEditForm((RSSSourceDTO)this.dataGridView1.SelectedRows[0].DataBoundItem);
-            rSSEditForm.ShowDialog();
+            RSSEditForm rSSEditForm = new RSSEditForm((RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem);
+            if (rSSEditForm.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    this.iRSSSourceService.Create(rSSEditForm.RSSSource);
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha creado la fuente RSS", "Exito al crear la Fuente RSS").ShowDialog();
+                    this.getSources();
+                }
+                catch (Exception ex)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear la fuente RSS").ShowDialog();
+                }
+            }
+        }
+
+        public void getSources()
+        {
+            switch (searchComboBox.SelectedItem)
+            {
+                case "Mostrar todas las Fuentes":
+                    this.RSSSources = this.iRSSSourceService.GetAll();
+                    rSSGridView1.DataSource = this.RSSSources;
+                    break;
+                case "Buscar por ID":
+                    List<RSSSourceDTO> sources= new List<RSSSourceDTO>();
+                    RSSSourceDTO resultSource = this.iRSSSourceService.Get(Convert.ToInt32(searchTextBox.Text));
+                    if (resultSource.Url == null)
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado la campaña con el ID ingresado.", "Error en la búsqueda").ShowDialog();
+
+                    }
+                    else
+                    {
+                        sources.Add(resultSource);
+                    }
+                    this.RSSSources = sources;
+                    rSSGridView1.DataSource = this.RSSSources;
+                    break;
+            }
+        }
+
+        private void searchComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((string)searchComboBox.SelectedItem == "Mostrar todas las fuentes")
+            {
+                searchTextBox.Enabled = false;
+            }
+
+            else
+            {
+                    searchTextBox.Enabled = true;
+            }
+        }
+
+        private void searchButton_Click(object sender, EventArgs e)
+        {
+            getSources();
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la fuente seleccionada?",
+                                    "Eliminar fuente");
+            confirmResult.ShowDialog();
+            if (confirmResult.DialogResult == DialogResult.Yes)
+            {
+                var selectedSource = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
+                this.iRSSSourceService.Remove(selectedSource);
+                getSources();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea salir sin seleccionar una fuente?",
+                         "Cancelar");
+            confirmResult.ShowDialog();
+            if (confirmResult.DialogResult == DialogResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

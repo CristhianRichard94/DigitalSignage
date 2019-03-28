@@ -9,11 +9,10 @@ using System.Threading.Tasks;
 
 namespace DigitalSignage.BLL
 {
-    class BannerService : IBannerService
+    public class BannerService : IBannerService
     {
         private UnitOfWork iUnitOfWork;
 
-        private string iCurrentText;
 
         public BannerService()
         {
@@ -61,6 +60,24 @@ namespace DigitalSignage.BLL
             this.iUnitOfWork.BannerRepository.Remove(banner);
             this.iUnitOfWork.Complete();
 
+        }
+
+        public IEnumerable<BannerDTO> getBannersByName(string pName)
+        {
+            IEnumerable<Banner> banners = this.iUnitOfWork.BannerRepository.GetBannersByName(pName);
+            return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+        }
+
+        public IEnumerable<BannerDTO> getBannersActiveInDate(DateTime pDate)
+        {
+            IEnumerable<Banner> banners = this.iUnitOfWork.BannerRepository.GetBannersActiveInDate(pDate);
+            return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+        }
+
+        public IEnumerable<BannerDTO> getBannersActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime)
+        {
+            IEnumerable<Banner> banners = this.iUnitOfWork.BannerRepository.GetBannersActiveInRange(pDate,pFromTime,pToTime);
+            return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
         }
     }
 }

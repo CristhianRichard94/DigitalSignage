@@ -121,7 +121,7 @@ namespace DigitalSignage.UI
         /// <param name="e"></param>
         private void rssManage_Click(object sender, EventArgs e)
         {
-            RSSManageForm rSSManageForm= new RSSManageForm();
+            RSSManageForm rSSManageForm= new RSSManageForm(-1);
             rSSManageForm.ShowDialog();
 
         }

@@ -21,6 +21,21 @@ namespace DigitalSignage.DAL.EntityFramework
 
 
         /// <summary>
+        /// Obtiene todos los banners
+        /// </summary>
+        /// <returns>Enumerable de campañas</returns>
+        public override IEnumerable<Banner> GetAll()
+        {
+            IEnumerable<Banner> banners = base.GetAll();
+            foreach (Banner banner in banners)
+            {
+                //Incluye las fuentes de los banners
+                this.iDbContext.Entry(banner).Reference(p => p.Source).Load();
+            }
+            return banners;
+        }
+
+        /// <summary>
         /// Actualiza un banner del repositorio
         /// </summary>
         /// <param name="updatedBanner">Banner actualizado</param>
@@ -68,6 +83,7 @@ namespace DigitalSignage.DAL.EntityFramework
             return base.iDbContext.Set<Banner>()
                 //Busca los banners que contengan el nombre especificado
                 .Where(c => c.Name.IndexOf(pName, StringComparison.Ordinal) >= 0)
+                .Include("Source")
                 .ToList();
         }
 
@@ -85,6 +101,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 //Compara si el banner esta activo en la fecha
                 .Where(c => DbFunctions.TruncateTime(c.InitialDate) <= DbFunctions.TruncateTime(pDate))
                 .Where(c => DbFunctions.TruncateTime(c.EndDate) >= DbFunctions.TruncateTime(pDate))
+                .Include("Source")
                 .ToList();
         }
 
@@ -113,6 +130,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 .Where(b => DbFunctions.TruncateTime(b.EndDate) >= DbFunctions.TruncateTime(pDate))
                 //Compara si el banner esta activo en el rango horario
                 .Where(b => b.InitialTime <= pToTime && b.EndTime >= pFromTime)
+                .Include("Source")
                 .ToList();
         }
     }

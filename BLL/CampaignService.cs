@@ -121,5 +121,20 @@ namespace DigitalSignage.BLL
                 return campaignsDTO;
 
         }
+
+        /// <summary>
+        /// Obtiene todas las camapañas activas en un momento determinado
+        /// </summary>
+        /// <param name="pDate">Fecha</param>
+        /// <returns></returns>
+        public IEnumerable<CampaignDTO> GetCampaignsActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime)
+        {
+
+            IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(pDate, pFromTime,pToTime);
+            var campaignsDTO = AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
+
+            return campaignsDTO;
+
+        }
     }
 }

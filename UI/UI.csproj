@@ -207,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\coollogo_com-25963166.png" />
+    <None Include="Resources\checked.png" />
     <Content Include="Resources\down-arrow %281%29 - copia.png" />
     <Content Include="Resources\down-arrow %281%29.png" />
     <Content Include="Resources\dropdownarrow1.png" />

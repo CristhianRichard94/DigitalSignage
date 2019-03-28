@@ -62,6 +62,8 @@
             this.editImageButton = new System.Windows.Forms.Button();
             this.deleteImageButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -76,7 +78,7 @@
             this.button1.Location = new System.Drawing.Point(0, 99);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(266, 50);
+            this.button1.Size = new System.Drawing.Size(310, 50);
             this.button1.TabIndex = 0;
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = false;
@@ -85,10 +87,11 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(210)))), ((int)(((byte)(138)))));
+            this.panel3.Controls.Add(this.label2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(266, 0);
+            this.panel3.Location = new System.Drawing.Point(310, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1100, 49);
+            this.panel3.Size = new System.Drawing.Size(1060, 49);
             this.panel3.TabIndex = 7;
             // 
             // title
@@ -96,7 +99,7 @@
             this.title.AutoSize = true;
             this.title.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.title.Location = new System.Drawing.Point(64, 9);
+            this.title.Location = new System.Drawing.Point(75, 9);
             this.title.Name = "title";
             this.title.Size = new System.Drawing.Size(172, 25);
             this.title.TabIndex = 0;
@@ -111,7 +114,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(266, 49);
+            this.panel2.Size = new System.Drawing.Size(310, 49);
             this.panel2.TabIndex = 4;
             // 
             // logoPanel
@@ -124,7 +127,7 @@
             this.logoPanel.Margin = new System.Windows.Forms.Padding(0);
             this.logoPanel.Name = "logoPanel";
             this.logoPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.logoPanel.Size = new System.Drawing.Size(61, 49);
+            this.logoPanel.Size = new System.Drawing.Size(71, 49);
             this.logoPanel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPanel.TabIndex = 3;
             this.logoPanel.TabStop = false;
@@ -138,7 +141,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 768);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 749);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // saveButton
@@ -149,7 +152,7 @@
             this.saveButton.Location = new System.Drawing.Point(0, 49);
             this.saveButton.Margin = new System.Windows.Forms.Padding(0);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(266, 50);
+            this.saveButton.Size = new System.Drawing.Size(310, 50);
             this.saveButton.TabIndex = 5;
             this.saveButton.Text = "Guardar";
             this.saveButton.UseVisualStyleBackColor = false;
@@ -157,25 +160,25 @@
             // 
             // nameTextBox
             // 
-            this.nameTextBox.Location = new System.Drawing.Point(445, 176);
+            this.nameTextBox.Location = new System.Drawing.Point(519, 176);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(170, 20);
+            this.nameTextBox.Size = new System.Drawing.Size(198, 21);
             this.nameTextBox.TabIndex = 9;
             // 
             // descTextBox
             // 
-            this.descTextBox.Location = new System.Drawing.Point(334, 296);
+            this.descTextBox.Location = new System.Drawing.Point(390, 296);
             this.descTextBox.Multiline = true;
             this.descTextBox.Name = "descTextBox";
-            this.descTextBox.Size = new System.Drawing.Size(281, 102);
+            this.descTextBox.Size = new System.Drawing.Size(327, 102);
             this.descTextBox.TabIndex = 11;
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(331, 176);
+            this.nameLabel.Location = new System.Drawing.Point(386, 176);
             this.nameLabel.Name = "nameLabel";
-            this.nameLabel.Size = new System.Drawing.Size(47, 13);
+            this.nameLabel.Size = new System.Drawing.Size(57, 13);
             this.nameLabel.TabIndex = 13;
             this.nameLabel.Text = "Nombre:";
             // 
@@ -183,7 +186,7 @@
             // 
             this.idLabel.AutoSize = true;
             this.idLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idLabel.Location = new System.Drawing.Point(330, 110);
+            this.idLabel.Location = new System.Drawing.Point(385, 110);
             this.idLabel.Name = "idLabel";
             this.idLabel.Size = new System.Drawing.Size(32, 24);
             this.idLabel.TabIndex = 14;
@@ -194,7 +197,7 @@
             // 
             this.idValueLabel.AutoSize = true;
             this.idValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.idValueLabel.Location = new System.Drawing.Point(595, 110);
+            this.idValueLabel.Location = new System.Drawing.Point(694, 110);
             this.idValueLabel.Name = "idValueLabel";
             this.idValueLabel.Size = new System.Drawing.Size(20, 24);
             this.idValueLabel.TabIndex = 15;
@@ -204,45 +207,45 @@
             // descLabel
             // 
             this.descLabel.AutoSize = true;
-            this.descLabel.Location = new System.Drawing.Point(331, 254);
+            this.descLabel.Location = new System.Drawing.Point(386, 254);
             this.descLabel.Name = "descLabel";
-            this.descLabel.Size = new System.Drawing.Size(66, 13);
+            this.descLabel.Size = new System.Drawing.Size(78, 13);
             this.descLabel.TabIndex = 16;
             this.descLabel.Text = "Descripción:";
             // 
             // initDateLabel
             // 
             this.initDateLabel.AutoSize = true;
-            this.initDateLabel.Location = new System.Drawing.Point(331, 442);
+            this.initDateLabel.Location = new System.Drawing.Point(386, 442);
             this.initDateLabel.Name = "initDateLabel";
-            this.initDateLabel.Size = new System.Drawing.Size(82, 13);
+            this.initDateLabel.Size = new System.Drawing.Size(96, 13);
             this.initDateLabel.TabIndex = 17;
             this.initDateLabel.Text = "Fecha de inicio:";
             // 
             // endDateLabel
             // 
             this.endDateLabel.AutoSize = true;
-            this.endDateLabel.Location = new System.Drawing.Point(517, 442);
+            this.endDateLabel.Location = new System.Drawing.Point(603, 442);
             this.endDateLabel.Name = "endDateLabel";
-            this.endDateLabel.Size = new System.Drawing.Size(69, 13);
+            this.endDateLabel.Size = new System.Drawing.Size(81, 13);
             this.endDateLabel.TabIndex = 18;
             this.endDateLabel.Text = "Fecha de fin:";
             // 
             // initTimeLabel
             // 
             this.initTimeLabel.AutoSize = true;
-            this.initTimeLabel.Location = new System.Drawing.Point(331, 542);
+            this.initTimeLabel.Location = new System.Drawing.Point(386, 542);
             this.initTimeLabel.Name = "initTimeLabel";
-            this.initTimeLabel.Size = new System.Drawing.Size(75, 13);
+            this.initTimeLabel.Size = new System.Drawing.Size(90, 13);
             this.initTimeLabel.TabIndex = 19;
             this.initTimeLabel.Text = "Hora de inicio:";
             // 
             // endTimeLabel
             // 
             this.endTimeLabel.AutoSize = true;
-            this.endTimeLabel.Location = new System.Drawing.Point(497, 542);
+            this.endTimeLabel.Location = new System.Drawing.Point(580, 542);
             this.endTimeLabel.Name = "endTimeLabel";
-            this.endTimeLabel.Size = new System.Drawing.Size(62, 13);
+            this.endTimeLabel.Size = new System.Drawing.Size(75, 13);
             this.endTimeLabel.TabIndex = 20;
             this.endTimeLabel.Text = "Hora de fin:";
             // 
@@ -250,11 +253,11 @@
             // 
             this.initDateTimePicker.CustomFormat = "";
             this.initDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.initDateTimePicker.Location = new System.Drawing.Point(334, 479);
+            this.initDateTimePicker.Location = new System.Drawing.Point(390, 479);
             this.initDateTimePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.initDateTimePicker.Name = "initDateTimePicker";
             this.initDateTimePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.initDateTimePicker.Size = new System.Drawing.Size(100, 20);
+            this.initDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.initDateTimePicker.TabIndex = 23;
             this.initDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 14, 26, 0);
             // 
@@ -262,9 +265,9 @@
             // 
             this.endDateTimePicker.CustomFormat = "";
             this.endDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.endDateTimePicker.Location = new System.Drawing.Point(515, 479);
+            this.endDateTimePicker.Location = new System.Drawing.Point(601, 479);
             this.endDateTimePicker.Name = "endDateTimePicker";
-            this.endDateTimePicker.Size = new System.Drawing.Size(100, 20);
+            this.endDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.endDateTimePicker.TabIndex = 24;
             this.endDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 15, 31, 0);
             // 
@@ -296,9 +299,9 @@
             "21",
             "22",
             "23"});
-            this.comboBox1.Location = new System.Drawing.Point(334, 573);
+            this.comboBox1.Location = new System.Drawing.Point(390, 573);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(45, 21);
+            this.comboBox1.Size = new System.Drawing.Size(52, 21);
             this.comboBox1.TabIndex = 26;
             // 
             // comboBox3
@@ -329,9 +332,9 @@
             "21",
             "22",
             "23"});
-            this.comboBox3.Location = new System.Drawing.Point(500, 573);
+            this.comboBox3.Location = new System.Drawing.Point(583, 573);
             this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(45, 21);
+            this.comboBox3.Size = new System.Drawing.Size(52, 21);
             this.comboBox3.TabIndex = 27;
             // 
             // comboBox2
@@ -398,9 +401,9 @@
             "57",
             "58",
             "59"});
-            this.comboBox2.Location = new System.Drawing.Point(408, 573);
+            this.comboBox2.Location = new System.Drawing.Point(476, 573);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(45, 21);
+            this.comboBox2.Size = new System.Drawing.Size(52, 21);
             this.comboBox2.TabIndex = 28;
             // 
             // comboBox4
@@ -467,9 +470,9 @@
             "57",
             "58",
             "59"});
-            this.comboBox4.Location = new System.Drawing.Point(570, 573);
+            this.comboBox4.Location = new System.Drawing.Point(665, 573);
             this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(45, 21);
+            this.comboBox4.Size = new System.Drawing.Size(52, 21);
             this.comboBox4.TabIndex = 29;
             // 
             // dataGridView1
@@ -484,11 +487,11 @@
             this.Duration,
             this.Position});
             this.dataGridView1.GridColor = System.Drawing.Color.Silver;
-            this.dataGridView1.Location = new System.Drawing.Point(657, 99);
+            this.dataGridView1.Location = new System.Drawing.Point(766, 99);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 100;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(681, 535);
+            this.dataGridView1.Size = new System.Drawing.Size(794, 535);
             this.dataGridView1.TabIndex = 30;
             // 
             // Data
@@ -531,10 +534,10 @@
             this.addImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.addImageButton.FlatAppearance.BorderSize = 0;
             this.addImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addImageButton.Location = new System.Drawing.Point(657, 653);
+            this.addImageButton.Location = new System.Drawing.Point(766, 653);
             this.addImageButton.Margin = new System.Windows.Forms.Padding(0);
             this.addImageButton.Name = "addImageButton";
-            this.addImageButton.Size = new System.Drawing.Size(210, 50);
+            this.addImageButton.Size = new System.Drawing.Size(245, 50);
             this.addImageButton.TabIndex = 6;
             this.addImageButton.Text = "Agregar Imagen";
             this.addImageButton.UseVisualStyleBackColor = false;
@@ -545,10 +548,10 @@
             this.editImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.editImageButton.FlatAppearance.BorderSize = 0;
             this.editImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editImageButton.Location = new System.Drawing.Point(894, 653);
+            this.editImageButton.Location = new System.Drawing.Point(1043, 653);
             this.editImageButton.Margin = new System.Windows.Forms.Padding(0);
             this.editImageButton.Name = "editImageButton";
-            this.editImageButton.Size = new System.Drawing.Size(210, 50);
+            this.editImageButton.Size = new System.Drawing.Size(245, 50);
             this.editImageButton.TabIndex = 31;
             this.editImageButton.Text = "Editar Imagen";
             this.editImageButton.UseVisualStyleBackColor = false;
@@ -559,10 +562,10 @@
             this.deleteImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.deleteImageButton.FlatAppearance.BorderSize = 0;
             this.deleteImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteImageButton.Location = new System.Drawing.Point(1128, 653);
+            this.deleteImageButton.Location = new System.Drawing.Point(1316, 653);
             this.deleteImageButton.Margin = new System.Windows.Forms.Padding(0);
             this.deleteImageButton.Name = "deleteImageButton";
-            this.deleteImageButton.Size = new System.Drawing.Size(210, 50);
+            this.deleteImageButton.Size = new System.Drawing.Size(245, 50);
             this.deleteImageButton.TabIndex = 32;
             this.deleteImageButton.Text = "Eliminar Imagen";
             this.deleteImageButton.UseVisualStyleBackColor = false;
@@ -572,19 +575,31 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(959, 60);
+            this.label1.Location = new System.Drawing.Point(1119, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 24);
             this.label1.TabIndex = 33;
             this.label1.Text = "Imágenes";
             this.label1.Visible = false;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.Location = new System.Drawing.Point(443, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(190, 23);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Carga de Campaña";
+            this.label2.Visible = false;
+            // 
             // CampaignEditForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.ClientSize = new System.Drawing.Size(1366, 768);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.deleteImageButton);
             this.Controls.Add(this.editImageButton);
@@ -608,11 +623,14 @@
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "CampaignEditForm";
             this.Text = "CampaignEditForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
@@ -657,5 +675,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
         private System.Windows.Forms.DataGridViewTextBoxColumn Position;
+        private System.Windows.Forms.Label label2;
     }
 }

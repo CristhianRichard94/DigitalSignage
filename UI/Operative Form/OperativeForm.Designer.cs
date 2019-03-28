@@ -48,7 +48,7 @@
             this.button1.Location = new System.Drawing.Point(0, 49);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(266, 50);
+            this.button1.Size = new System.Drawing.Size(310, 50);
             this.button1.TabIndex = 0;
             this.button1.Text = "Volver";
             this.button1.UseVisualStyleBackColor = false;
@@ -63,7 +63,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Margin = new System.Windows.Forms.Padding(0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(266, 49);
+            this.panel2.Size = new System.Drawing.Size(310, 49);
             this.panel2.TabIndex = 4;
             // 
             // logoPanel
@@ -76,7 +76,7 @@
             this.logoPanel.Margin = new System.Windows.Forms.Padding(0);
             this.logoPanel.Name = "logoPanel";
             this.logoPanel.Padding = new System.Windows.Forms.Padding(3);
-            this.logoPanel.Size = new System.Drawing.Size(61, 49);
+            this.logoPanel.Size = new System.Drawing.Size(71, 49);
             this.logoPanel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPanel.TabIndex = 3;
             this.logoPanel.TabStop = false;
@@ -86,7 +86,7 @@
             this.title.AutoSize = true;
             this.title.Font = new System.Drawing.Font("Verdana", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.title.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.title.Location = new System.Drawing.Point(64, 9);
+            this.title.Location = new System.Drawing.Point(75, 9);
             this.title.Name = "title";
             this.title.Size = new System.Drawing.Size(172, 25);
             this.title.TabIndex = 0;
@@ -96,9 +96,9 @@
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(210)))), ((int)(((byte)(138)))));
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(266, 0);
+            this.panel3.Location = new System.Drawing.Point(310, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1100, 49);
+            this.panel3.Size = new System.Drawing.Size(1076, 49);
             this.panel3.TabIndex = 7;
             // 
             // flowLayoutPanel1
@@ -109,17 +109,18 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(266, 768);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 768);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // OperativeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.ClientSize = new System.Drawing.Size(1366, 768);
+            this.ClientSize = new System.Drawing.Size(1386, 768);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "OperativeForm";

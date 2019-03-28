@@ -49,7 +49,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             dataGridView1.AutoGenerateColumns = false;
             if (pCampaign != null)
             {
-                this.iCampaign = pCampaign;
+                this.Campaign = pCampaign;
                 this.loadCampaign();
                 this.iImages = pCampaign.Images;
                 this.dataGridView1.DataSource = pCampaign.Images;
@@ -100,7 +100,6 @@ namespace DigitalSignage.UI.Campaign_Forms
             catch(Exception exc)
             {
                 new NotificationForm(MessageBoxButtons.OK,exc.Message,"Error").ShowDialog();
-
             }
         }
 
@@ -111,15 +110,15 @@ namespace DigitalSignage.UI.Campaign_Forms
         {
             idLabel.Visible = true;
             idValueLabel.Visible = true;
-            idValueLabel.Text = iCampaign.Id.ToString();
-            nameTextBox.Text = iCampaign.Name;
-            descTextBox.Text = iCampaign.Description;
-            initDateTimePicker.Value = iCampaign.InitialDate;
-            endDateTimePicker.Value = iCampaign.EndDate;
-            comboBox1.SelectedIndex = iCampaign.InitialTime.Hours;
-            comboBox2.SelectedIndex = iCampaign.InitialTime.Minutes;
-            comboBox3.SelectedIndex = iCampaign.EndTime.Hours;
-            comboBox4.SelectedIndex = iCampaign.EndTime.Minutes;
+            idValueLabel.Text = this.Campaign.Id.ToString();
+            nameTextBox.Text = this.Campaign.Name;
+            descTextBox.Text = this.Campaign.Description;
+            initDateTimePicker.Value = this.Campaign.InitialDate;
+            endDateTimePicker.Value = this.Campaign.EndDate;
+            comboBox1.SelectedIndex = this.Campaign.InitialTime.Hours;
+            comboBox2.SelectedIndex = this.Campaign.InitialTime.Minutes;
+            comboBox3.SelectedIndex = this.Campaign.EndTime.Hours;
+            comboBox4.SelectedIndex = this.Campaign.EndTime.Minutes;
         }
 
         /// <summary>

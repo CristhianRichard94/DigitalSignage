@@ -130,11 +130,23 @@ namespace DigitalSignage.UI.Campaign_Forms
                     {
                         new NotificationForm(MessageBoxButtons.OK,exc.Message, "Error").ShowDialog();
                     }
-
                     break;
                 case "Buscar por fecha":
-                    // Implementar Buscar por fecha
-                    //campaignsGridView.DataSource = this.iCampaignService.GetCampaignsActiveInDate(searchDateTimePicker.Value);
+                    try
+                    {
+                        IEnumerable<CampaignDTO> resultCampaigns = this.iCampaignService.GetCampaignsActiveInDate(this.searchDateTimePicker.Value);
+                        if (resultCampaigns.Count() == 0)
+                        {
+                            new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña en la fecha ingresada.", "Error en la búsqueda").ShowDialog();
+                        }
+                        this.iCampaigns = resultCampaigns;
+                        campaignsGridView.DataSource = this.iCampaigns;
+                    }
+                    catch (Exception exc)
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
+                    }
+
                     break;
                 case "Buscar por ID":
                     List<CampaignDTO> campaigns = new List<CampaignDTO>();
@@ -204,8 +216,8 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// <param name="e"></param>
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la imagen seleccionada?",
-                                    "Cancelar");
+            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la campaña seleccionada?",
+                                    "Eliminar Campaña");
             confirmResult.ShowDialog();
             if (confirmResult.DialogResult == DialogResult.Yes)
             {

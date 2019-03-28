@@ -46,6 +46,9 @@ namespace DigitalSignage.Domain
         /// </summary>
         public TimeSpan EndTime { get; set; }
 
+        /// <summary>
+        /// Fuente del banner, puede ser de diferentes tipos
+        /// </summary>
         public virtual BannerSource Source { get; set; }
 
         /// <summary>
