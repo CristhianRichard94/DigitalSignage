@@ -10,7 +10,7 @@ namespace DigitalSignage.BLL
     /// <summary>
     /// Interfaz del servicio de campañas
     /// </summary>
-    interface ICampaignService
+    public interface ICampaignService
     {
         IEnumerable<CampaignDTO> GetAll();
 
@@ -21,6 +21,12 @@ namespace DigitalSignage.BLL
         void Create(CampaignDTO pCampaign);
 
         void Remove(CampaignDTO pCampaign);
+
+        IEnumerable<CampaignDTO> getCampaignsByName(string pName);
+
+        IEnumerable<CampaignDTO> GetCampaignsActiveInDate(DateTime pDate);
+
+        IEnumerable<CampaignDTO> GetCampaignsActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime);
 
     }
 }

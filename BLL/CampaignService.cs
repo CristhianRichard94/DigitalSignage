@@ -23,7 +23,6 @@ namespace DigitalSignage.BLL
         /// </summary>
         public CampaignService()
         {
-
             this.iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
         }
 

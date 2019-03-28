@@ -12,6 +12,10 @@ using DigitalSignage.UI.Campaign_Forms;
 using DigitalSignage.UI.Properties;
 using DigitalSignage.UI.Operative_Form;
 using DigitalSignage.UI.RSS_Forms;
+using Ninject;
+using System.Reflection;
+using DigitalSignage.BLL;
+using Ninject.Modules;
 
 namespace DigitalSignage.UI
 {
@@ -20,10 +24,22 @@ namespace DigitalSignage.UI
     /// </summary>
     public partial class HomeForm : Form
     {
+        /// <summary>
+        /// Booleano para el dropdown del boton de gestion
+        /// </summary>
         private bool isCollapsed = true;
+
+        /// <summary>
+        /// instancia del kernel que carga los servicios 
+        /// </summary>
+        private StandardKernel kernel;
 
         public HomeForm()
         {
+            this.kernel = CreateKernel();
+            // load the bindings from the executing assembly
+            kernel.Load(Assembly.GetExecutingAssembly());
+
             InitializeComponent();
         }
 
@@ -96,7 +112,8 @@ namespace DigitalSignage.UI
         /// <param name="e"></param>
         private void campManage_Click(object sender, EventArgs e)
         {
-            CampaignManageForm campaignManageForm = new CampaignManageForm();
+            var campaignService = kernel.Get<ICampaignService>();
+            CampaignManageForm campaignManageForm = new CampaignManageForm(campaignService);
             campaignManageForm.ShowDialog();
 
         }
@@ -108,7 +125,8 @@ namespace DigitalSignage.UI
         /// <param name="e"></param>
         private void bannersManage_Click(object sender, EventArgs e)
         {
-            BannerManageForm bannerManageForm = new BannerManageForm();
+            var bannerService = kernel.Get<IBannerService>();
+            BannerManageForm bannerManageForm = new BannerManageForm(bannerService);
             bannerManageForm.ShowDialog();
 
         }
@@ -121,9 +139,25 @@ namespace DigitalSignage.UI
         /// <param name="e"></param>
         private void rssManage_Click(object sender, EventArgs e)
         {
-            RSSManageForm rSSManageForm= new RSSManageForm(-1);
+            var rSSSourceService = kernel.Get<IRSSSourceService>();
+            RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,-1);
             rSSManageForm.ShowDialog();
 
+        }
+
+        /// <summary>
+        /// Inicializa el kernel que gestiona los servicios
+        /// </summary>
+        /// <returns></returns>
+        public static StandardKernel CreateKernel()
+        {
+            var modules = new INinjectModule[]
+                              {
+                              new Bindings()
+                              };
+
+            var kernel = new StandardKernel(modules);
+            return kernel;
         }
     }
 }

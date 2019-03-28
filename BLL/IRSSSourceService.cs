@@ -10,7 +10,7 @@ namespace DigitalSignage.BLL
     /// <summary>
     /// Interfaz del servicio de fuentes RSS
     /// </summary>
-    interface IRSSSourceService
+    public interface IRSSSourceService
     {
         IEnumerable<RSSSourceDTO> GetAll();
 

@@ -30,6 +30,7 @@
         {
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
@@ -51,7 +52,6 @@
             this.button2 = new System.Windows.Forms.Button();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -80,6 +80,18 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(846, 49);
             this.panel3.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.Location = new System.Drawing.Point(336, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(169, 23);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Carga de Banner";
+            this.label2.Visible = false;
             // 
             // comboBox4
             // 
@@ -451,18 +463,7 @@
             this.button3.TabIndex = 50;
             this.button3.Text = "Guardar";
             this.button3.UseVisualStyleBackColor = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(336, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(169, 23);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "Carga de Banner";
-            this.label2.Visible = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // pictureBox1
             // 

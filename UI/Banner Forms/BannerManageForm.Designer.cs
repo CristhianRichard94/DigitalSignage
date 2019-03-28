@@ -1,4 +1,6 @@
-﻿namespace DigitalSignage.UI.Banner_Forms
+﻿using System.Drawing;
+
+namespace DigitalSignage.UI.Banner_Forms
 {
     partial class BannerManageForm
     {
@@ -30,6 +32,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BannerManageForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -44,7 +47,7 @@
             this.searchLabel = new System.Windows.Forms.Label();
             this.bannersGridView = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BannerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
@@ -126,7 +129,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(310, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1076, 49);
+            this.panel3.Size = new System.Drawing.Size(1060, 49);
             this.panel3.TabIndex = 7;
             // 
             // flowLayoutPanel1
@@ -140,7 +143,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 768);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 749);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
             // button3
@@ -219,7 +222,7 @@
             this.bannersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.bannersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.BannerName,
+            this.Name,
             this.Description});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -234,9 +237,12 @@
             this.bannersGridView.Name = "bannersGridView";
             this.bannersGridView.ReadOnly = true;
             this.bannersGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.bannersGridView.RowHeadersVisible = false;
             this.bannersGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            this.bannersGridView.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.bannersGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.bannersGridView.Size = new System.Drawing.Size(1098, 513);
+            this.bannersGridView.Size = new System.Drawing.Size(974, 513);
             this.bannersGridView.TabIndex = 13;
             // 
             // Id
@@ -249,11 +255,11 @@
             // 
             // Name
             // 
-            this.BannerName.DataPropertyName = "Name";
-            this.BannerName.HeaderText = "Nombre";
-            this.BannerName.Name = "Name";
-            this.BannerName.ReadOnly = true;
-            this.BannerName.Width = 200;
+            this.Name.DataPropertyName = "Name";
+            this.Name.HeaderText = "Nombre";
+            this.Name.Name = "Name";
+            this.Name.ReadOnly = true;
+            this.Name.Width = 200;
             // 
             // Description
             // 
@@ -289,7 +295,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.ClientSize = new System.Drawing.Size(1386, 768);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.searchDateTimePicker);
             this.Controls.Add(this.searchComboBox);
@@ -334,5 +340,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn BannerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
     }
 }

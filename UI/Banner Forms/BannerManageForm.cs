@@ -15,12 +15,12 @@ namespace DigitalSignage.UI.Banner_Forms
     public partial class BannerManageForm : Form
     {
 
-        private BannerService iBannerService;
+        private readonly IBannerService iBannerService;
         private IEnumerable<BannerDTO> iBanners;
 
-        public BannerManageForm()
+        public BannerManageForm(IBannerService pBannerService)
         {
-            this.iBannerService = new BannerService();
+            this.iBannerService = pBannerService;
             InitializeComponent();
 
             iBanners = new List<BannerDTO>();

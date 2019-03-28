@@ -21,7 +21,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// <summary>
         /// instancia del servicio de campañas - FALTA IMPLEMENTAR CONTAINER IOC
         /// </summary>
-        private CampaignService iCampaignService;
+        private readonly ICampaignService iCampaignService;
 
         /// <summary>
         /// Lista de campañas
@@ -31,10 +31,10 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// <summary>
         /// Constructor, obtiene todas las campañas y las muestra
         /// </summary>
-        public CampaignManageForm()
+        public CampaignManageForm(ICampaignService pCampaignService)
         {
+            this.iCampaignService = pCampaignService;
             iCampaigns = new List<CampaignDTO>();
-            this.iCampaignService = new CampaignService();
             InitializeComponent();
             campaignsGridView.AutoGenerateColumns = false;
 

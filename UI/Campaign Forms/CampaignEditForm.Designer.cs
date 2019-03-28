@@ -32,6 +32,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.logoPanel = new System.Windows.Forms.PictureBox();
@@ -62,7 +63,6 @@
             this.editImageButton = new System.Windows.Forms.Button();
             this.deleteImageButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
@@ -93,6 +93,18 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(1060, 49);
             this.panel3.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label2.Location = new System.Drawing.Point(443, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(190, 23);
+            this.label2.TabIndex = 35;
+            this.label2.Text = "Carga de Campaña";
+            this.label2.Visible = false;
             // 
             // title
             // 
@@ -489,9 +501,10 @@
             this.dataGridView1.GridColor = System.Drawing.Color.Silver;
             this.dataGridView1.Location = new System.Drawing.Point(766, 99);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 100;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(794, 535);
+            this.dataGridView1.Size = new System.Drawing.Size(592, 535);
             this.dataGridView1.TabIndex = 30;
             // 
             // Data
@@ -502,10 +515,10 @@
             this.Data.DefaultCellStyle = dataGridViewCellStyle1;
             this.Data.HeaderText = "Imagen";
             this.Data.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Stretch;
-            this.Data.MinimumWidth = 200;
+            this.Data.MinimumWidth = 170;
             this.Data.Name = "Data";
             this.Data.ReadOnly = true;
-            this.Data.Width = 200;
+            this.Data.Width = 170;
             // 
             // Description
             // 
@@ -534,10 +547,10 @@
             this.addImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.addImageButton.FlatAppearance.BorderSize = 0;
             this.addImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addImageButton.Location = new System.Drawing.Point(766, 653);
+            this.addImageButton.Location = new System.Drawing.Point(766, 668);
             this.addImageButton.Margin = new System.Windows.Forms.Padding(0);
             this.addImageButton.Name = "addImageButton";
-            this.addImageButton.Size = new System.Drawing.Size(245, 50);
+            this.addImageButton.Size = new System.Drawing.Size(145, 35);
             this.addImageButton.TabIndex = 6;
             this.addImageButton.Text = "Agregar Imagen";
             this.addImageButton.UseVisualStyleBackColor = false;
@@ -548,10 +561,10 @@
             this.editImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.editImageButton.FlatAppearance.BorderSize = 0;
             this.editImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.editImageButton.Location = new System.Drawing.Point(1043, 653);
+            this.editImageButton.Location = new System.Drawing.Point(990, 668);
             this.editImageButton.Margin = new System.Windows.Forms.Padding(0);
             this.editImageButton.Name = "editImageButton";
-            this.editImageButton.Size = new System.Drawing.Size(245, 50);
+            this.editImageButton.Size = new System.Drawing.Size(145, 35);
             this.editImageButton.TabIndex = 31;
             this.editImageButton.Text = "Editar Imagen";
             this.editImageButton.UseVisualStyleBackColor = false;
@@ -562,10 +575,10 @@
             this.deleteImageButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
             this.deleteImageButton.FlatAppearance.BorderSize = 0;
             this.deleteImageButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteImageButton.Location = new System.Drawing.Point(1316, 653);
+            this.deleteImageButton.Location = new System.Drawing.Point(1213, 668);
             this.deleteImageButton.Margin = new System.Windows.Forms.Padding(0);
             this.deleteImageButton.Name = "deleteImageButton";
-            this.deleteImageButton.Size = new System.Drawing.Size(245, 50);
+            this.deleteImageButton.Size = new System.Drawing.Size(145, 35);
             this.deleteImageButton.TabIndex = 32;
             this.deleteImageButton.Text = "Eliminar Imagen";
             this.deleteImageButton.UseVisualStyleBackColor = false;
@@ -581,18 +594,6 @@
             this.label1.TabIndex = 33;
             this.label1.Text = "Imágenes";
             this.label1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(443, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(190, 23);
-            this.label2.TabIndex = 35;
-            this.label2.Text = "Carga de Campaña";
-            this.label2.Visible = false;
             // 
             // CampaignEditForm
             // 
@@ -671,10 +672,10 @@
         private System.Windows.Forms.Button editImageButton;
         private System.Windows.Forms.Button deleteImageButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewImageColumn Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
         private System.Windows.Forms.DataGridViewTextBoxColumn Position;
-        private System.Windows.Forms.Label label2;
     }
 }

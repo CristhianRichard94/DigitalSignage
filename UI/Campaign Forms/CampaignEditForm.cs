@@ -93,7 +93,6 @@ namespace DigitalSignage.UI.Campaign_Forms
             {
                 //Controlar campos vacíos y length de imagenes
                 this.saveCampaign();
-                //Guardar Imagenes
                 DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -132,6 +131,8 @@ namespace DigitalSignage.UI.Campaign_Forms
             this.Campaign.EndDate = endDateTimePicker.Value;
             this.Campaign.InitialTime = new TimeSpan(Convert.ToInt32(comboBox1.Text), Convert.ToInt32(comboBox2.Text), 0);
             this.Campaign.EndTime = new TimeSpan(Convert.ToInt32(comboBox3.Text), Convert.ToInt32(comboBox4.Text), 0);
+
+            // Obtiene las imagenes del datagrid y las asigna a la campaña
             List<ImageDTO> list = new List<ImageDTO>();
             foreach (DataGridViewRow image in this.dataGridView1.Rows)
             {

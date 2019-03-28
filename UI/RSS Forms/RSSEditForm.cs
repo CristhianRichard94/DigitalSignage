@@ -26,8 +26,7 @@ namespace DigitalSignage.UI.RSS_Forms
             else
             {
                 this.RSSSource = pRSSSource;
-                this.textBox1.Text = this.RSSSource.Url;
-                this.textBox2.Text = this.RSSSource.Description;
+                this.loadSource();
             }
         }
 
@@ -46,10 +45,30 @@ namespace DigitalSignage.UI.RSS_Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                this.saveSource();
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception exc)
+            {
+                new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
+            }
+
+        }
+
+
+        void loadSource()
+        {
+            this.textBox1.Text = this.RSSSource.Url;
+            this.textBox2.Text = this.RSSSource.Description;
+        }
+
+        void saveSource()
+        {
             this.RSSSource.Url = this.textBox1.Text;
             this.RSSSource.Description = this.textBox2.Text;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
         }
     }
 }

@@ -80,6 +80,7 @@
     <Compile Include="Banner Forms\BannerManageForm.Designer.cs">
       <DependentUpon>BannerManageForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bindings.cs" />
     <Compile Include="Campaign Forms\CampaignEditForm.cs">
       <SubType>Form</SubType>
     </Compile>

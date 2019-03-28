@@ -20,7 +20,7 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <summary>
         /// Instancia del servicio de fuentes RSS - FALTA IMPLEMENTAR CONTAINER IOC
         /// </summary>
-        private RSSSourceService iRSSSourceService;
+        private readonly IRSSSourceService iRSSSourceService;
 
         private RSSSourceDTO iRSSSourceSelected;
 
@@ -36,10 +36,10 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <summary>
         /// Constructor, Obtiene la lista de fuentes RSS y las carga en la vista
         /// </summary>
-        public RSSManageForm(int pId)
+        public RSSManageForm(IRSSSourceService pRSSSourceService ,int pId)
         {
             InitializeComponent();
-            this.iRSSSourceService = new RSSSourceService();
+            this.iRSSSourceService = pRSSSourceService;
             this.searchComboBox.Items.Add(ALL_SOURCES);
             this.searchComboBox.Items.Add(ID_SOURCE);
 
@@ -77,9 +77,17 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            this.RSSSourceSelected = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            try
+            {
+                this.RSSSourceSelected = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception exc)
+            {
+                new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
+            }
+
         }
 
         /// <summary>
@@ -202,6 +210,11 @@ namespace DigitalSignage.UI.RSS_Forms
         private void button2_Click_1(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void rSSGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

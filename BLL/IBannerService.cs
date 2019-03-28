@@ -10,7 +10,7 @@ namespace DigitalSignage.BLL
     /// <summary>
     /// Interfaz del servicio de Banners
     /// </summary>
-    interface IBannerService
+    public interface IBannerService
     {
         IEnumerable<BannerDTO> GetAll();
 
@@ -21,6 +21,12 @@ namespace DigitalSignage.BLL
         void Create(BannerDTO pBanner);
 
         void Remove(BannerDTO pBanner);
+
+        IEnumerable<BannerDTO> getBannersByName(string pName);
+
+        IEnumerable<BannerDTO> getBannersActiveInDate(DateTime pDate);
+
+        IEnumerable<BannerDTO> getBannersActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime);
 
     }
 }

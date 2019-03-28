@@ -1,4 +1,6 @@
-﻿namespace DigitalSignage.UI.RSS_Forms
+﻿using System.Drawing;
+
+namespace DigitalSignage.UI.RSS_Forms
 {
     partial class RSSManageForm
     {
@@ -29,6 +31,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RSSManageForm));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.button1 = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -42,13 +45,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.rSSGridView1 = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchComboBox = new System.Windows.Forms.ComboBox();
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.panel3.SuspendLayout();
@@ -229,29 +232,13 @@
             this.Description});
             this.rSSGridView1.Location = new System.Drawing.Point(399, 99);
             this.rSSGridView1.Name = "rSSGridView1";
+            this.rSSGridView1.RowHeadersVisible = false;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.rSSGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.rSSGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rSSGridView1.Size = new System.Drawing.Size(1098, 513);
+            this.rSSGridView1.Size = new System.Drawing.Size(959, 513);
             this.rSSGridView1.TabIndex = 9;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "ID";
-            this.Id.Name = "Id";
-            // 
-            // Url
-            // 
-            this.Url.DataPropertyName = "Url";
-            this.Url.HeaderText = "URL";
-            this.Url.MinimumWidth = 15;
-            this.Url.Name = "Url";
-            // 
-            // Description
-            // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Descripción";
-            this.Description.Name = "Description";
+            this.rSSGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.rSSGridView1_CellContentClick);
             // 
             // searchComboBox
             // 
@@ -297,6 +284,29 @@
             this.searchTextBox.Size = new System.Drawing.Size(116, 21);
             this.searchTextBox.TabIndex = 15;
             // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "ID";
+            this.Id.MinimumWidth = 40;
+            this.Id.Name = "Id";
+            this.Id.Width = 40;
+            // 
+            // Url
+            // 
+            this.Url.DataPropertyName = "Url";
+            this.Url.HeaderText = "URL";
+            this.Url.MinimumWidth = 230;
+            this.Url.Name = "Url";
+            this.Url.Width = 230;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Descripción";
+            this.Description.Name = "Description";
+            // 
             // RSSManageForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -339,9 +349,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.DataGridView rSSGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Url;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.ComboBox searchComboBox;
         private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.Button searchButton;
@@ -350,5 +357,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Url;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
     }
 }

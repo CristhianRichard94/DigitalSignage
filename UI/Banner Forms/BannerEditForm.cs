@@ -1,11 +1,14 @@
-﻿using DigitalSignage.DTO;
+﻿using DigitalSignage.BLL;
+using DigitalSignage.DTO;
 using DigitalSignage.UI.RSS_Forms;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,6 +19,7 @@ namespace DigitalSignage.UI.Banner_Forms
     {
         private BannerDTO iBanner;
         private RSSSourceDTO iRSSSource;
+        private StandardKernel kernel;
 
         //constantes para los tipos de fuentes
         const string RSS_SOURCE = "Fuente RSS";
@@ -77,9 +81,13 @@ namespace DigitalSignage.UI.Banner_Forms
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.kernel = HomeForm.CreateKernel();
+            this.kernel.Load(Assembly.GetExecutingAssembly());
+            var rSSSourceService = this.kernel.Get<IRSSSourceService>();
+
             if (this.Banner.Source != null)
             {
-                RSSManageForm rSSManageForm = new RSSManageForm(this.Banner.Source.Id);
+                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,this.Banner.Source.Id);
 
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
@@ -87,7 +95,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 }
             } else
             {
-                RSSManageForm rSSManageForm = new RSSManageForm(0);
+                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,0);
 
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
@@ -148,6 +156,21 @@ namespace DigitalSignage.UI.Banner_Forms
                 case RSS_SOURCE:
                     this.Banner.Source = this.RSSSource;
                     break;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Controlar campos vacíos y source
+                this.saveBanner();
+                DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception exc)
+            {
+                new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
             }
         }
     }
