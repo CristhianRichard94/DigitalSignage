@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using DigitalSignage.DAL.EntityFramework;
 using DigitalSignage.Domain;
@@ -16,7 +17,64 @@ namespace DigitalSignage.BLL
     /// </summary>
     public class CampaignService : ICampaignService
     {
+        /// <summary>
+        /// Instancia de unidad de trabajo que representa sesion con la BD
+        /// </summary>
         private UnitOfWork iUnitOfWork;
+
+        /// <summary>
+        /// Lista de subscriptos para obtener la lista de imagenes actual
+        /// </summary>
+        private List<IObserver<byte[]>> observers;
+
+        /// <summary>
+        /// Lista de campañas en los proximos <UPDATE_TIME_IN_MINUTES> minutos
+        /// </summary>
+        private List<Campaign> iNextCampaigns;
+
+        /// <summary>
+        /// Lista de campañas activos en este momento
+        /// </summary>
+        private List<Campaign> iCurrentCampaigns;
+
+        /// <summary>
+        /// Lista de campañas activas en este momento que se estan mostrando en pantalla
+        /// Sirve para evitar un cambio de golpe cuando se agrega o elimina una campaña de iCurrentCampaigns
+        /// </summary>
+        private List<Campaign> iShowingCampaigns;
+
+        /// <summary>
+        /// Lista de imagenes (concatenacion de imagenes de las campañas activas)
+        /// </summary>
+        private List<Image> iCurrentImages;
+
+        /// <summary>
+        ///  Indice de la imagen actual
+        /// </summary>
+        private int iCurrentImageIndex = 0;
+
+        /// <summary>
+        /// Imagen por defecto
+        /// </summary>
+        private byte[] iDefaultImage = File.ReadAllBytes("../../../assets/images/no_campaigns.png");
+
+        /// <summary>
+        /// Intervalo de tiempo en minutos en que se vuelve a actualizar la lista actual de campañas
+        /// </summary>
+        private const int UPDATE_TIME_IN_MINUTES = 10;
+
+
+        /// <summary>
+        /// Intervalo de tiempo en segundos en que se actualiza la lista de campañas
+        /// </summary>
+        private const int REFRESH_TIME_IN_SECONDS = 10;
+
+        /// <summary>
+        /// Token para cancelar tareas asincronas
+        /// </summary>
+        private CancellationToken cancellationToken;
+        private CancellationTokenSource tokenSource;
+
 
         /// <summary>
         /// Constructor para usar contexto por defecto
@@ -134,6 +192,11 @@ namespace DigitalSignage.BLL
 
             return campaignsDTO;
 
+        }
+
+        public IEnumerable<CampaignDTO> GetActiveCampaigns()
+        {
+            throw new NotImplementedException();
         }
     }
 }

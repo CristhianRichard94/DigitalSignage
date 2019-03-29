@@ -26,7 +26,6 @@ namespace DigitalSignage.BLL
 
         IEnumerable<BannerDTO> getBannersActiveInDate(DateTime pDate);
 
-        IEnumerable<BannerDTO> getBannersActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime);
-
+        IEnumerable<BannerDTO> getActiveBanners();
     }
 }

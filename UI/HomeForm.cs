@@ -101,7 +101,9 @@ namespace DigitalSignage.UI
         /// <param name="e"></param>
         private void operativeScreen_Click(object sender, EventArgs e)
         {
-            OperativeForm operativeForm = new OperativeForm();
+            var campaignService = kernel.Get<ICampaignService>();
+            var bannerService = kernel.Get<IBannerService>();
+            OperativeForm operativeForm = new OperativeForm(campaignService, bannerService);
             operativeForm.ShowDialog();
         }
 

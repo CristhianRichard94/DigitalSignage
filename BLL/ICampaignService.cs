@@ -26,7 +26,7 @@ namespace DigitalSignage.BLL
 
         IEnumerable<CampaignDTO> GetCampaignsActiveInDate(DateTime pDate);
 
-        IEnumerable<CampaignDTO> GetCampaignsActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime);
+        IEnumerable<CampaignDTO> GetActiveCampaigns();
 
     }
 }

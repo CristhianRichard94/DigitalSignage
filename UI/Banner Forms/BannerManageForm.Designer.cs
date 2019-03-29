@@ -47,7 +47,7 @@ namespace DigitalSignage.UI.Banner_Forms
             this.searchLabel = new System.Windows.Forms.Label();
             this.bannersGridView = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BannerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
@@ -222,7 +222,7 @@ namespace DigitalSignage.UI.Banner_Forms
             this.bannersGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.bannersGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.Name,
+            this.BannerName,
             this.Description});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -255,11 +255,11 @@ namespace DigitalSignage.UI.Banner_Forms
             // 
             // Name
             // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "Nombre";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            this.Name.Width = 200;
+            this.BannerName.DataPropertyName = "Name";
+            this.BannerName.HeaderText = "Nombre";
+            this.BannerName.Name = "BannerName";
+            this.BannerName.ReadOnly = true;
+            this.BannerName.Width = 200;
             // 
             // Description
             // 
@@ -340,6 +340,5 @@ namespace DigitalSignage.UI.Banner_Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn BannerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
     }
 }

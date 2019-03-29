@@ -41,7 +41,7 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.campaignsGridView = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CampaignName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchComboBox = new System.Windows.Forms.ComboBox();
@@ -186,7 +186,7 @@
             this.campaignsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.campaignsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
-            this.Name,
+            this.CampaignName,
             this.Description});
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
@@ -217,11 +217,11 @@
             // 
             // Name
             // 
-            this.Name.DataPropertyName = "Name";
-            this.Name.HeaderText = "Nombre";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            this.Name.Width = 200;
+            this.CampaignName.DataPropertyName = "Name";
+            this.CampaignName.HeaderText = "Nombre";
+            this.CampaignName.Name = "CampaignName";
+            this.CampaignName.ReadOnly = true;
+            this.CampaignName.Width = 200;
             // 
             // Description
             // 
@@ -337,6 +337,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn CampaignName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
     }
 }

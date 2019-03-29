@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OperativeForm));
             this.button1 = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -35,9 +36,13 @@
             this.title = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.imgBox = new System.Windows.Forms.PictureBox();
+            this.bannerText = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBox)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -98,7 +103,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(310, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1076, 49);
+            this.panel3.Size = new System.Drawing.Size(1060, 49);
             this.panel3.TabIndex = 7;
             // 
             // flowLayoutPanel1
@@ -109,15 +114,40 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 768);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 749);
             this.flowLayoutPanel1.TabIndex = 8;
+            // 
+            // imgBox
+            // 
+            this.imgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imgBox.Location = new System.Drawing.Point(528, 128);
+            this.imgBox.Name = "imgBox";
+            this.imgBox.Size = new System.Drawing.Size(650, 400);
+            this.imgBox.TabIndex = 9;
+            this.imgBox.TabStop = false;
+            // 
+            // bannerText
+            // 
+            this.bannerText.AutoSize = true;
+            this.bannerText.BackColor = System.Drawing.Color.Black;
+            this.bannerText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bannerText.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bannerText.Location = new System.Drawing.Point(528, 552);
+            this.bannerText.MinimumSize = new System.Drawing.Size(650, 30);
+            this.bannerText.Name = "bannerText";
+            this.bannerText.Size = new System.Drawing.Size(650, 30);
+            this.bannerText.TabIndex = 10;
+            this.bannerText.Text = "Texto de banner";
+            this.bannerText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OperativeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.ClientSize = new System.Drawing.Size(1386, 768);
+            this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.bannerText);
+            this.Controls.Add(this.imgBox);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -127,11 +157,14 @@
             this.Text = "OperativeForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.OperativeForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OperativeForm_KeyDown);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -143,5 +176,8 @@
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.PictureBox imgBox;
+        private System.Windows.Forms.Label bannerText;
+        private System.Windows.Forms.Timer timer1;
     }
 }
