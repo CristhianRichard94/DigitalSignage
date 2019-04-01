@@ -10,7 +10,7 @@ namespace DigitalSignage.BLL
     /// <summary>
     /// Interfaz del servicio de campañas
     /// </summary>
-    public interface ICampaignService
+    public interface ICampaignService : IObservable<byte[]>
     {
         IEnumerable<CampaignDTO> GetAll();
 
@@ -26,7 +26,6 @@ namespace DigitalSignage.BLL
 
         IEnumerable<CampaignDTO> GetCampaignsActiveInDate(DateTime pDate);
 
-        IEnumerable<CampaignDTO> GetActiveCampaigns();
-
+        void RefreshActiveCampaigns();
     }
 }

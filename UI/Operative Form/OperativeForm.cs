@@ -34,7 +34,7 @@ namespace DigitalSignage.UI.Operative_Form
         private int iCurrentCharacter = 0;
 
         // Variable de texto con espacio para que el texto de banner entre por la izquierda
-        private string WHITE_SPACE = new String(' ', 250);
+        private string WHITE_SPACE = new String(' ', 40);
 
 
         public OperativeForm(ICampaignService campaignService, IBannerService bannerService)
@@ -42,6 +42,10 @@ namespace DigitalSignage.UI.Operative_Form
             InitializeComponent();
             this.iCampaignService = campaignService;
             this.iBannerService = bannerService;
+            this.bannerText.Text = WHITE_SPACE + "No hay ningun banner activo en este momento";
+            iCampaignUnsubscriber = (Unsubscriber<byte[]>)this.iCampaignService.Subscribe(this);
+            iBannerUnsubscriber = (Unsubscriber<string>)iBannerService.Subscribe(this);
+
 
             // Timmer para mover el banner de texto
             this.timer1.Interval = 100;
@@ -76,8 +80,8 @@ namespace DigitalSignage.UI.Operative_Form
             {
 
                 // Actualizar banners y campañas
-                //iBannerService.RefreshBanners();
-                //iCampaignService.RefreshCampaigns();
+                iBannerService.RefreshActiveBanners();
+                iCampaignService.RefreshActiveCampaigns();
 
             }
 
@@ -106,27 +110,7 @@ namespace DigitalSignage.UI.Operative_Form
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (this.InvokeRequired)
-            {
-                /* No esta en el hilo de UI, Reingresar ahi... */
-                this.BeginInvoke(new EventHandler(timer1_Tick), sender, e);
-            }
-            else
-            {
-                lock (timer1)
-                {
-                    /* Solo funciona cuando no es reingresada mientras ya esta en proceso */
-                    if (this.timer1.Enabled)
-                    {
-                        this.timer1.Stop();
-
-                        // Mover el texto del banner
-                        // moveBannerText();
-
-                        this.timer1.Start(); /* Opcionalmente reiniciar por trabajo periodico*/
-                    }
-                }
-            }
+          
         }
 
         private void moveBannerText()
@@ -171,5 +155,31 @@ namespace DigitalSignage.UI.Operative_Form
             iCurrentText = WHITE_SPACE + text;
         }
 
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            if (this.InvokeRequired)
+            {
+                // No esta en el hilo de UI, Reingresar ahi... 
+                this.BeginInvoke(new EventHandler(timer1_Tick), sender, e);
+            }
+            else
+            {
+                lock (timer1)
+                {
+                    // Solo funciona cuando no es reingresada mientras ya esta en proceso
+                    if (this.timer1.Enabled)
+                    {
+                        // Detiene el timer
+                        this.timer1.Stop();
+
+                        // Mover el texto del banner
+                        moveBannerText();
+
+                        // Reinicia el timer
+                        this.timer1.Start();
+                    }
+                }
+            }
+        }
     }
 }

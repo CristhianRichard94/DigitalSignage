@@ -37,8 +37,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.imgBox = new System.Windows.Forms.PictureBox();
-            this.bannerText = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.bannerText = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -119,25 +119,30 @@
             // 
             // imgBox
             // 
+            this.imgBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.imgBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.imgBox.Location = new System.Drawing.Point(528, 128);
+            this.imgBox.Location = new System.Drawing.Point(423, 133);
             this.imgBox.Name = "imgBox";
-            this.imgBox.Size = new System.Drawing.Size(650, 400);
+            this.imgBox.Size = new System.Drawing.Size(835, 450);
+            this.imgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.imgBox.TabIndex = 9;
             this.imgBox.TabStop = false;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
+            // 
             // bannerText
             // 
-            this.bannerText.AutoSize = true;
+            this.bannerText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bannerText.BackColor = System.Drawing.Color.Black;
-            this.bannerText.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.bannerText.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bannerText.Location = new System.Drawing.Point(528, 552);
-            this.bannerText.MinimumSize = new System.Drawing.Size(650, 30);
+            this.bannerText.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bannerText.Location = new System.Drawing.Point(420, 641);
             this.bannerText.Name = "bannerText";
-            this.bannerText.Size = new System.Drawing.Size(650, 30);
+            this.bannerText.Size = new System.Drawing.Size(835, 51);
             this.bannerText.TabIndex = 10;
-            this.bannerText.Text = "Texto de banner";
+            this.bannerText.Text = "label1";
             this.bannerText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OperativeForm
@@ -164,7 +169,6 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -177,7 +181,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.PictureBox imgBox;
-        private System.Windows.Forms.Label bannerText;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label bannerText;
     }
 }

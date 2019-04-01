@@ -36,13 +36,7 @@ namespace DigitalSignage.BLL
         /// Lista de campañas activos en este momento
         /// </summary>
         private List<Campaign> iCurrentCampaigns;
-
-        /// <summary>
-        /// Lista de campañas activas en este momento que se estan mostrando en pantalla
-        /// Sirve para evitar un cambio de golpe cuando se agrega o elimina una campaña de iCurrentCampaigns
-        /// </summary>
-        private List<Campaign> iShowingCampaigns;
-
+        
         /// <summary>
         /// Lista de imagenes (concatenacion de imagenes de las campañas activas)
         /// </summary>
@@ -82,8 +76,19 @@ namespace DigitalSignage.BLL
         public CampaignService()
         {
             this.iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
-        }
 
+            observers = new List<IObserver<byte[]>>();
+            iCurrentCampaigns = new List<Campaign>();
+            iCurrentImages = new List<Image>();
+            iCurrentImageIndex = 0;
+
+            tokenSource = new CancellationTokenSource();
+            cancellationToken = tokenSource.Token;
+
+            GetNextActiveCampaignsLoop();
+            UpdateCampaignListsLoop();
+            UpdateCurrentImageIndex();
+        }
 
         /// <summary>
         /// Obtiene todas las campañas del repositorio
@@ -120,8 +125,8 @@ namespace DigitalSignage.BLL
         {
             Campaign campaign = new Campaign();
             AutoMapper.Mapper.Map(pCampaign, campaign);
-            this.iUnitOfWork.CampaignRepository.Update(campaign);
-            this.iUnitOfWork.Complete();
+            iUnitOfWork.CampaignRepository.Update(campaign);
+            iUnitOfWork.Complete();
         }
 
 
@@ -133,8 +138,8 @@ namespace DigitalSignage.BLL
         {
             Campaign campaign = new Campaign();
             AutoMapper.Mapper.Map(pCampaign, campaign);
-            this.iUnitOfWork.CampaignRepository.Add(campaign);
-            this.iUnitOfWork.Complete();
+            iUnitOfWork.CampaignRepository.Add(campaign);
+            iUnitOfWork.Complete();
         }
 
         /// <summary>
@@ -145,8 +150,8 @@ namespace DigitalSignage.BLL
         {
             Campaign campaign = new Campaign();
             AutoMapper.Mapper.Map(pCampaign, campaign);
-            this.iUnitOfWork.CampaignRepository.Remove(campaign);
-            this.iUnitOfWork.Complete();
+            iUnitOfWork.CampaignRepository.Remove(campaign);
+            iUnitOfWork.Complete();
 
         }
 
@@ -158,7 +163,7 @@ namespace DigitalSignage.BLL
         /// <returns></returns>
         public IEnumerable<CampaignDTO> getCampaignsByName(string pName)
         {
-            IEnumerable<Campaign> campaigns = this.iUnitOfWork.CampaignRepository.GetCampaignsByName(pName);
+            IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsByName(pName);
             return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
         }
 
@@ -194,9 +199,220 @@ namespace DigitalSignage.BLL
 
         }
 
-        public IEnumerable<CampaignDTO> GetActiveCampaigns()
+        public void GetActiveCampaigns()
         {
-            throw new NotImplementedException();
+            // Obtiene las campañas que se encontraran activas en algun momento de los siguientes <UPDATE_TIME_IN_MINUTES> minutos
+            var now = DateTime.Now;
+            var actualTimespan = new TimeSpan(now.Hour, now.Minute, 0);
+
+            // Limpia la lista de campañas
+            iCurrentCampaigns.Clear();
+
+            iNextCampaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(now, actualTimespan, actualTimespan.Add(TimeSpan.FromMinutes(UPDATE_TIME_IN_MINUTES))).ToList();
+
         }
+
+        /// <summary>
+        /// Invoca un bucle para obtener las siguientes campañas a mostrar
+        /// </summary>
+        private void GetNextActiveCampaignsLoop()
+        {
+
+            var interval = TimeSpan.FromMinutes(UPDATE_TIME_IN_MINUTES);
+
+            RunPeriodicAsync(GetActiveCampaigns, interval, cancellationToken);
+
+        }
+
+
+        /// <summary>
+        /// Invoca un bucle para actualizar las listas de campañas 
+        /// </summary>
+        private void UpdateCampaignListsLoop()
+        {
+
+            var interval = TimeSpan.FromSeconds(REFRESH_TIME_IN_SECONDS);
+
+            RunPeriodicAsync(UpdateCampaignLists, interval, cancellationToken);
+
+        }
+
+        /// <summary>
+        /// Actualiza la lista de campañas activas
+        /// </summary>
+        private void UpdateCampaignLists()
+        {
+                // Verifica que las campañas que se estan mostrando no se hayan vencido
+                iCurrentCampaigns.RemoveAll(c => !c.IsActiveNow());
+
+                // Verifica que no haya nuevas campañas para agregar
+                foreach (Campaign campaign in iNextCampaigns)
+                {
+
+                    if (campaign.IsActiveNow())
+                    {
+                        iCurrentCampaigns.Add(campaign);
+                    }
+
+                }
+                // Elimina los elementos de la lista de next campaigns
+                iNextCampaigns.RemoveAll(c => c.IsActiveNow());
+
+            
+        }
+
+
+        /// <summary>
+        /// Corre una tarea asincrona cada cierto intervalo
+        /// </summary>
+        /// <param name="onTick">Tarea a ejecutar</param>
+        /// <param name="interval">Intervalo de tiempo cada cuanto se invoca la tarea</param>
+        /// <param name="token">Token para canelar tarea</param>
+        /// <returns></returns>
+        private static async Task RunPeriodicAsync(Action onTick, TimeSpan interval, CancellationToken token)
+        {
+            // Repeat this loop until cancelled.
+            while (!token.IsCancellationRequested)
+            {
+                // Call our onTick function.
+                onTick?.Invoke();
+
+                // Wait to repeat again.
+                if (interval > TimeSpan.Zero)
+                    await Task.Delay(interval, token);
+            }
+        }
+
+
+        /// <summary>
+        /// Actualiza el indice actual de la imagen
+        /// </summary>
+        private void UpdateCurrentImageIndex()
+        {
+            // Verifica que no se haya terminado de recorrer la lista de imagenes
+            iCurrentImageIndex++;
+            if (iCurrentImageIndex >= iCurrentImages.Count)
+            {
+
+                UpdateCurrentImages();
+                iCurrentImageIndex = 0;
+
+            }
+
+            TimeSpan interval;
+
+            // Si hay imagenes para mostrar
+            if (iCurrentImages.Count > 0)
+            {
+
+                // Notifica a los observadores
+                foreach (var observer in observers)
+                {
+                    observer.OnNext(iCurrentImages[iCurrentImageIndex].Data);
+                }
+
+                // Pospone la actualizacion dependiendo de la duracion de la imagen actual
+                interval = TimeSpan.FromSeconds(iCurrentImages[iCurrentImageIndex].Duration);
+
+            } // No hay imagenes para mostrar
+            else
+            {
+
+                // Notifica a los observadores con la imagen por default
+                foreach (var observer in observers)
+                {
+                    observer.OnNext(iDefaultImage);
+                }
+
+                // Pospone la siguiente actualizacion en un tiempo por defecto
+                interval = TimeSpan.FromSeconds(5);
+
+            }
+
+            // Corre una tarea de espera para volver a actualizar el indice
+            Task.Run(async () => {
+
+                // Espera que se ejecute la tarea de espera
+                await Task.Delay(interval, cancellationToken);
+
+                // Si no se solicito cancelar, se actualiza el indice
+                if (!cancellationToken.IsCancellationRequested)
+                {
+                    UpdateCurrentImageIndex();
+                }
+
+            }, cancellationToken);
+
+        }
+
+        /// <summary>
+        /// Actualiza la lista de imagenes actuales
+        /// </summary>
+        private void UpdateCurrentImages()
+        {
+            // Vacia la lista de imagenes
+            iCurrentImages.Clear();
+
+            //Agrega las imagenes de las siguientes campañas
+            foreach (Campaign campaign in iCurrentCampaigns)
+            {
+
+                iCurrentImages.AddRange(campaign.Images);
+
+            }
+        }
+
+
+        /// <summary>
+        /// Reinicia todas las tareas asincronas del servicio
+        /// </summary>
+        public void RefreshActiveCampaigns()
+        {
+
+            // Cancela las tareas actuales por medio del token
+            tokenSource.Cancel();
+            tokenSource.Dispose();
+
+            // Genera un nuevo token
+            cancellationToken = new CancellationTokenSource().Token;
+
+            // Vuelve a correr bucles de actualizacion de campañas e imagenes
+            GetNextActiveCampaignsLoop();
+            UpdateCampaignListsLoop();
+            UpdateCurrentImageIndex();
+        }
+
+
+        /// <summary>
+        /// Subscripcion para recibir las imagenes de la campaña actual
+        /// </summary>
+        /// <param name="observer">Nuevo observador que desea subscribirse</param>
+        /// <returns></returns>
+        public IDisposable Subscribe(IObserver<byte[]> observer)
+        {
+            // verifica que el observador no exista en la lista
+            if (!observers.Contains(observer))
+            {
+                observers.Add(observer);
+
+                if (iCurrentImages.Count > 0)
+                {
+                    // Envia al nuevo observador la imagen actual.
+                    observer.OnNext(iCurrentImages[iCurrentImageIndex].Data);
+
+                }
+                else
+                {
+
+                    // Envia al nuevo observador la imagen por defecto
+                    observer.OnNext(iDefaultImage);
+
+                }
+
+            }
+            return new Unsubscriber<byte[]>(observers, observer);
+        }
+
     }
+
 }
