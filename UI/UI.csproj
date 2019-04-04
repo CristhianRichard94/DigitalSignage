@@ -119,16 +119,16 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RSS Forms\RSSEditForm.cs">
+    <Compile Include="Banner Source Forms\RSSEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RSS Forms\RSSEditForm.Designer.cs">
+    <Compile Include="Banner Source Forms\RSSEditForm.Designer.cs">
       <DependentUpon>RSSEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="RSS Forms\RSSManageForm.cs">
+    <Compile Include="Banner Source Forms\RSSManageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RSS Forms\RSSManageForm.Designer.cs">
+    <Compile Include="Banner Source Forms\RSSManageForm.Designer.cs">
       <DependentUpon>RSSManageForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Banner Forms\BannerEditForm.resx">
@@ -160,10 +160,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSS Forms\RSSEditForm.resx">
+    <EmbeddedResource Include="Banner Source Forms\RSSEditForm.resx">
       <DependentUpon>RSSEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RSS Forms\RSSManageForm.resx">
+    <EmbeddedResource Include="Banner Source Forms\RSSManageForm.resx">
       <DependentUpon>RSSManageForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />

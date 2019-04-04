@@ -1,4 +1,5 @@
-﻿using DigitalSignage.DTO;
+﻿using DigitalSignage.BLL.RSSReader;
+using DigitalSignage.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,14 +15,18 @@ namespace DigitalSignage.UI.RSS_Forms
     public partial class RSSEditForm : Form
     {
         private RSSSourceDTO iRSSSource;
+        private IRSSReader iRSSReader;
 
-        public RSSEditForm(RSSSourceDTO pRSSSource)
+        public RSSEditForm(IRSSReader rSSReader,RSSSourceDTO pRSSSource)
         {
             InitializeComponent();
+
+            this.RSSReader = rSSReader;
 
             if (pRSSSource == null)
             {
                 this.RSSSource = new RSSSourceDTO();
+                this.RSSSource.RSSItems = new List<RSSItemDTO>();
             }
             else
             {
@@ -30,7 +35,9 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
-        public RSSSourceDTO RSSSource { get => iRSSSource; set => iRSSSource = value; }
+        public RSSSourceDTO RSSSource { get => IRSSSource; set => IRSSSource = value; }
+        public RSSSourceDTO IRSSSource { get => iRSSSource; set => iRSSSource = value; }
+        public IRSSReader RSSReader { get => iRSSReader; set => iRSSReader = value; }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -63,12 +70,36 @@ namespace DigitalSignage.UI.RSS_Forms
         {
             this.textBox1.Text = this.RSSSource.Url;
             this.textBox2.Text = this.RSSSource.Description;
+            this.rSSItemsGridView.DataSource = this.RSSSource.RSSItems;
         }
 
         void saveSource()
         {
             this.RSSSource.Url = this.textBox1.Text;
             this.RSSSource.Description = this.textBox2.Text;
+
+            // Obtiene los items del datagrid y los asigna a la fuente
+            List<RSSItemDTO> list = new List<RSSItemDTO>();
+            foreach (DataGridViewRow item in this.rSSItemsGridView.Rows)
+            {
+                list.Add((RSSItemDTO)item.DataBoundItem);
+            }
+            this.RSSSource.RSSItems = list;
+        }
+
+        private void rSSItemsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bwRSSReader_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
     }
 }

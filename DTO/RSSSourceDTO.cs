@@ -15,6 +15,6 @@ namespace DigitalSignage.DTO
 
         public string Description { get; set; }
 
-        public IList<RSSItemDTO> RssItems { get; set; }
+        public IList<RSSItemDTO> RSSItems { get; set; }
     }
 }

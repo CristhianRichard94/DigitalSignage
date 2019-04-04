@@ -110,7 +110,6 @@ namespace DigitalSignage.UI.Operative_Form
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-          
         }
 
         private void moveBannerText()
@@ -174,12 +173,17 @@ namespace DigitalSignage.UI.Operative_Form
 
                         // Mover el texto del banner
                         moveBannerText();
-
+                        updateTimeLabel();
                         // Reinicia el timer
                         this.timer1.Start();
                     }
                 }
             }
+        }
+
+        void updateTimeLabel()
+        {
+            this.timeLabel.Text = DateTime.Now.ToShortDateString() + " - "+ DateTime.Now.ToShortTimeString();
         }
     }
 }

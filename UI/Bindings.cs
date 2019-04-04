@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ninject.Modules;
 using Ninject;
 using DigitalSignage.BLL;
+using DigitalSignage.BLL.RSSReader;
 
 namespace DigitalSignage.UI
 {
@@ -17,10 +18,11 @@ namespace DigitalSignage.UI
 
         public override void Load()
         {
-            // Para el servicio de campañas usar la implementacion CampaignService
+            // Para el servicio iX usar la implementacion X
             Bind<ICampaignService>().To<CampaignService>();
             Bind<IBannerService>().To<BannerService>();
             Bind<IRSSSourceService>().To<RSSSourceService>();
+            Bind<IRSSReader>().To<RSSReader>();
         }
     }
 }

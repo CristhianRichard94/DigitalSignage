@@ -1,11 +1,14 @@
 ﻿using DigitalSignage.BLL;
+using DigitalSignage.BLL.RSSReader;
 using DigitalSignage.DTO;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,6 +33,8 @@ namespace DigitalSignage.UI.RSS_Forms
         private IEnumerable<RSSSourceDTO> iRSSSources;
         string ALL_SOURCES = "Mostrar todas las Fuentes";
         string ID_SOURCE = "Buscar por ID";
+        private StandardKernel kernel;
+
         public IEnumerable<RSSSourceDTO> RSSSources { get => iRSSSources; set => iRSSSources = value; }
         public RSSSourceDTO RSSSourceSelected { get => iRSSSourceSelected; set => iRSSSourceSelected = value; }
 
@@ -97,7 +102,10 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
-            RSSEditForm rSSEditForm = new RSSEditForm(null);
+            this.kernel = HomeForm.CreateKernel();
+            this.kernel.Load(Assembly.GetExecutingAssembly());
+            var rSSReader = this.kernel.Get<IRSSReader>();
+            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader,null);
 
             if (rSSEditForm.ShowDialog() == DialogResult.OK)
             {
@@ -123,7 +131,10 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <param name="e"></param>
         private void editButton_Click(object sender, EventArgs e)
         {
-            RSSEditForm rSSEditForm = new RSSEditForm((RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem);
+            this.kernel = HomeForm.CreateKernel();
+            this.kernel.Load(Assembly.GetExecutingAssembly());
+            var rSSReader = this.kernel.Get<IRSSReader>();
+            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader,(RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem);
             if (rSSEditForm.ShowDialog() == DialogResult.OK)
             {
                 try

@@ -39,6 +39,7 @@
             this.imgBox = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.bannerText = new System.Windows.Forms.Label();
+            this.timeLabel = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -138,12 +139,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.bannerText.BackColor = System.Drawing.Color.Black;
             this.bannerText.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bannerText.Location = new System.Drawing.Point(420, 641);
+            this.bannerText.Location = new System.Drawing.Point(423, 628);
             this.bannerText.Name = "bannerText";
             this.bannerText.Size = new System.Drawing.Size(835, 51);
             this.bannerText.TabIndex = 10;
             this.bannerText.Text = "label1";
             this.bannerText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // timeLabel
+            // 
+            this.timeLabel.AutoSize = true;
+            this.timeLabel.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeLabel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.timeLabel.Location = new System.Drawing.Point(1127, 717);
+            this.timeLabel.Name = "timeLabel";
+            this.timeLabel.Size = new System.Drawing.Size(0, 18);
+            this.timeLabel.TabIndex = 14;
             // 
             // OperativeForm
             // 
@@ -151,6 +162,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.bannerText);
             this.Controls.Add(this.imgBox);
             this.Controls.Add(this.panel3);
@@ -169,6 +181,7 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -183,5 +196,6 @@
         private System.Windows.Forms.PictureBox imgBox;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label bannerText;
+        private System.Windows.Forms.Label timeLabel;
     }
 }
