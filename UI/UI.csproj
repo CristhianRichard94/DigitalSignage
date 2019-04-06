@@ -207,6 +207,7 @@
     <None Include="Resources\NY-Signage %281%29.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Radio-0.5s-200px.gif" />
     <None Include="Resources\coollogo_com-25963166.png" />
     <None Include="Resources\checked.png" />
     <Content Include="Resources\down-arrow %281%29 - copia.png" />

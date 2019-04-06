@@ -22,7 +22,7 @@ namespace DigitalSignage.UI
             Bind<ICampaignService>().To<CampaignService>();
             Bind<IBannerService>().To<BannerService>();
             Bind<IRSSSourceService>().To<RSSSourceService>();
-            Bind<IRSSReader>().To<RSSReader>();
+            Bind<IRSSReader>().To<XMLRSSReader>();
         }
     }
 }

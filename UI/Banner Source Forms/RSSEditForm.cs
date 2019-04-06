@@ -34,23 +34,35 @@ namespace DigitalSignage.UI.RSS_Forms
                 this.loadSource();
             }
         }
-
-        public RSSSourceDTO RSSSource { get => IRSSSource; set => IRSSSource = value; }
-        public RSSSourceDTO IRSSSource { get => iRSSSource; set => iRSSSource = value; }
+        
+        public RSSSourceDTO RSSSource { get => iRSSSource; set => iRSSSource = value; }
         public IRSSReader RSSReader { get => iRSSReader; set => iRSSReader = value; }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
-            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
-                                     "Cancelar");
-            confirmResult.ShowDialog();
-            if (confirmResult.DialogResult == DialogResult.Yes)
+            if (BwRSSReader.IsBusy)
             {
-                this.Close();
+                var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "Se estan obteniendo feeds ¿Está seguro que desea cancelar el proceso y salir sin guardar?",
+                                    "Cancelar");
+                confirmResult.ShowDialog();
+                if (confirmResult.DialogResult == DialogResult.Yes)
+                {
+                    BwRSSReader.CancelAsync();
+                    this.Close();
+                }
+            } else
+            {
+               var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                                     "Cancelar");
+                confirmResult.ShowDialog();
+                if (confirmResult.DialogResult == DialogResult.Yes)
+                {
+                    this.Close();
+                }
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -68,15 +80,15 @@ namespace DigitalSignage.UI.RSS_Forms
 
         void loadSource()
         {
-            this.textBox1.Text = this.RSSSource.Url;
-            this.textBox2.Text = this.RSSSource.Description;
+            this.urlTextBox.Text = this.RSSSource.Url;
+            this.descriptionTextBox.Text = this.RSSSource.Description;
             this.rSSItemsGridView.DataSource = this.RSSSource.RSSItems;
         }
 
         void saveSource()
         {
-            this.RSSSource.Url = this.textBox1.Text;
-            this.RSSSource.Description = this.textBox2.Text;
+            this.RSSSource.Url = this.urlTextBox.Text;
+            this.RSSSource.Description = this.descriptionTextBox.Text;
 
             // Obtiene los items del datagrid y los asigna a la fuente
             List<RSSItemDTO> list = new List<RSSItemDTO>();
@@ -92,14 +104,66 @@ namespace DigitalSignage.UI.RSS_Forms
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void verifyButton_Click(object sender, EventArgs e)
         {
+            Uri uri;
+
+            if (!Uri.TryCreate(urlTextBox.Text.Trim(), UriKind.Absolute, out uri))
+            {
+                new NotificationForm(MessageBoxButtons.OK, "La URL ingresada no es válida.", "URL Erronea").ShowDialog();
+            } else
+            {
+                verifyButton.Enabled = false;
+                saveButton.Enabled = false;
+                BwRSSReader.RunWorkerAsync(uri);
+                this.loadPictureBox.Visible = true;
+            }
 
         }
 
-        private void bwRSSReader_DoWork(object sender, DoWorkEventArgs e)
+        private void BwRSSReader_DoWork(object sender, DoWorkEventArgs e)
+        {
+            e.Result = iRSSReader.Read((Uri)e.Argument);
+
+            BwRSSReader.ReportProgress(1,e.Result);
+            if (BwRSSReader.CancellationPending)
+            {
+                e.Cancel = true;
+                return;
+            }
+        }
+
+        private void BwRSSReader_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            rSSItemsGridView.DataSource = e.UserState;
+        }
+
+        private void BwRSSReader_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
 
+            if (e.Error != null)
+            {
+                new NotificationForm(MessageBoxButtons.OK, "Error: "+ e.Error.Message, "Error al obtener feeds.").ShowDialog();
+
+            }
+            else if (!e.Cancelled)
+            {
+
+                var items = (List<RSSItemDTO>)e.Result;
+                rSSItemsGridView.DataSource = items;
+                iRSSSource.RSSItems = items;
+            }
+
+            verifyButton.Enabled = true;
+            saveButton.Enabled = true;
+            loadPictureBox.Visible = false;
+            checkPictureBox.Visible = true;
+
+        }
+
+        private void urlTextBox_TextChanged(object sender, EventArgs e)
+        {
+            rSSItemsGridView.DataSource = null;
         }
     }
 }

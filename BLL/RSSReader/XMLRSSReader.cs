@@ -11,8 +11,12 @@ namespace DigitalSignage.BLL.RSSReader
     /// <summary>
     /// Clase que implementa lector de RSS procesando el XML de la fuente.
     /// </summary>
-    class XMLRSSReader : RSSReader
+    public class XMLRSSReader : RSSReader
     {
+        public XMLRSSReader()
+        {
+        }
+
         public override IEnumerable<RSSItemDTO> Read(Uri pUri)
         {
             if (pUri == null)
@@ -20,30 +24,8 @@ namespace DigitalSignage.BLL.RSSReader
                 throw new ArgumentNullException("pUri");
             }
 
-            // Se obtiene los datos en formato XML desde la URL, y se transforma el mismo para obtener los diferentes ítems. El modelo de XML
-            // utilizado pertenece a http://www.w3schools.com/xml/xml_rss.asp:
-            // Se recupera el XML desde la URL, y se parsea el mismo para obtener los diferentes ítems. El modelo de XML
-            // utilizado es el siguiente (http://www.w3schools.com/xml/xml_rss.asp):
-            //<? xml version = "1.0" encoding = "UTF-8" ?>
-            //   < rss version = "2.0" >
-            //   < channel >   
-            //     < title > W3Schools Home Page</ title >     
-            //        < link > https://www.w3schools.com</link>
-            //  < description > Free web building tutorials </ description >
-            //     < item >  
-            //       < title > RSS Tutorial </ title >     
-            //          < link > https://www.w3schools.com/xml/xml_rss.asp</link>
-            //    < description > New RSS tutorial on W3Schools</ description >  
-            //     </ item >
-            //     < item >  
-            //       < title > XML Tutorial </ title >    
-            //          < link > https://www.w3schools.com/xml</link>
-            //    < description > New XML tutorial on W3Schools</ description >  
-            //     </ item >
-            //   </ channel > 
-            //   </ rss >
 
-            // Obtiene el feed
+            // Obtiene el feed en formato XML
             XmlTextReader mXmlReader = new XmlTextReader(pUri.AbsoluteUri);
 
             // Genera un nuevo documento
@@ -53,12 +35,12 @@ namespace DigitalSignage.BLL.RSSReader
             mRssXmlDocument.Load(mXmlReader);
 
 
-            IList<RSSItemDTO> mRssItems = new List<RSSItemDTO>();
+            IList<RSSItemDTO> rSSItems = new List<RSSItemDTO>();
 
             // Genera un item por cada nodo/item en el documento XML
             foreach (XmlNode bRssXmlItem in mRssXmlDocument.SelectNodes("//channel/item"))
             {
-                mRssItems.Add(new RSSItemDTO
+                rSSItems.Add(new RSSItemDTO
                 {
                     Title = XMLRSSReader.GetXmlNodeValue<String>(bRssXmlItem, "title"),
                     Description = XMLRSSReader.GetXmlNodeValue<String>(bRssXmlItem, "description"),
@@ -67,7 +49,7 @@ namespace DigitalSignage.BLL.RSSReader
                 });
             }
 
-            return mRssItems;
+            return rSSItems;
         }
 
         /// <summary>
@@ -90,27 +72,27 @@ namespace DigitalSignage.BLL.RSSReader
             }
 
             // Inicialmente se devuelve el valor por defecto del tipo genérico. Si es un objeto, devuelve null, sino depende del tipo indicado.
-            TResult mResult = default(TResult);
+            TResult result = default(TResult);
 
             // Tipo utilizado para la conversión final, por defecto será el mismo tipo genérico.
-            Type mConvertToType = typeof(TResult);
+            Type convertToType = typeof(TResult);
 
-            XmlNode mChildNode = pParentNode.SelectSingleNode(pChildNodeName);
+            XmlNode childNode = pParentNode.SelectSingleNode(pChildNodeName);
 
             // Si el nodo existe, se obtiene el valor de texto del mismo para convertirlo al tipo genérico.
-            if (mChildNode != null)
+            if (childNode != null)
             {
                 // Se comprueba si el tipo es Nullable, en dicho caso se debe convertir al tipo subyacente.
-                if (Nullable.GetUnderlyingType(mConvertToType) != null)
+                if (Nullable.GetUnderlyingType(convertToType) != null)
                 {
-                    mConvertToType = Nullable.GetUnderlyingType(mConvertToType);
+                    convertToType = Nullable.GetUnderlyingType(convertToType);
                 }
 
                 // Se realiza la conversión del texto del nodo al tipo adecuado, ya sea el tipo genérico indicado o bien el tipo subyacente del Nullable.
-                mResult = (TResult)Convert.ChangeType(mChildNode.InnerText.Trim(), mConvertToType);
+                result = (TResult)Convert.ChangeType(childNode.InnerText.Trim(), convertToType);
             }
 
-            return mResult;
+            return result;
         }
     }
 }

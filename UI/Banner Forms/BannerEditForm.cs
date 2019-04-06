@@ -85,7 +85,7 @@ namespace DigitalSignage.UI.Banner_Forms
             this.kernel.Load(Assembly.GetExecutingAssembly());
             var rSSSourceService = this.kernel.Get<IRSSSourceService>();
 
-            if (this.Banner.Source != null)
+            if (this.Banner.Source != null && this.Banner.Source.GetType() == typeof(RSSSourceDTO))
             {
                 RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,this.Banner.Source.Id);
 

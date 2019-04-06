@@ -109,5 +109,15 @@ namespace DigitalSignage.UI.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Radio_0_5s_200px {
+            get {
+                object obj = ResourceManager.GetObject("Radio-0.5s-200px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
