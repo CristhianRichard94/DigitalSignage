@@ -51,7 +51,6 @@ namespace DigitalSignage.UI.RSS_Forms
             // Opcion de mostrar todas las fuentes
             this.searchComboBox.SelectedIndex = 0;
             this.rSSGridView1.AutoGenerateColumns = false;
-            this.rSSGridView1.DataSource = this.RSSSources;
             // Caso de que se inicie desde pantalla principal 
             if (pId == -1)
             {

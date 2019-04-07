@@ -17,6 +17,37 @@ namespace DigitalSignage.DAL.EntityFramework
 
         }
 
+
+        /// <summary>
+        /// Obtiene todas las fuentes
+        /// </summary>
+        /// <returns>Enumerable de fuentes RSS</returns>
+        public override IEnumerable<RSSSource> GetAll()
+        {
+            IEnumerable<RSSSource> sources = base.GetAll();
+            foreach (RSSSource source in sources)
+            {
+                //Incluye los items de la fuente
+                this.iDbContext.Entry(source).Collection(p => p.RSSItems).Load();
+            }
+            return sources;
+        }
+
+        /// <summary>
+        /// Obtiene todas las fuentes
+        /// </summary>
+        /// <returns>Enumerable de campañas</returns>
+        public override RSSSource Get(int pId)
+        {
+            RSSSource source = base.Get(pId);
+
+            this.iDbContext.Entry(source).Collection(p => p.RSSItems).Load();
+            
+            return source;
+        }
+
+
+
         /// <summary>
         /// Obtiene los banners asociados a una fuente RSS
         /// </summary>
@@ -24,7 +55,7 @@ namespace DigitalSignage.DAL.EntityFramework
         /// <returns>Enumerable de banners</returns>
         public IEnumerable<Banner> GetBannersWithSource(int pSourceId)
         {
-            return this.iDbContext.Banners
+            return base.iDbContext.Set<Banner>()
                 .Where(b => b.SourceId == pSourceId)
                 .ToList();
         }

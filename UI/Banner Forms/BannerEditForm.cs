@@ -39,6 +39,7 @@ namespace DigitalSignage.UI.Banner_Forms
             else
             {
                 this.Banner = new BannerDTO();
+                this.Banner.Source = new TextSourceDTO();
                 // Opcion de cargar fuente de texto
                 comboBox5.SelectedIndex = 0;
 
@@ -120,6 +121,8 @@ namespace DigitalSignage.UI.Banner_Forms
             comboBox4.SelectedIndex = this.Banner.EndTime.Minutes;
             if (this.Banner.GetType() == typeof(TextSourceDTO))
             {
+                comboBox5.SelectedItem = TEXT_SOURCE;
+
                 TextSourceDTO text = (TextSourceDTO)this.Banner.Source;
                 this.textBox1.Text = text.Data;
                 this.pictureBox1.Visible = false;
@@ -129,12 +132,12 @@ namespace DigitalSignage.UI.Banner_Forms
             if (this.Banner.Source.GetType() == typeof(RSSSourceDTO))
             {
                 comboBox5.SelectedItem = RSS_SOURCE;
-                this.comboBox5_SelectedIndexChanged(comboBox5, EventArgs.Empty);
-
-                RSSSourceDTO rssSource = (RSSSourceDTO)this.Banner.Source;
+                this.RSSSource = (RSSSourceDTO)this.Banner.Source;
                 this.pictureBox1.Visible = true;
 
             }
+            this.comboBox5_SelectedIndexChanged(comboBox5, EventArgs.Empty);
+
         }
 
         private void saveBanner()
