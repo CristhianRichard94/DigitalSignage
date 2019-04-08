@@ -72,6 +72,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 case TEXT_SOURCE:
                     this.textBox1.Visible = true;
                     this.button2.Visible = false;
+                    this.pictureBox1.Visible = false;
                     break;
                 case RSS_SOURCE:
                     this.textBox1.Visible = false;
@@ -93,6 +94,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
                     this.RSSSource = rSSManageForm.RSSSourceSelected;
+                    pictureBox1.Visible = true;
                 }
             } else
             {
@@ -101,6 +103,8 @@ namespace DigitalSignage.UI.Banner_Forms
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
                     this.RSSSource = rSSManageForm.RSSSourceSelected;
+                    pictureBox1.Visible = true;
+
                 }
             }
 
@@ -164,17 +168,10 @@ namespace DigitalSignage.UI.Banner_Forms
 
         private void button3_Click(object sender, EventArgs e)
         {
-            try
-            {
                 //Controlar campos vacíos y source
                 this.saveBanner();
                 DialogResult = DialogResult.OK;
                 this.Close();
-            }
-            catch (Exception exc)
-            {
-                new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
-            }
         }
     }
 }

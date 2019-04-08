@@ -47,12 +47,12 @@ namespace DigitalSignage.UI.Banner_Forms
                     this.iBannerService.Update(bef.Banner);
                     new NotificationForm(MessageBoxButtons.OK, "Se ha modificado el banner", "Exito al modificar el banner").ShowDialog();
                     getBanners();
-                }
-                catch (Exception ex)
-                {
-                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar el banner").ShowDialog();
-                }
             }
+                catch (Exception ex)
+            {
+                new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar el banner").ShowDialog();
+            }
+        }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -62,15 +62,15 @@ namespace DigitalSignage.UI.Banner_Forms
             {
                 try
                 {
-                    this.iBannerService.Update(bef.Banner);
+                    this.iBannerService.Create(bef.Banner);
                     new NotificationForm(MessageBoxButtons.OK, "Se ha creado el banner", "Exito al crear el banner").ShowDialog();
                     getBanners();
-                }
-                catch (Exception ex)
-                {
-                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear el banner").ShowDialog();
-                }
             }
+                catch (Exception ex)
+            {
+                new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear el banner").ShowDialog();
+            }
+        }
         }
 
 

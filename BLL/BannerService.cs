@@ -1,4 +1,5 @@
-﻿using DigitalSignage.DAL.EntityFramework;
+﻿using DigitalSignage.BLL.RSSReader;
+using DigitalSignage.DAL.EntityFramework;
 using DigitalSignage.Domain;
 using DigitalSignage.DTO;
 using System;
@@ -12,30 +13,47 @@ namespace DigitalSignage.BLL
 {
     public class BannerService : IBannerService
     {
+        /// <summary>
+        /// Instancia de unidad de trabajo
+        /// </summary>
         private UnitOfWork iUnitOfWork;
 
-        // Lista de subscriptos para obtener el texto del banner actual
+
+        /// <summary>
+        /// Lista de subscriptos para obtener el texto del banner actual
+        /// </summary>
         private List<IObserver<string>> observers;
 
-        // Lista de banners activos en los proximos <UPDATE_TIME_IN_MINUTES> minutos
+        /// <summary>
+        /// Lista de banners activos en el proximo <UPDATE_TIME>
+        /// </summary>
         private List<Banner> iNextBanners;
 
-        // Lista de banners activos en este momento
+        /// <summary>
+        /// Lista de banners activos en este momento
+        /// </summary>
         private List<Banner> iCurrentBanners;
 
-        // Intervalo de tiempo en minutos en los que se vuelve a actualizar la lista actual de banners
-        private const int UPDATE_TIME_IN_MINUTES = 10;
+        /// <summary>
+        /// Intervalo de tiempo en minutos en que se vuelve a actualizar la lista actual de campañas
+        /// </summary>
+        private TimeSpan UPDATE_TIME = new TimeSpan(0, 10, 0);
 
 
-        // Intervalo de tiempo en segundos en los que se actualizan las listas de banners
-        private const int REFRESH_TIME_IN_SECONDS = 10;
+        /// <summary>
+        /// Intervalo de tiempo en segundos en que se actualiza la lista de campañas
+        /// </summary>
+        private TimeSpan REFRESH_TIME = new TimeSpan(0, 0, 10);
 
-        private string iCurrentText = "No hay ningun banner activo en este momento";
+        private const string  EMPTY_BANNERS_TEXT = "No hay ningun banner activo en este momento";
 
-        // Token para cancelar tareas asincronas
+        private string iCurrentText = "";
+
+        /// <summary>
+        ///  Token para cancelar tareas asincronas
+        /// </summary>
         private CancellationToken cancellationToken;
         private CancellationTokenSource tokenSource;
-
 
         public BannerService()
         {
@@ -46,6 +64,7 @@ namespace DigitalSignage.BLL
 
             tokenSource = new CancellationTokenSource();
             cancellationToken = tokenSource.Token;
+
 
             GetNextActiveBannersLoop();
             UpdateBannerListsLoop();
@@ -107,21 +126,35 @@ namespace DigitalSignage.BLL
 
 
 
+        private void GetNextActiveBannersLoop()
+        {
+
+            RunPeriodicAsync(GetNextActiveBanners, UPDATE_TIME, cancellationToken);
+        }
+
         private void UpdateBannerListsLoop()
         {
-            var interval = TimeSpan.FromSeconds(REFRESH_TIME_IN_SECONDS);
 
-            RunPeriodicAsync(UpdateBannerLists, interval, cancellationToken);
+            RunPeriodicAsync(UpdateBannerLists, REFRESH_TIME, cancellationToken);
 
         }
 
         private void UpdateBannerLists()
         {
             bool change = false;
-            
-            // Verifica que los banners que se estan mostrando no se hayan vencido
-                iCurrentBanners.RemoveAll(b => !b.IsActiveNow());
 
+            // Verifica que los banners que se estan mostrando no se hayan vencido
+            iCurrentBanners.RemoveAll(b =>
+            {
+                if (!b.IsActiveNow())
+                {
+                    change = true;
+                    return true;
+                }
+
+                return false;
+            }
+            );
 
             // verifica que no haya nuevos banners para agregar
             foreach (Banner banner in iNextBanners)
@@ -154,20 +187,19 @@ namespace DigitalSignage.BLL
                 updatedText += banner.GetText() + " /// ";
 
             }
+
             iCurrentText = updatedText;
+
+            if (iCurrentBanners.Count == 0)
+            {
+                iCurrentText = EMPTY_BANNERS_TEXT;                
+            }
             foreach (var observer in observers)
             {
 
                 observer.OnNext(iCurrentText);
 
             }
-        }
-
-        private void GetNextActiveBannersLoop()
-        {
-            var interval = TimeSpan.FromMinutes(UPDATE_TIME_IN_MINUTES);
-
-            RunPeriodicAsync(GetNextActiveBanners, interval, cancellationToken);
         }
 
         private void GetNextActiveBanners()
@@ -178,8 +210,8 @@ namespace DigitalSignage.BLL
             iCurrentBanners.Clear();
 
 
-            // Obtiene los banner de la base de datos
-            iNextBanners = iUnitOfWork.BannerRepository.GetBannersActiveInRange(now, actualTimespan, actualTimespan.Add(TimeSpan.FromMinutes(UPDATE_TIME_IN_MINUTES))).ToList();
+            // Obtiene los banners de la BD
+            iNextBanners = iUnitOfWork.BannerRepository.GetBannersActiveInRange(now, actualTimespan, actualTimespan.Add(UPDATE_TIME)).ToList();
             
             // Actualiza los feeds RSS de los banners
             UpdateRSSSources();
@@ -193,9 +225,19 @@ namespace DigitalSignage.BLL
                 if (banner.Source is RSSSource)
                 {
                     var source = (RSSSource)banner.Source;
-                    
-                    
-                    // Implementar lectura de rss
+
+
+                    Task.Run(() => {
+                            IRSSReader rSSReader = new XMLRSSReader();
+                            Uri uri;
+                            Uri.TryCreate(source.Url, UriKind.Absolute, out uri);
+                            var newRSSItems = rSSReader.Read(uri).ToList();
+                            if (newRSSItems != null && newRSSItems.Count > 0)
+                            {
+                                source.RSSItems = AutoMapper.Mapper.Map<IList<RSSItemDTO>, IList<RSSItem>>(newRSSItems);
+                            }
+
+                    });
 
                 }
 
@@ -213,17 +255,19 @@ namespace DigitalSignage.BLL
         /// <returns></returns>
         private static async Task RunPeriodicAsync(Action onTick, TimeSpan interval, CancellationToken token)
         {
-            // Repeat this loop until cancelled.
+            // Repite el bucle hasta que se cancela la tarea.
             while (!token.IsCancellationRequested)
             {
-                // Call our onTick function.
+                // Invoca la tarea pasada como parametro.
                 onTick?.Invoke();
 
-                // Wait to repeat again.
+                // Espera para repetir.
                 if (interval > TimeSpan.Zero)
                     await Task.Delay(interval, token);
             }
         }
+
+
 
 
 

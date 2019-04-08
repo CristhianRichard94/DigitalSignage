@@ -55,13 +55,13 @@ namespace DigitalSignage.BLL
         /// <summary>
         /// Intervalo de tiempo en minutos en que se vuelve a actualizar la lista actual de campañas
         /// </summary>
-        private const int UPDATE_TIME_IN_MINUTES = 10;
+        private TimeSpan UPDATE_TIME = new TimeSpan(0,10,0);
 
 
         /// <summary>
         /// Intervalo de tiempo en segundos en que se actualiza la lista de campañas
         /// </summary>
-        private const int REFRESH_TIME_IN_SECONDS = 10;
+        private TimeSpan REFRESH_TIME = new TimeSpan(0,0,10);
 
         /// <summary>
         /// Token para cancelar tareas asincronas
@@ -208,7 +208,7 @@ namespace DigitalSignage.BLL
             // Limpia la lista de campañas
             iCurrentCampaigns.Clear();
 
-            iNextCampaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(now, actualTimespan, actualTimespan.Add(TimeSpan.FromMinutes(UPDATE_TIME_IN_MINUTES))).ToList();
+            iNextCampaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(now, actualTimespan, actualTimespan.Add(UPDATE_TIME)).ToList();
 
         }
 
@@ -218,9 +218,7 @@ namespace DigitalSignage.BLL
         private void GetNextActiveCampaignsLoop()
         {
 
-            var interval = TimeSpan.FromMinutes(UPDATE_TIME_IN_MINUTES);
-
-            RunPeriodicAsync(GetActiveCampaigns, interval, cancellationToken);
+            RunPeriodicAsync(GetActiveCampaigns, UPDATE_TIME, cancellationToken);
 
         }
 
@@ -231,9 +229,8 @@ namespace DigitalSignage.BLL
         private void UpdateCampaignListsLoop()
         {
 
-            var interval = TimeSpan.FromSeconds(REFRESH_TIME_IN_SECONDS);
 
-            RunPeriodicAsync(UpdateCampaignLists, interval, cancellationToken);
+            RunPeriodicAsync(UpdateCampaignLists, REFRESH_TIME, cancellationToken);
 
         }
 
@@ -271,13 +268,13 @@ namespace DigitalSignage.BLL
         /// <returns></returns>
         private static async Task RunPeriodicAsync(Action onTick, TimeSpan interval, CancellationToken token)
         {
-            // Repeat this loop until cancelled.
+            // Repite el bucle hasta que se cancela la tarea.
             while (!token.IsCancellationRequested)
             {
-                // Call our onTick function.
+                // Invoca la tarea pasada como parametro.
                 onTick?.Invoke();
 
-                // Wait to repeat again.
+                // Espera para repetir.
                 if (interval > TimeSpan.Zero)
                     await Task.Delay(interval, token);
             }

@@ -15,25 +15,39 @@ namespace DigitalSignage.UI.Operative_Form
     public partial class OperativeForm : Form, IObserver<string>, IObserver<byte[]>
     {
 
-        // Instancia del servicio de banners
+        /// <summary>
+        /// Instancia del servicio de banners
+        /// </summary>
         private readonly IBannerService iBannerService;
 
-        // Instancia del servicio de campañas
+        /// <summary>
+        /// Instancia del servicio de campañas
+        /// </summary>
         private readonly ICampaignService iCampaignService;
 
-        // Variable para eliminar subscripcion del servicio de banner
+        /// <summary>
+        /// Variable para eliminar subscripcion del servicio de banner
+        /// </summary>
         private Unsubscriber<string> iBannerUnsubscriber;
 
-        // Variable para eliminar subscripcion del servicio de campaña
+        /// <summary>
+        /// Variable para eliminar subscripcion del servicio de campaña
+        /// </summary>
         private Unsubscriber<byte[]> iCampaignUnsubscriber;
 
-        // Variable para guardar el texto actual en bannerText
+        /// <summary>
+        /// Variable para guardar el texto actual en bannerText
+        /// </summary>
         private string iCurrentText;
 
-        // Guarda el carater que se esta quitando de iCurrentText
+        /// <summary>
+        /// Guarda el carater que se esta quitando de iCurrentText
+        /// </summary>
         private int iCurrentCharacter = 0;
 
-        // Variable de texto con espacio para que el texto de banner entre por la izquierda
+        /// <summary>
+        /// Variable de texto con espacio para que el texto de banner entre por la izquierda
+        /// </summary>
         private string WHITE_SPACE = new String(' ', 40);
 
 
@@ -42,9 +56,9 @@ namespace DigitalSignage.UI.Operative_Form
             InitializeComponent();
             this.iCampaignService = campaignService;
             this.iBannerService = bannerService;
-            this.bannerText.Text = WHITE_SPACE + "No hay ningun banner activo en este momento";
-            iCampaignUnsubscriber = (Unsubscriber<byte[]>)this.iCampaignService.Subscribe(this);
+            this.bannerText.Text = WHITE_SPACE+ "Cargando Banners";
             iBannerUnsubscriber = (Unsubscriber<string>)iBannerService.Subscribe(this);
+            iCampaignUnsubscriber = (Unsubscriber<byte[]>)this.iCampaignService.Subscribe(this);
 
 
             // Timmer para mover el banner de texto
@@ -54,36 +68,6 @@ namespace DigitalSignage.UI.Operative_Form
 
         private void OperativeForm_Load(object sender, EventArgs e)
         {
-
-        }
-
-        private void OperativeForm_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (e.KeyCode == Keys.Escape)
-            {
-
-                // Minimizar pantalla
-                this.WindowState = FormWindowState.Normal;
-                this.FormBorderStyle = FormBorderStyle.Sizable;
-
-            }
-            if (e.KeyCode == Keys.F11)
-            {
-
-                // Maximizar pantalla
-                this.WindowState = FormWindowState.Maximized;
-                this.FormBorderStyle = FormBorderStyle.None;
-
-            }
-            if (e.KeyCode == Keys.F5)
-            {
-
-                // Actualizar banners y campañas
-                iBannerService.RefreshActiveBanners();
-                iCampaignService.RefreshActiveCampaigns();
-
-            }
 
         }
 
@@ -107,6 +91,7 @@ namespace DigitalSignage.UI.Operative_Form
             Image returnImage = Image.FromStream(ms);
             return returnImage;
         }
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {

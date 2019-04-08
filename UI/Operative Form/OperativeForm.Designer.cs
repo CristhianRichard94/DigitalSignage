@@ -174,7 +174,6 @@
             this.Text = "OperativeForm";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.OperativeForm_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OperativeForm_KeyDown);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();

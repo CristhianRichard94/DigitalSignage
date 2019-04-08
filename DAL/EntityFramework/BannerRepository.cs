@@ -124,7 +124,7 @@ namespace DigitalSignage.DAL.EntityFramework
             if (pFromTime.CompareTo(pToTime) > -1)
                 throw new InvalidOperationException("El tiempo de inicio debe ser menor al de fin");
 
-            return base.iDbContext.Set<Banner>()
+            List<Banner> banners = base.iDbContext.Set<Banner>()
                 //Compara si el banner esta activo en la fecha
                 .Where(b => DbFunctions.TruncateTime(b.InitialDate) <= DbFunctions.TruncateTime(pDate))
                 .Where(b => DbFunctions.TruncateTime(b.EndDate) >= DbFunctions.TruncateTime(pDate))
@@ -132,6 +132,15 @@ namespace DigitalSignage.DAL.EntityFramework
                 .Where(b => b.InitialTime <= pToTime && b.EndTime >= pFromTime)
                 .Include("Source")
                 .ToList();
+
+            foreach (Banner banner in banners)
+            {
+                if (banner.Source is RSSSource)
+                {
+                    this.iDbContext.Entry((RSSSource)banner.Source).Collection(p => p.RSSItems).Load();
+                }
+            }
+            return banners;
         }
     }
 }
