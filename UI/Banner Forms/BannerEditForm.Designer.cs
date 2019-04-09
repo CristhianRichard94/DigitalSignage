@@ -49,7 +49,7 @@
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.selectRSSButton = new System.Windows.Forms.Button();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.button3 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -428,19 +428,19 @@
             this.textBox1.TabIndex = 47;
             this.textBox1.Visible = false;
             // 
-            // button2
+            // selectRSSButton
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(678, 350);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(84, 25);
-            this.button2.TabIndex = 48;
-            this.button2.Text = "Seleccionar";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.selectRSSButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.selectRSSButton.FlatAppearance.BorderSize = 0;
+            this.selectRSSButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selectRSSButton.Location = new System.Drawing.Point(678, 350);
+            this.selectRSSButton.Margin = new System.Windows.Forms.Padding(0);
+            this.selectRSSButton.Name = "selectRSSButton";
+            this.selectRSSButton.Size = new System.Drawing.Size(84, 25);
+            this.selectRSSButton.TabIndex = 48;
+            this.selectRSSButton.Text = "Seleccionar";
+            this.selectRSSButton.UseVisualStyleBackColor = false;
+            this.selectRSSButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // comboBox5
             // 
@@ -486,7 +486,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.comboBox5);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.selectRSSButton);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox4);
@@ -544,7 +544,7 @@
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button selectRSSButton;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;

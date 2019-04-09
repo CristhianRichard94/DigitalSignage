@@ -148,8 +148,7 @@ namespace DigitalSignage.BLL
         /// <param name="pCampaign">Campaña a eliminar</param>
         public void Remove(CampaignDTO pCampaign)
         {
-            Campaign campaign = new Campaign();
-            AutoMapper.Mapper.Map(pCampaign, campaign);
+            Campaign campaign = this.iUnitOfWork.CampaignRepository.Get(pCampaign.Id);
             iUnitOfWork.CampaignRepository.Remove(campaign);
             iUnitOfWork.Complete();
 

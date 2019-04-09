@@ -65,8 +65,8 @@ namespace DigitalSignage.BLL
                 if (asociatedBanners.ToList().Count == 0)
                 {
 
-                    RSSSource RssSource = iUnitOfWork.RSSSourceRepository.Get(pRSSSourceDTO.Id);
-                    iUnitOfWork.RSSSourceRepository.Remove(RssSource);
+                    RSSSource RSSSource = iUnitOfWork.RSSSourceRepository.Get(pRSSSourceDTO.Id);
+                    iUnitOfWork.RSSSourceRepository.Remove(RSSSource);
                     iUnitOfWork.Complete();
 
                 }

@@ -105,8 +105,7 @@ namespace DigitalSignage.BLL
 
         public void Remove(BannerDTO pBanner)
         {
-            Banner banner = new Banner();
-            AutoMapper.Mapper.Map(pBanner, banner);
+            Banner banner = this.iUnitOfWork.BannerRepository.Get(pBanner.Id);
             this.iUnitOfWork.BannerRepository.Remove(banner);
             this.iUnitOfWork.Complete();
 

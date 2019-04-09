@@ -41,7 +41,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 this.Banner = new BannerDTO();
                 this.Banner.Source = new TextSourceDTO();
                 // Opcion de cargar fuente de texto
-                comboBox5.SelectedIndex = 0;
+                comboBox5.SelectedItem = TEXT_SOURCE;
 
             }
         }
@@ -71,12 +71,12 @@ namespace DigitalSignage.UI.Banner_Forms
             {
                 case TEXT_SOURCE:
                     this.textBox1.Visible = true;
-                    this.button2.Visible = false;
+                    this.selectRSSButton.Visible = false;
                     this.pictureBox1.Visible = false;
                     break;
                 case RSS_SOURCE:
                     this.textBox1.Visible = false;
-                    this.button2.Visible = true;
+                    this.selectRSSButton.Visible = true;
                     break;
             }
         }
@@ -161,6 +161,7 @@ namespace DigitalSignage.UI.Banner_Forms
                     this.Banner.Source = text;
                     break;
                 case RSS_SOURCE:
+                    this.Banner.Source = new RSSSourceDTO();
                     this.Banner.Source = this.RSSSource;
                     break;
             }

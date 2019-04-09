@@ -63,7 +63,6 @@ namespace DigitalSignage.DAL.EntityFramework
             {
                 throw new ArgumentNullException(nameof(pEntity));
             }
-
             this.iDbContext.Set<TEntity>().Remove(pEntity);
         }
 
