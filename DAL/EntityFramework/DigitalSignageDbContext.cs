@@ -20,7 +20,7 @@ namespace DigitalSignage.DAL.EntityFramework
 
         public DbSet<RSSSource> RSSSources { get; set; }
 
-        public DbSet<TextSource> Texts { get; set; }
+        public DbSet<TextSource> TextSources { get; set; }
 
         public DbSet<RSSItem> RSSItems { get; set; }
 

@@ -16,7 +16,7 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
         public TextSourceMap()
         {
             // Tabla en la que se mapea la entidad
-            this.ToTable("Texts");
+            this.ToTable("TextSources");
 
             // Propiedad requerida
             this.Property(pText => pText.Data)

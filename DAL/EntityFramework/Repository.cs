@@ -57,7 +57,7 @@ namespace DigitalSignage.DAL.EntityFramework
         /// Elimina la entidad pasada como parámetro, lanza una excepción si esta es nula
         /// </summary>
         /// <param name="pEntity">Entidad</param>
-        public void Remove(TEntity pEntity)
+        public virtual void Remove(TEntity pEntity)
         {
             if (pEntity == null)
             {

@@ -39,6 +39,19 @@ namespace DigitalSignage.DAL.EntityFramework
         /// Actualiza un banner del repositorio
         /// </summary>
         /// <param name="updatedBanner">Banner actualizado</param>
+        public override void Remove(Banner banner)
+        {
+            if (banner.Source is TextSource)
+            {
+                this.iDbContext.TextSources.Remove((TextSource)banner.Source);
+            }
+            base.Remove(banner);
+        }
+
+        /// <summary>
+        /// Actualiza un banner del repositorio
+        /// </summary>
+        /// <param name="updatedBanner">Banner actualizado</param>
         public void Update(Banner updatedBanner)
         {
             var oldBanner = this.iDbContext.Banners

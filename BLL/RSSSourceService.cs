@@ -72,7 +72,7 @@ namespace DigitalSignage.BLL
                 }
                 else
                 {
-                    throw new Exception("No se puede eliminar la fuente RSS ya que esta siendo usada por banners");
+                    throw new Exception("No se puede eliminar la fuente RSS ya que esta siendo usada.");
 
                 }
 

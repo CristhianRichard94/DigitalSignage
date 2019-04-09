@@ -12,8 +12,6 @@ namespace DigitalSignage.DAL
     /// </summary>
     public interface IBannerRepository : IRepository<Banner>
     {
-
-
         /// <summary>
         /// Actualiza un banner del repositorio
         /// </summary>

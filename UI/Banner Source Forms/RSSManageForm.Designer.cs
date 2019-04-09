@@ -45,13 +45,13 @@ namespace DigitalSignage.UI.RSS_Forms
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.rSSGridView1 = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchComboBox = new System.Windows.Forms.ComboBox();
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.panel3.SuspendLayout();
@@ -61,7 +61,7 @@ namespace DigitalSignage.UI.RSS_Forms
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(70)))), ((int)(((byte)(120)))));
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(0, 249);
@@ -208,7 +208,7 @@ namespace DigitalSignage.UI.RSS_Forms
             // 
             // button3
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(70)))), ((int)(((byte)(120)))));
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Location = new System.Drawing.Point(0, 299);
@@ -239,6 +239,29 @@ namespace DigitalSignage.UI.RSS_Forms
             this.rSSGridView1.Size = new System.Drawing.Size(959, 513);
             this.rSSGridView1.TabIndex = 9;
             this.rSSGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.rSSGridView1_CellContentClick);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "Id";
+            this.Id.HeaderText = "ID";
+            this.Id.MinimumWidth = 40;
+            this.Id.Name = "Id";
+            this.Id.Width = 40;
+            // 
+            // Url
+            // 
+            this.Url.DataPropertyName = "Url";
+            this.Url.HeaderText = "URL";
+            this.Url.MinimumWidth = 230;
+            this.Url.Name = "Url";
+            this.Url.Width = 230;
+            // 
+            // Description
+            // 
+            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Description.DataPropertyName = "Description";
+            this.Description.HeaderText = "Descripción";
+            this.Description.Name = "Description";
             // 
             // searchComboBox
             // 
@@ -283,29 +306,6 @@ namespace DigitalSignage.UI.RSS_Forms
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(116, 21);
             this.searchTextBox.TabIndex = 15;
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "Id";
-            this.Id.HeaderText = "ID";
-            this.Id.MinimumWidth = 40;
-            this.Id.Name = "Id";
-            this.Id.Width = 40;
-            // 
-            // Url
-            // 
-            this.Url.DataPropertyName = "Url";
-            this.Url.HeaderText = "URL";
-            this.Url.MinimumWidth = 230;
-            this.Url.Name = "Url";
-            this.Url.Width = 230;
-            // 
-            // Description
-            // 
-            this.Description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Description.DataPropertyName = "Description";
-            this.Description.HeaderText = "Descripción";
-            this.Description.Name = "Description";
             // 
             // RSSManageForm
             // 

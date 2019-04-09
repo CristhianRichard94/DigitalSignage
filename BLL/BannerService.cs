@@ -99,6 +99,10 @@ namespace DigitalSignage.BLL
         {
             Banner banner = new Banner();
             AutoMapper.Mapper.Map(pBanner, banner);
+            if (pBanner.Source is RSSSourceDTO)
+            {
+                banner.Source = this.iUnitOfWork.RSSSourceRepository.Get(banner.Source.Id);
+            }
             this.iUnitOfWork.BannerRepository.Add(banner);
             this.iUnitOfWork.Complete();
         }

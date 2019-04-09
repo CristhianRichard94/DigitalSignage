@@ -139,7 +139,7 @@ namespace DigitalSignage.UI.RSS_Forms
                 try
                 {
                     this.iRSSSourceService.Create(rSSEditForm.RSSSource);
-                    new NotificationForm(MessageBoxButtons.OK, "Se ha creado la fuente RSS", "Exito al crear la Fuente RSS").ShowDialog();
+                    new NotificationForm(MessageBoxButtons.OK, "Se ha modificado la fuente RSS", "Exito al crear la Fuente RSS").ShowDialog();
                     this.getSources();
                 }
                 catch (Exception ex)
@@ -200,9 +200,17 @@ namespace DigitalSignage.UI.RSS_Forms
             confirmResult.ShowDialog();
             if (confirmResult.DialogResult == DialogResult.Yes)
             {
-                var selectedSource = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
-                this.iRSSSourceService.Remove(selectedSource);
-                getSources();
+                try
+                {
+                    var selectedSource = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
+                    this.iRSSSourceService.Remove(selectedSource);
+                    getSources();
+                }
+                catch (Exception ex)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al eliminar la fuente RSS").ShowDialog();
+                }
+
             }
         }
 
