@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.endMinComboBox = new System.Windows.Forms.ComboBox();
+            this.initMinComboBox = new System.Windows.Forms.ComboBox();
+            this.EndHourComboBox = new System.Windows.Forms.ComboBox();
+            this.initHourComboBox = new System.Windows.Forms.ComboBox();
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.initDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.endTimeLabel = new System.Windows.Forms.Label();
@@ -48,28 +49,32 @@
             this.descTextBox = new System.Windows.Forms.TextBox();
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textSourceTextBox = new System.Windows.Forms.TextBox();
             this.selectRSSButton = new System.Windows.Forms.Button();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.sourceComboBox = new System.Windows.Forms.ComboBox();
+            this.saveButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.rSSSourceLabel = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(710, 482);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 37);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.CausesValidation = false;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Location = new System.Drawing.Point(710, 482);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(125, 37);
+            this.cancelButton.TabIndex = 0;
+            this.cancelButton.Text = "Cancelar";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // panel3
             // 
@@ -93,10 +98,10 @@
             this.label2.Text = "Carga de Banner";
             this.label2.Visible = false;
             // 
-            // comboBox4
+            // endMinComboBox
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
+            this.endMinComboBox.FormattingEnabled = true;
+            this.endMinComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -157,15 +162,16 @@
             "57",
             "58",
             "59"});
-            this.comboBox4.Location = new System.Drawing.Point(760, 262);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(52, 21);
-            this.comboBox4.TabIndex = 45;
+            this.endMinComboBox.Location = new System.Drawing.Point(760, 262);
+            this.endMinComboBox.Name = "endMinComboBox";
+            this.endMinComboBox.Size = new System.Drawing.Size(52, 21);
+            this.endMinComboBox.TabIndex = 45;
+            this.endMinComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.endMinComboBox_Validating);
             // 
-            // comboBox2
+            // initMinComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.initMinComboBox.FormattingEnabled = true;
+            this.initMinComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -226,15 +232,16 @@
             "57",
             "58",
             "59"});
-            this.comboBox2.Location = new System.Drawing.Point(535, 262);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(52, 21);
-            this.comboBox2.TabIndex = 44;
+            this.initMinComboBox.Location = new System.Drawing.Point(535, 262);
+            this.initMinComboBox.Name = "initMinComboBox";
+            this.initMinComboBox.Size = new System.Drawing.Size(52, 21);
+            this.initMinComboBox.TabIndex = 43;
+            this.initMinComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.initMinComboBox_Validating);
             // 
-            // comboBox3
+            // EndHourComboBox
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.EndHourComboBox.FormattingEnabled = true;
+            this.EndHourComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -259,15 +266,16 @@
             "21",
             "22",
             "23"});
-            this.comboBox3.Location = new System.Drawing.Point(679, 262);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(52, 21);
-            this.comboBox3.TabIndex = 43;
+            this.EndHourComboBox.Location = new System.Drawing.Point(679, 262);
+            this.EndHourComboBox.Name = "EndHourComboBox";
+            this.EndHourComboBox.Size = new System.Drawing.Size(52, 21);
+            this.EndHourComboBox.TabIndex = 44;
+            this.EndHourComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.EndHourComboBox_Validating);
             // 
-            // comboBox1
+            // initHourComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.initHourComboBox.FormattingEnabled = true;
+            this.initHourComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -292,10 +300,11 @@
             "21",
             "22",
             "23"});
-            this.comboBox1.Location = new System.Drawing.Point(449, 262);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(52, 21);
-            this.comboBox1.TabIndex = 42;
+            this.initHourComboBox.Location = new System.Drawing.Point(449, 262);
+            this.initHourComboBox.Name = "initHourComboBox";
+            this.initHourComboBox.Size = new System.Drawing.Size(52, 21);
+            this.initHourComboBox.TabIndex = 42;
+            this.initHourComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.initHourComboBox_Validating);
             // 
             // endDateTimePicker
             // 
@@ -306,6 +315,7 @@
             this.endDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.endDateTimePicker.TabIndex = 41;
             this.endDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 15, 31, 0);
+            this.endDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.endDateTimePicker_Validating);
             // 
             // initDateTimePicker
             // 
@@ -317,7 +327,8 @@
             this.initDateTimePicker.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.initDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.initDateTimePicker.TabIndex = 40;
-            this.initDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 14, 26, 0);
+            this.initDateTimePicker.Value = new System.DateTime(2019, 3, 11, 0, 14, 0, 0);
+            this.initDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.initDateTimePicker_Validating);
             // 
             // endTimeLabel
             // 
@@ -402,6 +413,7 @@
             this.descTextBox.Name = "descTextBox";
             this.descTextBox.Size = new System.Drawing.Size(327, 102);
             this.descTextBox.TabIndex = 31;
+            this.descTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.descTextBox_Validating);
             // 
             // nameTextBox
             // 
@@ -409,6 +421,7 @@
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(198, 21);
             this.nameTextBox.TabIndex = 30;
+            this.nameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.nameTextBox_Validating);
             // 
             // label1
             // 
@@ -419,14 +432,15 @@
             this.label1.TabIndex = 46;
             this.label1.Text = "Tipo de fuente:";
             // 
-            // textBox1
+            // textSourceTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(449, 377);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(363, 80);
-            this.textBox1.TabIndex = 47;
-            this.textBox1.Visible = false;
+            this.textSourceTextBox.Location = new System.Drawing.Point(449, 377);
+            this.textSourceTextBox.Multiline = true;
+            this.textSourceTextBox.Name = "textSourceTextBox";
+            this.textSourceTextBox.Size = new System.Drawing.Size(363, 80);
+            this.textSourceTextBox.TabIndex = 47;
+            this.textSourceTextBox.Visible = false;
+            this.textSourceTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.textSourceTextBox_Validating);
             // 
             // selectRSSButton
             // 
@@ -440,30 +454,31 @@
             this.selectRSSButton.TabIndex = 48;
             this.selectRSSButton.Text = "Seleccionar";
             this.selectRSSButton.UseVisualStyleBackColor = false;
-            this.selectRSSButton.Click += new System.EventHandler(this.button2_Click);
+            this.selectRSSButton.Click += new System.EventHandler(this.selectRSSButton_Click);
+            this.selectRSSButton.Validating += new System.ComponentModel.CancelEventHandler(this.selectRSSButton_Validating);
             // 
-            // comboBox5
+            // sourceComboBox
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(559, 353);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(105, 21);
-            this.comboBox5.TabIndex = 49;
-            this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.comboBox5_SelectedIndexChanged);
+            this.sourceComboBox.FormattingEnabled = true;
+            this.sourceComboBox.Location = new System.Drawing.Point(559, 353);
+            this.sourceComboBox.Name = "sourceComboBox";
+            this.sourceComboBox.Size = new System.Drawing.Size(105, 21);
+            this.sourceComboBox.TabIndex = 49;
+            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceComboBox_SelectedIndexChanged);
             // 
-            // button3
+            // saveButton
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(559, 482);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(125, 37);
-            this.button3.TabIndex = 50;
-            this.button3.Text = "Guardar";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.saveButton.FlatAppearance.BorderSize = 0;
+            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveButton.Location = new System.Drawing.Point(559, 482);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(0);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(125, 37);
+            this.saveButton.TabIndex = 50;
+            this.saveButton.Text = "Guardar";
+            this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // pictureBox1
             // 
@@ -477,22 +492,37 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
+            // rSSSourceLabel
+            // 
+            this.rSSSourceLabel.AutoSize = true;
+            this.rSSSourceLabel.Font = new System.Drawing.Font("Verdana", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rSSSourceLabel.Location = new System.Drawing.Point(449, 412);
+            this.rSSSourceLabel.Name = "rSSSourceLabel";
+            this.rSSSourceLabel.Size = new System.Drawing.Size(0, 17);
+            this.rSSSourceLabel.TabIndex = 52;
+            this.rSSSourceLabel.Visible = false;
+            // 
             // BannerEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
             this.ClientSize = new System.Drawing.Size(846, 528);
+            this.Controls.Add(this.rSSSourceLabel);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.comboBox5);
+            this.Controls.Add(this.saveButton);
+            this.Controls.Add(this.sourceComboBox);
             this.Controls.Add(this.selectRSSButton);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textSourceTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.endMinComboBox);
+            this.Controls.Add(this.initMinComboBox);
+            this.Controls.Add(this.EndHourComboBox);
+            this.Controls.Add(this.initHourComboBox);
             this.Controls.Add(this.endDateTimePicker);
             this.Controls.Add(this.initDateTimePicker);
             this.Controls.Add(this.endTimeLabel);
@@ -506,17 +536,17 @@
             this.Controls.Add(this.descTextBox);
             this.Controls.Add(this.nameTextBox);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.cancelButton);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "BannerEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BannerEditForm";
-            this.Load += new System.EventHandler(this.BannerEditForm_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -524,12 +554,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox endMinComboBox;
+        private System.Windows.Forms.ComboBox initMinComboBox;
+        private System.Windows.Forms.ComboBox EndHourComboBox;
+        private System.Windows.Forms.ComboBox initHourComboBox;
         private System.Windows.Forms.DateTimePicker endDateTimePicker;
         private System.Windows.Forms.DateTimePicker initDateTimePicker;
         private System.Windows.Forms.Label endTimeLabel;
@@ -543,11 +573,13 @@
         private System.Windows.Forms.TextBox descTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textSourceTextBox;
         private System.Windows.Forms.Button selectRSSButton;
-        private System.Windows.Forms.ComboBox comboBox5;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.ComboBox sourceComboBox;
+        private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label rSSSourceLabel;
     }
 }

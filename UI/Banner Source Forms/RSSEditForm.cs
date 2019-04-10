@@ -40,41 +40,52 @@ namespace DigitalSignage.UI.RSS_Forms
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            if (BwRSSReader.IsBusy)
+            if (!anyChange())
             {
-                var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "Se estan obteniendo feeds ¿Está seguro que desea cancelar el proceso y salir sin guardar?",
-                                    "Cancelar");
-                confirmResult.ShowDialog();
-                if (confirmResult.DialogResult == DialogResult.Yes)
+                Close();
+            }
+            else
+            {
+                if (BwRSSReader.IsBusy)
                 {
-                    BwRSSReader.CancelAsync();
-                    this.Close();
+                    var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "Se estan obteniendo feeds ¿Está seguro que desea cancelar el proceso y salir sin guardar?",
+                                        "Cancelar");
+                    confirmResult.ShowDialog();
+                    if (confirmResult.DialogResult == DialogResult.Yes)
+                    {
+                        BwRSSReader.CancelAsync();
+                        this.Close();
+                    }
                 }
-            } else
-            {
-               var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
-                                     "Cancelar");
-                confirmResult.ShowDialog();
-                if (confirmResult.DialogResult == DialogResult.Yes)
+                else
                 {
-                    this.Close();
+                    var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                                          "Cancelar");
+                    confirmResult.ShowDialog();
+                    if (confirmResult.DialogResult == DialogResult.Yes)
+                    {
+                        this.Close();
+                    }
                 }
             }
         }
 
+
         private void saveButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                this.saveSource();
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-            catch (Exception exc)
-            {
-                new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
-            }
-
+            if (ValidateChildren(ValidationConstraints.Enabled))
+            { 
+                try
+                {
+                    this.saveSource();
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+                catch (Exception exc)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
+                }
+        }
         }
 
 
@@ -97,11 +108,6 @@ namespace DigitalSignage.UI.RSS_Forms
                 list.Add((RSSItemDTO)item.DataBoundItem);
             }
             this.RSSSource.RSSItems = list;
-        }
-
-        private void rSSItemsGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
 
         private void verifyButton_Click(object sender, EventArgs e)
@@ -164,6 +170,64 @@ namespace DigitalSignage.UI.RSS_Forms
         private void urlTextBox_TextChanged(object sender, EventArgs e)
         {
             rSSItemsGridView.DataSource = null;
+        }
+
+        private void urlTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (urlTextBox.Text.Length == 0)
+            {
+                errorProvider1.SetError(urlTextBox, "Debe ingresar una url");
+                e.Cancel = true;
+
+            }
+            else
+            {
+                Uri uri;
+
+                if (!Uri.TryCreate(urlTextBox.Text.Trim(), UriKind.Absolute, out uri))
+                {
+
+                    errorProvider1.SetError(urlTextBox, "La Url ingresada no es válida.");
+                    e.Cancel = true;
+
+                }
+            }
+
+            errorProvider1.SetError(urlTextBox, null);
+        }
+
+        private void descriptionTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (descriptionTextBox.Text.Length == 0)
+            {
+                error = "Ingrese una descripción de la fuente";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void rSSItemsGridView_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (rSSItemsGridView.RowCount == 0)
+            {
+                error = "Verifique que pueden obtenerse feeds de la Url";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+
+        private bool anyChange()
+        {
+            bool change = false;
+            change = (RSSSource.Url != urlTextBox.Text) ? true : change;
+            change = (RSSSource.Description != descriptionTextBox.Text) ? true : change;
+            change = (RSSSource.RSSItems != (List<RSSItemDTO>)rSSItemsGridView.DataSource) ? true : change;
+            return change;
         }
     }
 }

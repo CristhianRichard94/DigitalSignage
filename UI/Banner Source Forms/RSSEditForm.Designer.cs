@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cancelButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,15 +47,18 @@
             this.BwRSSReader = new System.ComponentModel.BackgroundWorker();
             this.loadPictureBox = new System.Windows.Forms.PictureBox();
             this.checkPictureBox = new System.Windows.Forms.PictureBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rSSItemsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
             this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.CausesValidation = false;
             this.cancelButton.FlatAppearance.BorderSize = 0;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cancelButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -111,6 +115,7 @@
             this.urlTextBox.Size = new System.Drawing.Size(399, 21);
             this.urlTextBox.TabIndex = 9;
             this.urlTextBox.TextChanged += new System.EventHandler(this.urlTextBox_TextChanged);
+            this.urlTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.urlTextBox_Validating);
             // 
             // title
             // 
@@ -141,6 +146,7 @@
             this.descriptionTextBox.Name = "descriptionTextBox";
             this.descriptionTextBox.Size = new System.Drawing.Size(399, 63);
             this.descriptionTextBox.TabIndex = 12;
+            this.descriptionTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.descriptionTextBox_Validating);
             // 
             // verifyButton
             // 
@@ -174,7 +180,7 @@
             this.rSSItemsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rSSItemsGridView.Size = new System.Drawing.Size(813, 226);
             this.rSSItemsGridView.TabIndex = 14;
-            this.rSSItemsGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.rSSItemsGridView_CellContentClick);
+            this.rSSItemsGridView.Validating += new System.ComponentModel.CancelEventHandler(this.rSSItemsGridView_Validating);
             // 
             // RSSTitle
             // 
@@ -243,6 +249,10 @@
             this.checkPictureBox.TabStop = false;
             this.checkPictureBox.Visible = false;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // RSSEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -271,6 +281,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.rSSItemsGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -296,5 +307,6 @@
         private System.Windows.Forms.Label label3;
         private System.ComponentModel.BackgroundWorker BwRSSReader;
         private System.Windows.Forms.PictureBox loadPictureBox;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

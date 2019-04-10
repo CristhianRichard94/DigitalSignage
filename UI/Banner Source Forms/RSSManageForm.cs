@@ -138,7 +138,7 @@ namespace DigitalSignage.UI.RSS_Forms
             {
                 try
                 {
-                    this.iRSSSourceService.Create(rSSEditForm.RSSSource);
+                    this.iRSSSourceService.Update(rSSEditForm.RSSSource);
                     new NotificationForm(MessageBoxButtons.OK, "Se ha modificado la fuente RSS", "Exito al crear la Fuente RSS").ShowDialog();
                     this.getSources();
                 }

@@ -29,19 +29,19 @@ namespace DigitalSignage.UI.Banner_Forms
         public BannerEditForm(BannerDTO pBanner)
         {
             InitializeComponent();
-            comboBox5.Items.Add(RSS_SOURCE);
-            comboBox5.Items.Add(TEXT_SOURCE);
+            sourceComboBox.Items.Add(RSS_SOURCE);
+            sourceComboBox.Items.Add(TEXT_SOURCE);
             if (pBanner != null)
             {
-                this.Banner = pBanner;
-                this.loadBanner();
+                Banner = pBanner;
+                loadBanner();
             }
             else
             {
-                this.Banner = new BannerDTO();
-                this.Banner.Source = new TextSourceDTO();
+                Banner = new BannerDTO();
+                Banner.Source = new TextSourceDTO();
                 // Opcion de cargar fuente de texto
-                comboBox5.SelectedItem = TEXT_SOURCE;
+                sourceComboBox.SelectedItem = TEXT_SOURCE;
 
             }
         }
@@ -49,51 +49,62 @@ namespace DigitalSignage.UI.Banner_Forms
         public BannerDTO Banner { get => iBanner; set => iBanner = value; }
         public RSSSourceDTO RSSSource { get => iRSSSource; set => iRSSSource = value; }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
-            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
-                                     "Cancelar");
-            confirmResult.ShowDialog();
-            if (confirmResult.DialogResult == DialogResult.Yes)
+            if (anyChange())
             {
-                this.Close();
+                var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+                         "Cancelar");
+                confirmResult.ShowDialog();
+                if (confirmResult.DialogResult == DialogResult.Yes)
+                {
+                    Close();
+                }
+            } else
+            {
+                Close();
             }
-        }
-
-        private void BannerEditForm_Load(object sender, EventArgs e)
-        {
 
         }
-
-        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private void sourceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (comboBox5.SelectedItem)
+            switch (sourceComboBox.SelectedItem)
             {
                 case TEXT_SOURCE:
-                    this.textBox1.Visible = true;
-                    this.selectRSSButton.Visible = false;
-                    this.pictureBox1.Visible = false;
+                    textSourceTextBox.Visible = true;
+                    selectRSSButton.Visible = false;
+                    pictureBox1.Visible = false;
+                    rSSSourceLabel.Visible = false;
                     break;
                 case RSS_SOURCE:
-                    this.textBox1.Visible = false;
-                    this.selectRSSButton.Visible = true;
+                    textSourceTextBox.Visible = false;
+                    selectRSSButton.Visible = true;
+                    rSSSourceLabel.Visible = true;
+                    rSSSourceLabel.Text = string.Format(
+                        "Id: {1}{0} Descripción: {2}{0} Url: {3}{0}",
+                        Environment.NewLine,
+                        RSSSource.Id,
+                        RSSSource.Description,
+                        RSSSource.Url
+                    );
                     break;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void selectRSSButton_Click(object sender, EventArgs e)
         {
-            this.kernel = HomeForm.CreateKernel();
-            this.kernel.Load(Assembly.GetExecutingAssembly());
-            var rSSSourceService = this.kernel.Get<IRSSSourceService>();
+            kernel = HomeForm.CreateKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+            var rSSSourceService = kernel.Get<IRSSSourceService>();
 
-            if (this.Banner.Source != null && this.Banner.Source.GetType() == typeof(RSSSourceDTO))
+            if (Banner.Source != null && Banner.Source.GetType() == typeof(RSSSourceDTO))
             {
-                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,this.Banner.Source.Id);
+                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,Banner.Source.Id);
 
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
-                    this.RSSSource = rSSManageForm.RSSSourceSelected;
+                    RSSSource = rSSManageForm.RSSSourceSelected;
                     pictureBox1.Visible = true;
                 }
             } else
@@ -102,7 +113,7 @@ namespace DigitalSignage.UI.Banner_Forms
 
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
-                    this.RSSSource = rSSManageForm.RSSSourceSelected;
+                    RSSSource = rSSManageForm.RSSSourceSelected;
                     pictureBox1.Visible = true;
 
                 }
@@ -114,65 +125,255 @@ namespace DigitalSignage.UI.Banner_Forms
         {
             idLabel.Visible = true;
             idValueLabel.Visible = true;
-            idValueLabel.Text = this.Banner.Id.ToString();
-            nameTextBox.Text = this.Banner.Name;
-            descTextBox.Text = this.Banner.Description;
-            initDateTimePicker.Value = this.Banner.InitialDate;
-            endDateTimePicker.Value = this.Banner.EndDate;
-            comboBox1.SelectedIndex = this.Banner.InitialTime.Hours;
-            comboBox2.SelectedIndex = this.Banner.InitialTime.Minutes;
-            comboBox3.SelectedIndex = this.Banner.EndTime.Hours;
-            comboBox4.SelectedIndex = this.Banner.EndTime.Minutes;
-            if (this.Banner.GetType() == typeof(TextSourceDTO))
+            idValueLabel.Text = Banner.Id.ToString();
+            nameTextBox.Text = Banner.Name;
+            descTextBox.Text = Banner.Description;
+            initDateTimePicker.Value = Banner.InitialDate;
+            endDateTimePicker.Value = Banner.EndDate;
+            initHourComboBox.SelectedIndex = Banner.InitialTime.Hours;
+            initMinComboBox.SelectedIndex = Banner.InitialTime.Minutes;
+            EndHourComboBox.SelectedIndex = Banner.EndTime.Hours;
+            endMinComboBox.SelectedIndex = Banner.EndTime.Minutes;
+            if (Banner.Source.GetType() == typeof(TextSourceDTO))
             {
-                comboBox5.SelectedItem = TEXT_SOURCE;
+                sourceComboBox.SelectedItem = TEXT_SOURCE;
 
-                TextSourceDTO text = (TextSourceDTO)this.Banner.Source;
-                this.textBox1.Text = text.Data;
-                this.pictureBox1.Visible = false;
+                TextSourceDTO text = (TextSourceDTO)Banner.Source;
+                textSourceTextBox.Text = text.Data;
+                pictureBox1.Visible = false;
+                rSSSourceLabel.Visible = false;
 
             }
 
-            if (this.Banner.Source.GetType() == typeof(RSSSourceDTO))
+            if (Banner.Source.GetType() == typeof(RSSSourceDTO))
             {
-                comboBox5.SelectedItem = RSS_SOURCE;
-                this.RSSSource = (RSSSourceDTO)this.Banner.Source;
-                this.pictureBox1.Visible = true;
-
+                RSSSource = (RSSSourceDTO)Banner.Source;
+                sourceComboBox.SelectedItem = RSS_SOURCE;
+                pictureBox1.Visible = true;
+                rSSSourceLabel.Visible = true;
+                rSSSourceLabel.Text = string.Format(
+                    "Id: {1}{0} Descripción: {2}{0} Url: {3}{0}",
+                    Environment.NewLine,
+                    RSSSource.Id,
+                    RSSSource.Description,
+                    RSSSource.Url
+                );
             }
-            this.comboBox5_SelectedIndexChanged(comboBox5, EventArgs.Empty);
+            sourceComboBox_SelectedIndexChanged(sourceComboBox, EventArgs.Empty);
 
         }
 
         private void saveBanner()
         {
-            this.Banner.Name = nameTextBox.Text;
-            this.Banner.Description = descTextBox.Text;
-            this.Banner.InitialDate = initDateTimePicker.Value;
-            this.Banner.EndDate = endDateTimePicker.Value;
-            this.Banner.InitialTime = new TimeSpan(Convert.ToInt32(comboBox1.Text), Convert.ToInt32(comboBox2.Text), 0);
-            this.Banner.EndTime = new TimeSpan(Convert.ToInt32(comboBox3.Text), Convert.ToInt32(comboBox4.Text), 0);
-            switch (comboBox5.SelectedItem)
+            Banner.Name = nameTextBox.Text;
+            Banner.Description = descTextBox.Text;
+            Banner.InitialDate = initDateTimePicker.Value;
+            Banner.EndDate = endDateTimePicker.Value;
+            Banner.InitialTime = new TimeSpan(Convert.ToInt32(initHourComboBox.Text), Convert.ToInt32(initMinComboBox.Text), 0);
+            Banner.EndTime = new TimeSpan(Convert.ToInt32(EndHourComboBox.Text), Convert.ToInt32(endMinComboBox.Text), 0);
+            switch (sourceComboBox.SelectedItem)
             {
                 case TEXT_SOURCE:
 
                     TextSourceDTO text = new TextSourceDTO();
-                    text.Data = this.textBox1.Text;
-                    this.Banner.Source = text;
+                    text.Data = textSourceTextBox.Text;
+                    Banner.Source = text;
                     break;
                 case RSS_SOURCE:
-                    this.Banner.Source = new RSSSourceDTO();
-                    this.Banner.Source = this.RSSSource;
+                    Banner.Source = new RSSSourceDTO();
+                    Banner.Source = RSSSource;
                     break;
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
-                //Controlar campos vacíos y source
-                this.saveBanner();
-                DialogResult = DialogResult.OK;
-                this.Close();
+            if (compareTimes())
+            {
+                errorProvider1.SetError(endMinComboBox, "El tiempo de inicio debe ser menor al de fin");
+            }
+            else {
+                if (ValidateChildren(ValidationConstraints.Enabled))
+                {
+                    try
+                    {
+                        saveBanner();
+                        DialogResult = DialogResult.OK;
+                        Close();
+                    }
+                    catch (Exception ex)
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al guardar").ShowDialog();
+                    }
+
+                }
+            }
+
         }
+
+        private void nameTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (nameTextBox.Text.Length == 0)
+            {
+                error = "Ingrese nombre del banner";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void descTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (descTextBox.Text.Length == 0)
+            {
+                error = "Ingrese una descripción del banner";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void initDateTimePicker_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (compareDates())
+            {
+                error = "La fecha de inicio debe ser menor a la de fin.";
+                e.Cancel = true;
+            }
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void endDateTimePicker_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (compareDates())
+            {
+                error = "La fecha de inicio debe ser menor a la de fin.";
+                e.Cancel = true;
+            }
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void initHourComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (initHourComboBox.SelectedIndex == -1)
+            {
+                error = "Debe seleccionar una hora de inicio.";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void initMinComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (initMinComboBox.SelectedIndex == -1)
+            {
+                error = "Debe seleccionar minutos de inicio.";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void EndHourComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (EndHourComboBox.SelectedIndex == -1)
+            {
+                error = "Debe seleccionar una hora de fin.";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void endMinComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (endMinComboBox.SelectedIndex == -1)
+            {
+                error = "Debe seleccionar minutos de finalización.";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+        }
+
+        private void selectRSSButton_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+
+            if (sourceComboBox.SelectedItem.ToString() == RSS_SOURCE && Banner.Source == null)
+            {
+                error = "Debe seleccionar una fuente RSS";
+                e.Cancel = true;
+            }
+
+            errorProvider1.SetError((Control)sender, error);
+
+        }
+
+        private void textSourceTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (textSourceTextBox.Visible == true)
+            {
+                string error = null;
+
+                if (textSourceTextBox.Text.Length == 0)
+                {
+                    error = "Debe Ingresar un texto para el banner";
+                    e.Cancel = true;
+                }
+
+                errorProvider1.SetError((Control)sender, error);
+            }
+
+        }
+
+        /// FUNCIONES AUXILIARES DE COMPARACION
+
+        private bool compareDates()
+        {
+            return initDateTimePicker.Value.CompareTo(endDateTimePicker.Value) > 0;
+        }
+
+        private bool compareTimes()
+        {
+            TimeSpan initTime = new TimeSpan(Convert.ToInt32(initHourComboBox.SelectedItem), Convert.ToInt32(initMinComboBox.SelectedItem), 0);
+
+            TimeSpan endTime = new TimeSpan(Convert.ToInt32(EndHourComboBox.SelectedItem), Convert.ToInt32(endMinComboBox.SelectedItem), 0);
+
+            return initTime.CompareTo(endTime) > 0;
+        }
+
+        private bool anyChange()
+        {
+            bool change= false;
+            change = (Banner.Name != nameTextBox.Text) ? true : change ; 
+            change = (Banner.Description != descTextBox.Text) ? true : change;
+            change = (Banner.InitialDate != initDateTimePicker.Value) ? true : change;
+            change = (Banner.EndDate != endDateTimePicker.Value) ? true : change;
+            change = (Banner.InitialTime != new TimeSpan(Convert.ToInt32(initHourComboBox.SelectedItem), Convert.ToInt32(initMinComboBox.SelectedItem), 0)) ? true : change;
+            change = (Banner.EndTime != new TimeSpan(Convert.ToInt32(EndHourComboBox.SelectedItem), Convert.ToInt32(endMinComboBox.SelectedItem), 0)) ? true : change;
+            if (Banner.Source is TextSourceDTO)
+            {
+                TextSourceDTO textSource = (TextSourceDTO)Banner.Source;
+                change = (textSource.Data != textSourceTextBox.Text) ? true : change;
+            }
+            if (Banner.Source is RSSSourceDTO)
+            {
+                RSSSourceDTO source = (RSSSourceDTO)Banner.Source;
+                change = (source.Id != RSSSource.Id) ? true : change;
+            }
+            return change;
+        }
+
     }
+
 }
