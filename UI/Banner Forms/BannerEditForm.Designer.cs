@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BannerEditForm));
             this.cancelButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.endMinComboBox = new System.Windows.Forms.ComboBox();
             this.initMinComboBox = new System.Windows.Forms.ComboBox();
-            this.EndHourComboBox = new System.Windows.Forms.ComboBox();
+            this.endHourComboBox = new System.Windows.Forms.ComboBox();
             this.initHourComboBox = new System.Windows.Forms.ComboBox();
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.initDateTimePicker = new System.Windows.Forms.DateTimePicker();
@@ -54,11 +55,11 @@
             this.sourceComboBox = new System.Windows.Forms.ComboBox();
             this.saveButton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.rSSSourceLabel = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -238,10 +239,10 @@
             this.initMinComboBox.TabIndex = 43;
             this.initMinComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.initMinComboBox_Validating);
             // 
-            // EndHourComboBox
+            // endHourComboBox
             // 
-            this.EndHourComboBox.FormattingEnabled = true;
-            this.EndHourComboBox.Items.AddRange(new object[] {
+            this.endHourComboBox.FormattingEnabled = true;
+            this.endHourComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -266,11 +267,11 @@
             "21",
             "22",
             "23"});
-            this.EndHourComboBox.Location = new System.Drawing.Point(679, 262);
-            this.EndHourComboBox.Name = "EndHourComboBox";
-            this.EndHourComboBox.Size = new System.Drawing.Size(52, 21);
-            this.EndHourComboBox.TabIndex = 44;
-            this.EndHourComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.EndHourComboBox_Validating);
+            this.endHourComboBox.Location = new System.Drawing.Point(679, 262);
+            this.endHourComboBox.Name = "endHourComboBox";
+            this.endHourComboBox.Size = new System.Drawing.Size(52, 21);
+            this.endHourComboBox.TabIndex = 44;
+            this.endHourComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.EndHourComboBox_Validating);
             // 
             // initHourComboBox
             // 
@@ -492,10 +493,6 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Visible = false;
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // rSSSourceLabel
             // 
             this.rSSSourceLabel.AutoSize = true;
@@ -505,6 +502,11 @@
             this.rSSSourceLabel.Size = new System.Drawing.Size(0, 17);
             this.rSSSourceLabel.TabIndex = 52;
             this.rSSSourceLabel.Visible = false;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // BannerEditForm
             // 
@@ -521,7 +523,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.endMinComboBox);
             this.Controls.Add(this.initMinComboBox);
-            this.Controls.Add(this.EndHourComboBox);
+            this.Controls.Add(this.endHourComboBox);
             this.Controls.Add(this.initHourComboBox);
             this.Controls.Add(this.endDateTimePicker);
             this.Controls.Add(this.initDateTimePicker);
@@ -540,13 +542,14 @@
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "BannerEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BannerEditForm";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -558,7 +561,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ComboBox endMinComboBox;
         private System.Windows.Forms.ComboBox initMinComboBox;
-        private System.Windows.Forms.ComboBox EndHourComboBox;
+        private System.Windows.Forms.ComboBox endHourComboBox;
         private System.Windows.Forms.ComboBox initHourComboBox;
         private System.Windows.Forms.DateTimePicker endDateTimePicker;
         private System.Windows.Forms.DateTimePicker initDateTimePicker;
@@ -579,7 +582,7 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label rSSSourceLabel;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

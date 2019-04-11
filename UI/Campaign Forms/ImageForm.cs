@@ -34,19 +34,22 @@ namespace DigitalSignage.UI.Campaign_Forms
             InitializeComponent();
             for (int i = 1; i <= pImageListLength; i++)
             {
-                comboBox2.Items.Add(i);
+                positionComboBox.Items.Add(i);
             }
+            positionComboBox.SelectedIndex = positionComboBox.Items.Count - 1;
 
             if (pImage != null)
             {
-                this.Image = pImage;
-                this.pictureBox1.Image = byteArrayToImage(this.Image.Data);
-                this.textBox1.Text = this.Image.Description;
-                this.textBox2.Text = this.Image.Duration.ToString();
-                this.comboBox2.Text = this.Image.Position.ToString();
-            } else
+                Image = pImage;
+                imgBox.Image = byteArrayToImage(Image.Data);
+                descriptionTextBox.Text = Image.Description;
+                durationTextBox.Text = Image.Duration.ToString();
+                positionComboBox.Text = Image.Position.ToString();
+            }
+            else
             {
-                this.iImage = new ImageDTO();
+                Image = new ImageDTO();
+                Image.Position = pImageListLength;
             }
         }
 
@@ -55,15 +58,21 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
-            var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
+            if (!anyChange())
+            {
+                Close();
+            } else
+            {
+                var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
                                     "Cancelar");
             confirmResult.ShowDialog();
 
             if (confirmResult.DialogResult == DialogResult.Yes)
             {
-                this.Close();
+                Close();
+            }
             }
         }
 
@@ -72,15 +81,15 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void loadImg_Click(object sender, EventArgs e)
         {
             // Abre dialogo para seleccionar imagen  
             OpenFileDialog open = new OpenFileDialog();
             // Añade Filtro de extensiones de imagen
             open.Filter = "Image Files(*.jpg; *.jpeg; *.png; *.gif; *.bmp)|*.jpg; *.jpeg; *.png; *.gif; *.bmp";
             if (open.ShowDialog() == DialogResult.OK)
-            {  
-                pictureBox1.Image = new Bitmap(open.FileName);
+            {
+                imgBox.Image = new Bitmap(open.FileName);
                 imagePath.Text = open.FileName;
                 imagePath.ForeColor = Color.WhiteSmoke;
                 imagePath.Font = new Font(Font.FontFamily, 10);
@@ -92,13 +101,13 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void saveButton_Click(object sender, EventArgs e)
         {
-                //Controlar campos vacíos
-                this.saveImage();
-                DialogResult = DialogResult.OK;
+            //Controlar campos vacíos
+            saveImage();
+            DialogResult = DialogResult.OK;
 
-                this.Close();
+            Close();
         }
 
         /// <summary>
@@ -107,19 +116,19 @@ namespace DigitalSignage.UI.Campaign_Forms
         public void saveImage()
         {
             //VALIDAR CAMPOS
-            this.Image.Data = this.imageToByteArray(pictureBox1.Image);
-            this.Image.Description = this.textBox1.Text;
-            this.Image.Duration = Convert.ToInt32(this.textBox2.Text);
-            this.Image.Position = Convert.ToInt32(this.comboBox2.Text);
+            Image.Data = imageToByteArray(imgBox.Image);
+            Image.Description = descriptionTextBox.Text;
+            Image.Duration = Convert.ToInt32(durationTextBox.Text);
+            Image.Position = Convert.ToInt32(positionComboBox.Text);
         }
 
         // Funciones auxiliares para convertir imagenes
 
-            /// <summary>
-            /// Convierte bytes en imagen para mostrar
-            /// </summary>
-            /// <param name="byteArrayIn">Bytes a convertir</param>
-            /// <returns></returns>
+        /// <summary>
+        /// Convierte bytes en imagen para mostrar
+        /// </summary>
+        /// <param name="byteArrayIn">Bytes a convertir</param>
+        /// <returns></returns>
         public Image byteArrayToImage(byte[] byteArrayIn)
         {
             MemoryStream ms = new MemoryStream(byteArrayIn);
@@ -137,6 +146,77 @@ namespace DigitalSignage.UI.Campaign_Forms
             MemoryStream ms = new MemoryStream();
             imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
             return ms.ToArray();
+        }
+
+        private void imgBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (imgBox == null || imgBox.Image == null)
+            {
+                error = "Debe ingresar una imagen.";
+                e.Cancel = true;
+            }
+
+            errorProvider.SetError(loadImgButton, error);
+        }
+
+        private void descriptionTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (descriptionTextBox.Text.Length == 0)
+            {
+                error = "Debe ingresar una descripción.";
+                e.Cancel = true;
+            }
+
+            errorProvider.SetError((Control)sender, error);
+        }
+
+        private void durationTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (durationTextBox.Text.Length == 0)
+            {
+                error = "Debe ingresar una duración.";
+                e.Cancel = true;
+            } else
+            {
+                int duration;
+                if (!int.TryParse(durationTextBox.Text, out duration))
+                {
+                    error = "La duración debe ser un valor numérico.";
+                    e.Cancel = true;
+                }
+            }
+
+            errorProvider.SetError((Control)sender, error);
+        }
+
+        private void positionComboBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            if (positionComboBox.SelectedIndex == -1)
+            {
+                error = "Debe seleccionar una posición.";
+                e.Cancel = true;
+            }
+
+            errorProvider.SetError((Control)sender, error);
+        }
+
+        private bool anyChange()
+        {
+            bool change = false;
+            change = (Image.Description != descriptionTextBox.Text) ? true : change;
+            int result;
+            if (int.TryParse(durationTextBox.Text, out result))
+            {
+                change = (Image.Duration != result) ? true : change;
+
+            }
+            change = (Image.Position != Convert.ToInt32(positionComboBox.SelectedItem)) ? true : change;
+
+            return change;
         }
     }
 }

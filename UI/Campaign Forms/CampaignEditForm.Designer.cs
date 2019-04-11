@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampaignEditForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.Label();
@@ -50,11 +51,11 @@
             this.endTimeLabel = new System.Windows.Forms.Label();
             this.initDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.endDateTimePicker = new System.Windows.Forms.DateTimePicker();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.initHourComboBox = new System.Windows.Forms.ComboBox();
+            this.endHourComboBox = new System.Windows.Forms.ComboBox();
+            this.initMinComboBox = new System.Windows.Forms.ComboBox();
+            this.endMinComboBox = new System.Windows.Forms.ComboBox();
+            this.imgGridView = new System.Windows.Forms.DataGridView();
             this.Data = new System.Windows.Forms.DataGridViewImageColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -63,26 +64,28 @@
             this.editImageButton = new System.Windows.Forms.Button();
             this.deleteImageButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(0, 99);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(310, 50);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Location = new System.Drawing.Point(0, 99);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(310, 50);
+            this.cancelButton.TabIndex = 0;
+            this.cancelButton.Text = "Cancelar";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // panel3
             // 
@@ -149,7 +152,7 @@
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(43)))), ((int)(((byte)(64)))));
             this.flowLayoutPanel1.Controls.Add(this.panel2);
             this.flowLayoutPanel1.Controls.Add(this.saveButton);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.cancelButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -176,6 +179,7 @@
             this.nameTextBox.Name = "nameTextBox";
             this.nameTextBox.Size = new System.Drawing.Size(198, 21);
             this.nameTextBox.TabIndex = 9;
+            this.nameTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.nameTextBox_Validating);
             // 
             // descTextBox
             // 
@@ -184,6 +188,7 @@
             this.descTextBox.Name = "descTextBox";
             this.descTextBox.Size = new System.Drawing.Size(327, 102);
             this.descTextBox.TabIndex = 11;
+            this.descTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.descTextBox_Validating);
             // 
             // nameLabel
             // 
@@ -272,6 +277,7 @@
             this.initDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.initDateTimePicker.TabIndex = 23;
             this.initDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 14, 26, 0);
+            this.initDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.initDateTimePicker_Validating);
             // 
             // endDateTimePicker
             // 
@@ -281,12 +287,13 @@
             this.endDateTimePicker.Name = "endDateTimePicker";
             this.endDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.endDateTimePicker.TabIndex = 24;
-            this.endDateTimePicker.Value = new System.DateTime(2019, 3, 12, 0, 15, 31, 0);
+            this.endDateTimePicker.Value = new System.DateTime(2019, 3, 13, 0, 15, 0, 0);
+            this.endDateTimePicker.Validating += new System.ComponentModel.CancelEventHandler(this.endDateTimePicker_Validating);
             // 
-            // comboBox1
+            // initHourComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.initHourComboBox.FormattingEnabled = true;
+            this.initHourComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -311,15 +318,16 @@
             "21",
             "22",
             "23"});
-            this.comboBox1.Location = new System.Drawing.Point(390, 573);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(52, 21);
-            this.comboBox1.TabIndex = 26;
+            this.initHourComboBox.Location = new System.Drawing.Point(390, 573);
+            this.initHourComboBox.Name = "initHourComboBox";
+            this.initHourComboBox.Size = new System.Drawing.Size(52, 21);
+            this.initHourComboBox.TabIndex = 26;
+            this.initHourComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.initHourComboBox_Validating);
             // 
-            // comboBox3
+            // endHourComboBox
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
+            this.endHourComboBox.FormattingEnabled = true;
+            this.endHourComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -344,15 +352,16 @@
             "21",
             "22",
             "23"});
-            this.comboBox3.Location = new System.Drawing.Point(583, 573);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(52, 21);
-            this.comboBox3.TabIndex = 27;
+            this.endHourComboBox.Location = new System.Drawing.Point(583, 573);
+            this.endHourComboBox.Name = "endHourComboBox";
+            this.endHourComboBox.Size = new System.Drawing.Size(52, 21);
+            this.endHourComboBox.TabIndex = 28;
+            this.endHourComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.EndHourComboBox_Validating);
             // 
-            // comboBox2
+            // initMinComboBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.initMinComboBox.FormattingEnabled = true;
+            this.initMinComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -413,15 +422,16 @@
             "57",
             "58",
             "59"});
-            this.comboBox2.Location = new System.Drawing.Point(476, 573);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(52, 21);
-            this.comboBox2.TabIndex = 28;
+            this.initMinComboBox.Location = new System.Drawing.Point(476, 573);
+            this.initMinComboBox.Name = "initMinComboBox";
+            this.initMinComboBox.Size = new System.Drawing.Size(52, 21);
+            this.initMinComboBox.TabIndex = 27;
+            this.initMinComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.initMinComboBox_Validating);
             // 
-            // comboBox4
+            // endMinComboBox
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
+            this.endMinComboBox.FormattingEnabled = true;
+            this.endMinComboBox.Items.AddRange(new object[] {
             "0",
             "1",
             "2",
@@ -482,30 +492,32 @@
             "57",
             "58",
             "59"});
-            this.comboBox4.Location = new System.Drawing.Point(665, 573);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(52, 21);
-            this.comboBox4.TabIndex = 29;
+            this.endMinComboBox.Location = new System.Drawing.Point(665, 573);
+            this.endMinComboBox.Name = "endMinComboBox";
+            this.endMinComboBox.Size = new System.Drawing.Size(52, 21);
+            this.endMinComboBox.TabIndex = 29;
+            this.endMinComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.endMinComboBox_Validating);
             // 
-            // dataGridView1
+            // imgGridView
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.imgGridView.AllowUserToAddRows = false;
+            this.imgGridView.AllowUserToDeleteRows = false;
+            this.imgGridView.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(6)))), ((int)(((byte)(24)))), ((int)(((byte)(39)))));
+            this.imgGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.imgGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Data,
             this.Description,
             this.Duration,
             this.Position});
-            this.dataGridView1.GridColor = System.Drawing.Color.Silver;
-            this.dataGridView1.Location = new System.Drawing.Point(766, 99);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowTemplate.Height = 100;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(592, 535);
-            this.dataGridView1.TabIndex = 30;
+            this.imgGridView.GridColor = System.Drawing.Color.Silver;
+            this.imgGridView.Location = new System.Drawing.Point(766, 99);
+            this.imgGridView.Name = "imgGridView";
+            this.imgGridView.RowHeadersVisible = false;
+            this.imgGridView.RowTemplate.Height = 100;
+            this.imgGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.imgGridView.Size = new System.Drawing.Size(592, 535);
+            this.imgGridView.TabIndex = 30;
+            this.imgGridView.Validating += new System.ComponentModel.CancelEventHandler(this.imgGridView_Validating);
             // 
             // Data
             // 
@@ -595,6 +607,11 @@
             this.label1.Text = "Imágenes";
             this.label1.Visible = false;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
             // CampaignEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
@@ -604,12 +621,12 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.deleteImageButton);
             this.Controls.Add(this.editImageButton);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.comboBox4);
-            this.Controls.Add(this.comboBox2);
+            this.Controls.Add(this.imgGridView);
+            this.Controls.Add(this.endMinComboBox);
+            this.Controls.Add(this.initMinComboBox);
             this.Controls.Add(this.addImageButton);
-            this.Controls.Add(this.comboBox3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.endHourComboBox);
+            this.Controls.Add(this.initHourComboBox);
             this.Controls.Add(this.endDateTimePicker);
             this.Controls.Add(this.initDateTimePicker);
             this.Controls.Add(this.endTimeLabel);
@@ -636,7 +653,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -644,7 +662,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panel2;
@@ -663,11 +681,11 @@
         private System.Windows.Forms.Label endTimeLabel;
         private System.Windows.Forms.DateTimePicker initDateTimePicker;
         private System.Windows.Forms.DateTimePicker endDateTimePicker;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox initHourComboBox;
+        private System.Windows.Forms.ComboBox endHourComboBox;
+        private System.Windows.Forms.ComboBox initMinComboBox;
+        private System.Windows.Forms.ComboBox endMinComboBox;
+        private System.Windows.Forms.DataGridView imgGridView;
         private System.Windows.Forms.Button addImageButton;
         private System.Windows.Forms.Button editImageButton;
         private System.Windows.Forms.Button deleteImageButton;
@@ -677,5 +695,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
         private System.Windows.Forms.DataGridViewTextBoxColumn Position;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

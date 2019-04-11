@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RSSEditForm));
             this.cancelButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,12 +48,12 @@
             this.BwRSSReader = new System.ComponentModel.BackgroundWorker();
             this.loadPictureBox = new System.Windows.Forms.PictureBox();
             this.checkPictureBox = new System.Windows.Forms.PictureBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rSSItemsGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // cancelButton
@@ -249,9 +250,10 @@
             this.checkPictureBox.TabStop = false;
             this.checkPictureBox.Visible = false;
             // 
-            // errorProvider1
+            // errorProvider
             // 
-            this.errorProvider1.ContainerControl = this;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // RSSEditForm
             // 
@@ -273,6 +275,7 @@
             this.Controls.Add(this.cancelButton);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RSSEditForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RSSEditForm";
@@ -281,7 +284,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.rSSItemsGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loadPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,6 +310,6 @@
         private System.Windows.Forms.Label label3;
         private System.ComponentModel.BackgroundWorker BwRSSReader;
         private System.Windows.Forms.PictureBox loadPictureBox;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

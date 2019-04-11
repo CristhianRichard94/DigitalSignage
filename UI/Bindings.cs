@@ -18,7 +18,7 @@ namespace DigitalSignage.UI
 
         public override void Load()
         {
-            // Para el servicio iX usar la implementacion X
+            // Para la interfaz del servicio iX usar la implementacion X
             Bind<ICampaignService>().To<CampaignService>();
             Bind<IBannerService>().To<BannerService>();
             Bind<IRSSSourceService>().To<RSSSourceService>();

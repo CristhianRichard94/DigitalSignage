@@ -42,16 +42,16 @@ namespace DigitalSignage.UI.Banner_Forms
             BannerEditForm bef = new BannerEditForm((BannerDTO)bannersGridView.SelectedRows[0].DataBoundItem);
             if(bef.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
+                //try
+                //{
                     this.iBannerService.Update(bef.Banner);
                     new NotificationForm(MessageBoxButtons.OK, "Se ha modificado el banner", "Exito al modificar el banner").ShowDialog();
                     getBanners();
-            }
-                catch (Exception ex)
-            {
-                new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar el banner").ShowDialog();
-            }
+            //}
+            //    catch (Exception ex)
+            //{
+            //    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar el banner").ShowDialog();
+            //}
         }
         }
 

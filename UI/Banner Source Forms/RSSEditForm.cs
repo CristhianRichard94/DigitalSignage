@@ -176,7 +176,7 @@ namespace DigitalSignage.UI.RSS_Forms
         {
             if (urlTextBox.Text.Length == 0)
             {
-                errorProvider1.SetError(urlTextBox, "Debe ingresar una url");
+                errorProvider.SetError(urlTextBox, "Debe ingresar una url");
                 e.Cancel = true;
 
             }
@@ -187,13 +187,13 @@ namespace DigitalSignage.UI.RSS_Forms
                 if (!Uri.TryCreate(urlTextBox.Text.Trim(), UriKind.Absolute, out uri))
                 {
 
-                    errorProvider1.SetError(urlTextBox, "La Url ingresada no es válida.");
+                    errorProvider.SetError(urlTextBox, "La Url ingresada no es válida.");
                     e.Cancel = true;
 
                 }
             }
 
-            errorProvider1.SetError(urlTextBox, null);
+            errorProvider.SetError(urlTextBox, null);
         }
 
         private void descriptionTextBox_Validating(object sender, CancelEventArgs e)
@@ -205,7 +205,7 @@ namespace DigitalSignage.UI.RSS_Forms
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void rSSItemsGridView_Validating(object sender, CancelEventArgs e)
@@ -217,7 +217,7 @@ namespace DigitalSignage.UI.RSS_Forms
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
 

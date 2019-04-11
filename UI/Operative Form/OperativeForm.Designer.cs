@@ -125,7 +125,7 @@
             this.imgBox.Location = new System.Drawing.Point(423, 133);
             this.imgBox.Name = "imgBox";
             this.imgBox.Size = new System.Drawing.Size(835, 450);
-            this.imgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.imgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgBox.TabIndex = 9;
             this.imgBox.TabStop = false;
             // 

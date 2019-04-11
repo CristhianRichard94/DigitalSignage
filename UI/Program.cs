@@ -39,7 +39,7 @@ namespace DigitalSignage.UI
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
                 InitialTime = new TimeSpan(0, 0, 1),
-                EndTime = new TimeSpan(0, 0, 30),
+                EndTime = new TimeSpan(23, 30, 0),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2019, 08, 08),
                 Images = new List<Image>
@@ -63,7 +63,7 @@ namespace DigitalSignage.UI
               Description = "Imagen 3",
               Duration = 3,
               Position = 3,
-              Data = File.ReadAllBytes("../../../assets/images/3.jpeg")
+              Data = File.ReadAllBytes("../../../assets/images/3.jpg")
           },
       }
             };
@@ -94,7 +94,7 @@ namespace DigitalSignage.UI
                 Name = "Prueba",
                 Description = "Prueba de banner",
                 InitialTime = new TimeSpan(0, 0, 1),
-                EndTime = new TimeSpan(0, 0, 30),
+                EndTime = new TimeSpan(23, 30, 30),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2019, 08, 08),
                 Source = sourceRSS,
@@ -114,7 +114,7 @@ namespace DigitalSignage.UI
                 Name = "Prueba",
                 Description = "Prueba de banner",
                 InitialTime = new TimeSpan(0, 0, 1),
-                EndTime = new TimeSpan(0, 0, 30),
+                EndTime = new TimeSpan(23, 30, 30),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2019, 08, 08),
                 Source = textSource

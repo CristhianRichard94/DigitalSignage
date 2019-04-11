@@ -42,6 +42,10 @@ namespace DigitalSignage.UI.Banner_Forms
                 Banner.Source = new TextSourceDTO();
                 // Opcion de cargar fuente de texto
                 sourceComboBox.SelectedItem = TEXT_SOURCE;
+                initHourComboBox.SelectedItem = 0;
+                initMinComboBox.SelectedItem = 0;
+                endHourComboBox.SelectedItem = 23;
+                endMinComboBox.SelectedItem = 59;
 
             }
         }
@@ -132,7 +136,7 @@ namespace DigitalSignage.UI.Banner_Forms
             endDateTimePicker.Value = Banner.EndDate;
             initHourComboBox.SelectedIndex = Banner.InitialTime.Hours;
             initMinComboBox.SelectedIndex = Banner.InitialTime.Minutes;
-            EndHourComboBox.SelectedIndex = Banner.EndTime.Hours;
+            endHourComboBox.SelectedIndex = Banner.EndTime.Hours;
             endMinComboBox.SelectedIndex = Banner.EndTime.Minutes;
             if (Banner.Source.GetType() == typeof(TextSourceDTO))
             {
@@ -170,7 +174,7 @@ namespace DigitalSignage.UI.Banner_Forms
             Banner.InitialDate = initDateTimePicker.Value;
             Banner.EndDate = endDateTimePicker.Value;
             Banner.InitialTime = new TimeSpan(Convert.ToInt32(initHourComboBox.Text), Convert.ToInt32(initMinComboBox.Text), 0);
-            Banner.EndTime = new TimeSpan(Convert.ToInt32(EndHourComboBox.Text), Convert.ToInt32(endMinComboBox.Text), 0);
+            Banner.EndTime = new TimeSpan(Convert.ToInt32(endHourComboBox.Text), Convert.ToInt32(endMinComboBox.Text), 0);
             switch (sourceComboBox.SelectedItem)
             {
                 case TEXT_SOURCE:
@@ -190,7 +194,7 @@ namespace DigitalSignage.UI.Banner_Forms
         {
             if (compareTimes())
             {
-                errorProvider1.SetError(endMinComboBox, "El tiempo de inicio debe ser menor al de fin");
+                errorProvider.SetError(endMinComboBox, "El tiempo de inicio debe ser menor al de fin");
             }
             else {
                 if (ValidateChildren(ValidationConstraints.Enabled))
@@ -216,11 +220,11 @@ namespace DigitalSignage.UI.Banner_Forms
             string error = null;
             if (nameTextBox.Text.Length == 0)
             {
-                error = "Ingrese nombre del banner";
+                error = "Ingrese nombre del banner.";
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void descTextBox_Validating(object sender, CancelEventArgs e)
@@ -228,11 +232,11 @@ namespace DigitalSignage.UI.Banner_Forms
             string error = null;
             if (descTextBox.Text.Length == 0)
             {
-                error = "Ingrese una descripción del banner";
+                error = "Ingrese una descripción del banner.";
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void initDateTimePicker_Validating(object sender, CancelEventArgs e)
@@ -243,7 +247,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 error = "La fecha de inicio debe ser menor a la de fin.";
                 e.Cancel = true;
             }
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void endDateTimePicker_Validating(object sender, CancelEventArgs e)
@@ -254,7 +258,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 error = "La fecha de inicio debe ser menor a la de fin.";
                 e.Cancel = true;
             }
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void initHourComboBox_Validating(object sender, CancelEventArgs e)
@@ -266,7 +270,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void initMinComboBox_Validating(object sender, CancelEventArgs e)
@@ -278,19 +282,19 @@ namespace DigitalSignage.UI.Banner_Forms
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void EndHourComboBox_Validating(object sender, CancelEventArgs e)
         {
             string error = null;
-            if (EndHourComboBox.SelectedIndex == -1)
+            if (endHourComboBox.SelectedIndex == -1)
             {
                 error = "Debe seleccionar una hora de fin.";
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void endMinComboBox_Validating(object sender, CancelEventArgs e)
@@ -302,7 +306,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
         }
 
         private void selectRSSButton_Validating(object sender, CancelEventArgs e)
@@ -315,7 +319,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 e.Cancel = true;
             }
 
-            errorProvider1.SetError((Control)sender, error);
+            errorProvider.SetError((Control)sender, error);
 
         }
 
@@ -331,7 +335,7 @@ namespace DigitalSignage.UI.Banner_Forms
                     e.Cancel = true;
                 }
 
-                errorProvider1.SetError((Control)sender, error);
+                errorProvider.SetError((Control)sender, error);
             }
 
         }
@@ -347,7 +351,7 @@ namespace DigitalSignage.UI.Banner_Forms
         {
             TimeSpan initTime = new TimeSpan(Convert.ToInt32(initHourComboBox.SelectedItem), Convert.ToInt32(initMinComboBox.SelectedItem), 0);
 
-            TimeSpan endTime = new TimeSpan(Convert.ToInt32(EndHourComboBox.SelectedItem), Convert.ToInt32(endMinComboBox.SelectedItem), 0);
+            TimeSpan endTime = new TimeSpan(Convert.ToInt32(endHourComboBox.SelectedItem), Convert.ToInt32(endMinComboBox.SelectedItem), 0);
 
             return initTime.CompareTo(endTime) > 0;
         }
@@ -360,7 +364,7 @@ namespace DigitalSignage.UI.Banner_Forms
             change = (Banner.InitialDate != initDateTimePicker.Value) ? true : change;
             change = (Banner.EndDate != endDateTimePicker.Value) ? true : change;
             change = (Banner.InitialTime != new TimeSpan(Convert.ToInt32(initHourComboBox.SelectedItem), Convert.ToInt32(initMinComboBox.SelectedItem), 0)) ? true : change;
-            change = (Banner.EndTime != new TimeSpan(Convert.ToInt32(EndHourComboBox.SelectedItem), Convert.ToInt32(endMinComboBox.SelectedItem), 0)) ? true : change;
+            change = (Banner.EndTime != new TimeSpan(Convert.ToInt32(endHourComboBox.SelectedItem), Convert.ToInt32(endMinComboBox.SelectedItem), 0)) ? true : change;
             if (Banner.Source is TextSourceDTO)
             {
                 TextSourceDTO textSource = (TextSourceDTO)Banner.Source;

@@ -28,22 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImageForm));
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.loadImgButton = new System.Windows.Forms.Button();
+            this.imgBox = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.descriptionTextBox = new System.Windows.Forms.TextBox();
+            this.positionComboBox = new System.Windows.Forms.ComboBox();
+            this.durationTextBox = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.imagePath = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // panel3
@@ -68,45 +72,47 @@
             this.label1.Text = "Carga de Imagen";
             this.label1.Visible = false;
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Location = new System.Drawing.Point(503, 364);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(129, 36);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.CausesValidation = false;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.cancelButton.Location = new System.Drawing.Point(503, 364);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(129, 36);
+            this.cancelButton.TabIndex = 7;
+            this.cancelButton.Text = "Cancelar";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button2
+            // loadImgButton
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button2.Location = new System.Drawing.Point(64, 271);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(136, 25);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Cargar Imagen";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.loadImgButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.loadImgButton.FlatAppearance.BorderSize = 0;
+            this.loadImgButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loadImgButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.loadImgButton.Location = new System.Drawing.Point(64, 271);
+            this.loadImgButton.Margin = new System.Windows.Forms.Padding(0);
+            this.loadImgButton.Name = "loadImgButton";
+            this.loadImgButton.Size = new System.Drawing.Size(136, 25);
+            this.loadImgButton.TabIndex = 8;
+            this.loadImgButton.Text = "Cargar Imagen";
+            this.loadImgButton.UseVisualStyleBackColor = false;
+            this.loadImgButton.Click += new System.EventHandler(this.loadImg_Click);
             // 
-            // pictureBox1
+            // imgBox
             // 
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(35, 87);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(197, 145);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 9;
-            this.pictureBox1.TabStop = false;
+            this.imgBox.ErrorImage = null;
+            this.imgBox.Location = new System.Drawing.Point(35, 87);
+            this.imgBox.Name = "imgBox";
+            this.imgBox.Size = new System.Drawing.Size(197, 145);
+            this.imgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgBox.TabIndex = 9;
+            this.imgBox.TabStop = false;
+            this.imgBox.Validating += new System.ComponentModel.CancelEventHandler(this.imgBox_Validating);
             // 
             // label2
             // 
@@ -142,44 +148,47 @@
             this.label4.TabIndex = 37;
             this.label4.Text = "Orden en la campaña:";
             // 
-            // button3
+            // saveButton
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button3.Location = new System.Drawing.Point(352, 364);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(129, 36);
-            this.button3.TabIndex = 38;
-            this.button3.Text = "Guardar";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.saveButton.FlatAppearance.BorderSize = 0;
+            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.saveButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.saveButton.Location = new System.Drawing.Point(352, 364);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(0);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(129, 36);
+            this.saveButton.TabIndex = 38;
+            this.saveButton.Text = "Guardar";
+            this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
-            // textBox1
+            // descriptionTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(272, 117);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(329, 91);
-            this.textBox1.TabIndex = 39;
+            this.descriptionTextBox.Location = new System.Drawing.Point(272, 117);
+            this.descriptionTextBox.Multiline = true;
+            this.descriptionTextBox.Name = "descriptionTextBox";
+            this.descriptionTextBox.Size = new System.Drawing.Size(329, 91);
+            this.descriptionTextBox.TabIndex = 39;
+            this.descriptionTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.descriptionTextBox_Validating);
             // 
-            // comboBox2
+            // positionComboBox
             // 
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(442, 315);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(140, 21);
-            this.comboBox2.TabIndex = 41;
+            this.positionComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.positionComboBox.FormattingEnabled = true;
+            this.positionComboBox.Location = new System.Drawing.Point(442, 315);
+            this.positionComboBox.Name = "positionComboBox";
+            this.positionComboBox.Size = new System.Drawing.Size(140, 21);
+            this.positionComboBox.TabIndex = 41;
+            this.positionComboBox.Validating += new System.ComponentModel.CancelEventHandler(this.positionComboBox_Validating);
             // 
-            // textBox2
+            // durationTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(272, 315);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(72, 21);
-            this.textBox2.TabIndex = 42;
+            this.durationTextBox.Location = new System.Drawing.Point(272, 315);
+            this.durationTextBox.Name = "durationTextBox";
+            this.durationTextBox.Size = new System.Drawing.Size(72, 21);
+            this.durationTextBox.TabIndex = 42;
+            this.durationTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.durationTextBox_Validating);
             // 
             // openFileDialog1
             // 
@@ -190,12 +199,17 @@
             this.imagePath.AutoSize = true;
             this.imagePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.imagePath.ForeColor = System.Drawing.Color.Silver;
-            this.imagePath.Location = new System.Drawing.Point(14, 246);
+            this.imagePath.Location = new System.Drawing.Point(32, 249);
             this.imagePath.Name = "imagePath";
             this.imagePath.Size = new System.Drawing.Size(206, 13);
             this.imagePath.TabIndex = 43;
             this.imagePath.Text = "No se ha seleccionado la ruta del archivo.";
             this.imagePath.Visible = false;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // ImageForm
             // 
@@ -205,16 +219,16 @@
             this.ClientSize = new System.Drawing.Size(643, 409);
             this.ControlBox = false;
             this.Controls.Add(this.imagePath);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.durationTextBox);
+            this.Controls.Add(this.positionComboBox);
+            this.Controls.Add(this.descriptionTextBox);
+            this.Controls.Add(this.saveButton);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.imgBox);
+            this.Controls.Add(this.loadImgButton);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.panel3);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -223,7 +237,8 @@
             this.Text = "Carga de imagen";
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,17 +248,18 @@
 
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button loadImgButton;
+        private System.Windows.Forms.PictureBox imgBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button saveButton;
+        private System.Windows.Forms.TextBox descriptionTextBox;
+        private System.Windows.Forms.ComboBox positionComboBox;
+        private System.Windows.Forms.TextBox durationTextBox;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label imagePath;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

@@ -57,14 +57,14 @@ namespace DigitalSignage.Domain
         public int SourceId { get; set; }
 
         /// <summary>
-        /// Verifica que el banner esté activo en este momento
+        /// Verifica que el banner esté activo en el momento
         /// </summary>
         /// <returns>Verdadero si esta activo, falso en caso contrario</returns>
         public bool IsActiveNow()
         {
             bool isActive;
             var today = DateTime.Now;
-            //se encuentra activo en la fecha
+            // Se encuentra activo en la fecha
             isActive = this.InitialDate.Date <= today.Date && today.Date <= this.EndDate.Date;
             isActive &= this.InitialTime <= today.TimeOfDay && today.TimeOfDay <= this.EndTime;
             return isActive;
