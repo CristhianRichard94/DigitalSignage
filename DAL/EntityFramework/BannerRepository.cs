@@ -80,7 +80,7 @@ namespace DigitalSignage.DAL.EntityFramework
 
             //Guardando los cambios
             this.iDbContext.SaveChanges();
-            
+
         }
 
         /// <summary>

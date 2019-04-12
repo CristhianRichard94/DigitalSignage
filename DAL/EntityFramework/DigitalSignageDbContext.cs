@@ -34,8 +34,8 @@ namespace DigitalSignage.DAL.EntityFramework
         {
             // Se establece la estrategia personalizada de inicialización de la BBDD.
             this.Configuration.LazyLoadingEnabled = false;
-           Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
-           //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseAlways<DigitalSignageDbContext>());
+            Database.SetInitializer<DigitalSignageDbContext>(new DatabaseInitialization());
+            //Database.SetInitializer<DigitalSignageDbContext>(new DropCreateDatabaseAlways<DigitalSignageDbContext>());
 
 
         }

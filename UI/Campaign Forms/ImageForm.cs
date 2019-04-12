@@ -63,16 +63,17 @@ namespace DigitalSignage.UI.Campaign_Forms
             if (!anyChange())
             {
                 Close();
-            } else
+            }
+            else
             {
                 var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
                                     "Cancelar");
-            confirmResult.ShowDialog();
+                confirmResult.ShowDialog();
 
-            if (confirmResult.DialogResult == DialogResult.Yes)
-            {
-                Close();
-            }
+                if (confirmResult.DialogResult == DialogResult.Yes)
+                {
+                    Close();
+                }
             }
         }
 
@@ -179,7 +180,8 @@ namespace DigitalSignage.UI.Campaign_Forms
             {
                 error = "Debe ingresar una duración.";
                 e.Cancel = true;
-            } else
+            }
+            else
             {
                 int duration;
                 if (!int.TryParse(durationTextBox.Text, out duration))

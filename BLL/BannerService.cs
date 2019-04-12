@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace DigitalSignage.BLL
 {
@@ -45,7 +46,7 @@ namespace DigitalSignage.BLL
         /// </summary>
         private TimeSpan REFRESH_TIME = new TimeSpan(0, 0, 10);
 
-        private const string  EMPTY_BANNERS_TEXT = "No hay ningun banner activo en este momento";
+        private const string EMPTY_BANNERS_TEXT = "No hay ningun banner activo en este momento";
 
         private string iCurrentText = "";
 
@@ -55,10 +56,11 @@ namespace DigitalSignage.BLL
         private CancellationToken cancellationToken;
         private CancellationTokenSource tokenSource;
 
+
+
         public BannerService()
         {
-            this.iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
-
+            iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
             observers = new List<IObserver<string>>();
             iCurrentBanners = new List<Banner>();
 
@@ -73,71 +75,153 @@ namespace DigitalSignage.BLL
 
         public IEnumerable<BannerDTO> GetAll()
         {
-            IEnumerable<Banner> banners = this.iUnitOfWork.BannerRepository.GetAll();
-            return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+            try
+            {
+                Log.Information("Obteniendo todos los banners.");
+                IEnumerable<Banner> banners = iUnitOfWork.BannerRepository.GetAll();
+                Log.Information("Banners obtenidos con exito.");
+                return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todos los banners.");
+                throw;
+            }
+
         }
 
         public BannerDTO Get(int pId)
         {
-            var banner = iUnitOfWork.BannerRepository.Get(pId);
+            try
+            {
+                Log.Information(String.Format("Obteniendo banner con Id {0}.", pId));
+                var banner = iUnitOfWork.BannerRepository.Get(pId);
+                Log.Information("Banner obtenido con exito.");
 
-            var bannerDTO = new BannerDTO();
-            AutoMapper.Mapper.Map(banner, bannerDTO);
-            return bannerDTO;
+                var bannerDTO = new BannerDTO();
+                AutoMapper.Mapper.Map(banner, bannerDTO);
+                return bannerDTO;
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener banner.");
+                throw;
+            }
+
 
         }
 
         public void Update(BannerDTO pBanner)
         {
-            Banner banner = new Banner();
-            AutoMapper.Mapper.Map(pBanner, banner);
-            this.iUnitOfWork.BannerRepository.Update(banner);
-            this.iUnitOfWork.Complete();
+            try
+            {
+                Log.Information(String.Format("Actualizando banner con Id {0}.", pBanner.Id));
+                Banner banner = new Banner();
+                AutoMapper.Mapper.Map(pBanner, banner);
+                iUnitOfWork.BannerRepository.Update(banner);
+                iUnitOfWork.Complete();
+                Log.Information("Banner actualizado con exito.");
+
+            }
+            catch (Exception)
+            {
+                Log.Error(String.Format("error al actualizar el banner con Id {0}.", pBanner.Id));
+                throw;
+            }
+
         }
 
         public void Create(BannerDTO pBanner)
         {
-            Banner banner = new Banner();
-            AutoMapper.Mapper.Map(pBanner, banner);
-            if (pBanner.Source is RSSSourceDTO)
+            try
             {
-                banner.Source = this.iUnitOfWork.RSSSourceRepository.Get(banner.Source.Id);
+                Log.Information("Creando banner.");
+
+                Banner banner = new Banner();
+                AutoMapper.Mapper.Map(pBanner, banner);
+                if (pBanner.Source is RSSSourceDTO)
+                {
+                    banner.Source = iUnitOfWork.RSSSourceRepository.Get(banner.Source.Id);
+                }
+                iUnitOfWork.BannerRepository.Add(banner);
+                iUnitOfWork.Complete();
+                Log.Information("Banner creado con exito.");
+
             }
-            this.iUnitOfWork.BannerRepository.Add(banner);
-            this.iUnitOfWork.Complete();
+            catch (Exception)
+            {
+                Log.Error("Error al crear el banner.");
+                throw;
+            }
+
         }
 
         public void Remove(BannerDTO pBanner)
         {
-            Banner banner = this.iUnitOfWork.BannerRepository.Get(pBanner.Id);
-            this.iUnitOfWork.BannerRepository.Remove(banner);
-            this.iUnitOfWork.Complete();
+            try
+            {
+                Log.Information(String.Format("Eliminando banner con Id {0}.", pBanner.Id));
 
+
+                Banner banner = iUnitOfWork.BannerRepository.Get(pBanner.Id);
+                iUnitOfWork.BannerRepository.Remove(banner);
+                iUnitOfWork.Complete();
+                Log.Information("Banner Eliminado con exito.");
+            }
+            catch (Exception)
+            {
+                Log.Error(String.Format("Error al eliminar banner con Id {0}.", pBanner.Id));
+                throw;
+            }
         }
 
         public IEnumerable<BannerDTO> getBannersByName(string pName)
         {
-            IEnumerable<Banner> banners = this.iUnitOfWork.BannerRepository.GetBannersByName(pName);
-            return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+            try
+            {
+                Log.Information(String.Format("Obteniendo banners con nombre: {0}.", pName));
+
+                IEnumerable<Banner> banners = iUnitOfWork.BannerRepository.GetBannersByName(pName);
+                Log.Information("Banners obtenidos con exito.");
+                return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todos los banners por nombre.");
+                throw;
+            }
+
         }
 
         public IEnumerable<BannerDTO> getBannersActiveInDate(DateTime pDate)
         {
-            IEnumerable<Banner> banners = this.iUnitOfWork.BannerRepository.GetBannersActiveInDate(pDate);
-            return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+            try
+            {
+                Log.Information(String.Format("Obteniendo banners activos en: {0}.", pDate));
+                IEnumerable<Banner> banners = iUnitOfWork.BannerRepository.GetBannersActiveInDate(pDate);
+                Log.Information("Banners obtenidos con exito.");
+
+                return AutoMapper.Mapper.Map<IEnumerable<BannerDTO>>(banners);
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todos los banners activos en fecha.");
+                throw;
+            }
+
         }
 
 
 
         private void GetNextActiveBannersLoop()
         {
-
+            Log.Information(String.Format("Iniciando bucle para obtener banners a mostrar en {0} Minutos.", UPDATE_TIME.Minutes));
             RunPeriodicAsync(GetNextActiveBanners, UPDATE_TIME, cancellationToken);
         }
 
         private void UpdateBannerListsLoop()
         {
-
+            Log.Information(String.Format("Iniciando bucle para actualizar banners a mostrar cada {0} Segundos.", REFRESH_TIME.Seconds));
             RunPeriodicAsync(UpdateBannerLists, REFRESH_TIME, cancellationToken);
 
         }
@@ -183,6 +267,7 @@ namespace DigitalSignage.BLL
 
         private void UpdateCurrentText()
         {
+            Log.Information("Actualizando texto de banners activos.");
             string updatedText = "";
             foreach (Banner banner in iCurrentBanners)
             {
@@ -195,12 +280,13 @@ namespace DigitalSignage.BLL
 
             if (iCurrentBanners.Count == 0)
             {
-                iCurrentText = EMPTY_BANNERS_TEXT;                
+                iCurrentText = EMPTY_BANNERS_TEXT;
             }
             foreach (var observer in observers)
             {
 
                 observer.OnNext(iCurrentText);
+                Log.Information("Texto notificado a observadores.");
 
             }
         }
@@ -214,14 +300,18 @@ namespace DigitalSignage.BLL
 
 
             // Obtiene los banners de la BD
+            Log.Information("Obteniendo banners actualmente activos");
             iNextBanners = iUnitOfWork.BannerRepository.GetBannersActiveInRange(now, actualTimespan, actualTimespan.Add(UPDATE_TIME)).ToList();
-            
+            Log.Information("Banners obtenidos con exito");
+
             // Actualiza los feeds RSS de los banners
             UpdateRSSSources();
         }
 
         private void UpdateRSSSources()
         {
+            Log.Information("Actualizando fuentes RSS.");
+
             foreach (Banner banner in iNextBanners)
             {
 
@@ -243,7 +333,9 @@ namespace DigitalSignage.BLL
                 IRSSReader rSSReader = new XMLRSSReader();
                 Uri uri;
                 Uri.TryCreate(source.Url, UriKind.Absolute, out uri);
+                Log.Information("Leyendo fuente RSS.");
                 var newRSSItems = rSSReader.Read(uri).ToList();
+                Log.Information("Asignando items RSS a la fuente.");
                 if (newRSSItems != null && newRSSItems.Count > 0)
                 {
                     source.RSSItems = AutoMapper.Mapper.Map<IList<RSSItemDTO>, IList<RSSItem>>(newRSSItems);
@@ -251,6 +343,8 @@ namespace DigitalSignage.BLL
             }
             catch (Exception)
             {
+                Log.Error("Error al actualizar Fuentes RSS");
+                throw;
             }
 
         }
@@ -290,6 +384,7 @@ namespace DigitalSignage.BLL
             // verifica que el observador no exista en la lista
             if (!observers.Contains(observer))
             {
+                Log.Information("Se ha subscrito un nuevo observador al servicio de banner");
                 observers.Add(observer);
                 // Envia al nuevo observador el texto actual.
                 observer.OnNext(iCurrentText);
@@ -306,8 +401,8 @@ namespace DigitalSignage.BLL
 
         public Unsubscriber(List<IObserver<T>> observers, IObserver<T> observer)
         {
-            this._observers = observers;
-            this._observer = observer;
+            _observers = observers;
+            _observer = observer;
         }
 
         public void Dispose()

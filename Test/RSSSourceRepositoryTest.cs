@@ -95,7 +95,7 @@ namespace DigitalSignage.Test
             uow.RSSSourceRepository.Add(sourceRSS);
 
             uow.Complete();
-            
+
             //Actualizando fuente
             RSSSource source2 = new RSSSource();
             source2.Id = sourceRSS.Id;
@@ -117,7 +117,7 @@ namespace DigitalSignage.Test
             var result = uow.RSSSourceRepository.Get(source2.Id);
 
             Assert.IsNotNull(result);
-            
+
         }
 
         /// <summary>

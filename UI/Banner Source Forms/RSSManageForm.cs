@@ -41,7 +41,7 @@ namespace DigitalSignage.UI.RSS_Forms
         /// <summary>
         /// Constructor, Obtiene la lista de fuentes RSS y las carga en la vista
         /// </summary>
-        public RSSManageForm(IRSSSourceService pRSSSourceService ,int pId)
+        public RSSManageForm(IRSSSourceService pRSSSourceService, int pId)
         {
             InitializeComponent();
             this.iRSSSourceService = pRSSSourceService;
@@ -58,7 +58,8 @@ namespace DigitalSignage.UI.RSS_Forms
                 this.button1.Visible = false;
                 this.button3.Visible = false;
                 this.label1.Visible = false;
-            } else // Caso de que se inicie desde seleccionar fuente en banner, sin una fuente previa
+            }
+            else // Caso de que se inicie desde seleccionar fuente en banner, sin una fuente previa
             {
                 this.button2.Visible = false;
                 this.button1.Visible = true;
@@ -104,7 +105,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.kernel = HomeForm.CreateKernel();
             this.kernel.Load(Assembly.GetExecutingAssembly());
             var rSSReader = this.kernel.Get<IRSSReader>();
-            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader,null);
+            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader, null);
 
             if (rSSEditForm.ShowDialog() == DialogResult.OK)
             {
@@ -133,7 +134,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.kernel = HomeForm.CreateKernel();
             this.kernel.Load(Assembly.GetExecutingAssembly());
             var rSSReader = this.kernel.Get<IRSSReader>();
-            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader,(RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem);
+            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader, (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem);
             if (rSSEditForm.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -158,7 +159,7 @@ namespace DigitalSignage.UI.RSS_Forms
                     rSSGridView1.DataSource = this.RSSSources;
                     break;
                 case "Buscar por ID":
-                    List<RSSSourceDTO> sources= new List<RSSSourceDTO>();
+                    List<RSSSourceDTO> sources = new List<RSSSourceDTO>();
                     RSSSourceDTO resultSource = this.iRSSSourceService.Get(Convert.ToInt32(searchTextBox.Text));
                     if (resultSource.Url == null)
                     {
@@ -184,7 +185,7 @@ namespace DigitalSignage.UI.RSS_Forms
 
             else
             {
-                    searchTextBox.Enabled = true;
+                searchTextBox.Enabled = true;
             }
         }
 

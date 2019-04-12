@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using DigitalSignage.DTO;
+using Serilog;
 
 namespace DigitalSignage.BLL.RSSReader
 {
@@ -26,12 +27,14 @@ namespace DigitalSignage.BLL.RSSReader
 
 
             // Obtiene el feed en formato XML
+            Log.Information("Cargando Url en lector.");
             XmlTextReader mXmlReader = new XmlTextReader(pUri.AbsoluteUri);
 
             // Genera un nuevo documento
             XmlDocument rSSXmlDocument = new XmlDocument();
 
             // Carga el feed en el documento
+            Log.Information("Cargando fuente xml en el documento.");
             rSSXmlDocument.Load(mXmlReader);
 
 
@@ -39,6 +42,7 @@ namespace DigitalSignage.BLL.RSSReader
 
             StringBuilder rSSContent = new StringBuilder();
 
+            Log.Information("Construyendo Items RSS.");
             // Itera entre los items del del archivo RSS y genera RSSItemDTO
             foreach (XmlNode rssNode in rSSXmlDocument.SelectNodes("//channel/item"))
             {

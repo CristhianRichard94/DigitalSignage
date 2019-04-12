@@ -28,7 +28,7 @@ namespace DigitalSignage.Domain
         /// Lista de items de la fuente
         /// </summary>
         public IList<RSSItem> RSSItems { get; set; }
-        
+
         /// <summary>
         /// Obtiene el texto de cada item
         /// </summary>

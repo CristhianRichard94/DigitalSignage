@@ -17,14 +17,14 @@ namespace DigitalSignage.DAL.EntityFramework.Mappings
         {
             // Tabla en la que se mapea la entidad
             this.ToTable("RSSSources");
-            
+
             // Propiedades Requeridas (No nulas)
             this.Property(pBannerSource => pBannerSource.Description)
                 .IsRequired();
-            
+
             this.Property(pRssSource => pRssSource.Url)
                 .IsRequired();
-            
+
             // Posee muchos Items RSS con clave Foranea RSSSourceId que se eliminan junto con la fuente
             this.HasMany<RSSItem>(pRssSource => pRssSource.RSSItems)
                 .WithRequired()

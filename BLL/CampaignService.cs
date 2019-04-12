@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DigitalSignage.DAL.EntityFramework;
 using DigitalSignage.Domain;
 using DigitalSignage.DTO;
+using Serilog;
 
 namespace DigitalSignage.BLL
 {
@@ -36,7 +37,7 @@ namespace DigitalSignage.BLL
         /// Lista de campañas activos en este momento
         /// </summary>
         private List<Campaign> iCurrentCampaigns;
-        
+
         /// <summary>
         /// Lista de imagenes (concatenacion de imagenes de las campañas activas)
         /// </summary>
@@ -55,13 +56,13 @@ namespace DigitalSignage.BLL
         /// <summary>
         /// Intervalo de tiempo en minutos en que se vuelve a actualizar la lista actual de campañas
         /// </summary>
-        private TimeSpan UPDATE_TIME = new TimeSpan(0,10,0);
+        private TimeSpan UPDATE_TIME = new TimeSpan(0, 10, 0);
 
 
         /// <summary>
         /// Intervalo de tiempo en segundos en que se actualiza la lista de campañas
         /// </summary>
-        private TimeSpan REFRESH_TIME = new TimeSpan(0,0,10);
+        private TimeSpan REFRESH_TIME = new TimeSpan(0, 0, 10);
 
         /// <summary>
         /// Token para cancelar tareas asincronas
@@ -75,7 +76,7 @@ namespace DigitalSignage.BLL
         /// </summary>
         public CampaignService()
         {
-            this.iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
+            iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
 
             observers = new List<IObserver<byte[]>>();
             iCurrentCampaigns = new List<Campaign>();
@@ -96,8 +97,19 @@ namespace DigitalSignage.BLL
         /// <returns>Enumerable de campañas</returns>
         public IEnumerable<CampaignDTO> GetAll()
         {
-            IEnumerable<Campaign> campaigns = this.iUnitOfWork.CampaignRepository.GetAll();
-            return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
+            try
+            {
+                Log.Information("Obteniendo todas las campañas.");
+                IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetAll();
+                Log.Information("Campañas obtenidas con exito.");
+
+                return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todas las campañas.");
+                throw;
+            }
         }
 
 
@@ -108,12 +120,20 @@ namespace DigitalSignage.BLL
         /// <returns>Campaña</returns>
         public CampaignDTO Get(int pId)
         {
-            var campaign = iUnitOfWork.CampaignRepository.Get(pId);
-
-            var campaignDTO = new CampaignDTO();
-            AutoMapper.Mapper.Map(campaign, campaignDTO);
-            return campaignDTO;
-
+            try
+            {
+                Log.Information(String.Format("Obteniendo campaña con Id {0}.", pId));
+                var campaign = iUnitOfWork.CampaignRepository.Get(pId);
+                Log.Information("Campaña obtenida con exito.");
+                var campaignDTO = new CampaignDTO();
+                AutoMapper.Mapper.Map(campaign, campaignDTO);
+                return campaignDTO;
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener campaña.");
+                throw;
+            }
         }
 
 
@@ -123,10 +143,23 @@ namespace DigitalSignage.BLL
         /// <param name="pCampaign">Campaña modificada</param>
         public void Update(CampaignDTO pCampaign)
         {
-            Campaign campaign = new Campaign();
-            AutoMapper.Mapper.Map(pCampaign, campaign);
-            iUnitOfWork.CampaignRepository.Update(campaign);
-            iUnitOfWork.Complete();
+            try
+            {
+                Log.Information(String.Format("Actualizando campaña con Id {0}.", pCampaign.Id));
+                Campaign campaign = new Campaign();
+                AutoMapper.Mapper.Map(pCampaign, campaign);
+                iUnitOfWork.CampaignRepository.Update(campaign);
+                iUnitOfWork.Complete();
+                Log.Information("Campaña actualizada con exito.");
+
+            }
+            catch (Exception)
+            {
+
+                Log.Error(String.Format("Error al actualizar la campaña con Id {0}.", pCampaign.Id));
+                throw;
+            }
+
         }
 
 
@@ -136,10 +169,24 @@ namespace DigitalSignage.BLL
         /// <param name="pCampaign">Campaña creada</param>
         public void Create(CampaignDTO pCampaign)
         {
-            Campaign campaign = new Campaign();
-            AutoMapper.Mapper.Map(pCampaign, campaign);
-            iUnitOfWork.CampaignRepository.Add(campaign);
-            iUnitOfWork.Complete();
+            try
+            {
+                Log.Information("Creando campaña.");
+
+                Campaign campaign = new Campaign();
+                AutoMapper.Mapper.Map(pCampaign, campaign);
+                iUnitOfWork.CampaignRepository.Add(campaign);
+                iUnitOfWork.Complete();
+                Log.Information("Campaña creada con exito.");
+
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al crear la campaña.");
+
+                throw;
+            }
+
         }
 
         /// <summary>
@@ -148,9 +195,21 @@ namespace DigitalSignage.BLL
         /// <param name="pCampaign">Campaña a eliminar</param>
         public void Remove(CampaignDTO pCampaign)
         {
-            Campaign campaign = this.iUnitOfWork.CampaignRepository.Get(pCampaign.Id);
-            iUnitOfWork.CampaignRepository.Remove(campaign);
-            iUnitOfWork.Complete();
+            try
+            {
+                Log.Information(String.Format("Eliminando campaña con Id {0}.", pCampaign.Id));
+                Campaign campaign = iUnitOfWork.CampaignRepository.Get(pCampaign.Id);
+                iUnitOfWork.CampaignRepository.Remove(campaign);
+                iUnitOfWork.Complete();
+                Log.Information("Campaña Eliminada con exito.");
+
+            }
+            catch (Exception)
+            {
+                Log.Error(String.Format("Error al eliminar campaña con Id {0}.", pCampaign.Id));
+                throw;
+            }
+
 
         }
 
@@ -162,8 +221,19 @@ namespace DigitalSignage.BLL
         /// <returns></returns>
         public IEnumerable<CampaignDTO> getCampaignsByName(string pName)
         {
-            IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsByName(pName);
-            return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
+            try
+            {
+                Log.Information(String.Format("Obteniendo campañas con nombre: {0}.", pName));
+                IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsByName(pName);
+                Log.Information("Campañas obtenidas con exito.");
+                return AutoMapper.Mapper.Map<IEnumerable<CampaignDTO>>(campaigns);
+
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todas los campañas por nombre.");
+                throw;
+            }
         }
 
 
@@ -174,12 +244,22 @@ namespace DigitalSignage.BLL
         /// <returns></returns>
         public IEnumerable<CampaignDTO> GetCampaignsActiveInDate(DateTime pDate)
         {
+            try
+            {
+                Log.Information(String.Format("Obteniendo campañas activos en: {0}.", pDate));
 
                 IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInDate(pDate);
+                Log.Information("Campañas obtenidas con exito.");
 
-                var campaignsDTO = AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
+                return AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
 
-                return campaignsDTO;
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todas las campañas activos en fecha.");
+
+                throw;
+            }
 
         }
 
@@ -190,15 +270,25 @@ namespace DigitalSignage.BLL
         /// <returns></returns>
         public IEnumerable<CampaignDTO> GetCampaignsActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime)
         {
+            try
+            {
+                Log.Information(String.Format("Obteniendo campañas activas en: {0}.", pDate));
+                IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(pDate, pFromTime, pToTime);
+                Log.Information("Campañas obtenidas con exito.");
+                return AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
 
-            IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(pDate, pFromTime,pToTime);
-            var campaignsDTO = AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener todas las campañas activos en fecha.");
 
-            return campaignsDTO;
+                throw;
+            }
+
 
         }
 
-        public void GetActiveCampaigns()
+        public void GetNextActiveCampaigns()
         {
             // Obtiene las campañas que se encontraran activas en algun momento de los siguientes <UPDATE_TIME_IN_MINUTES> minutos
             var now = DateTime.Now;
@@ -206,8 +296,10 @@ namespace DigitalSignage.BLL
 
             // Limpia la lista de campañas
             iCurrentCampaigns.Clear();
+            Log.Information(String.Format("Obteniendo campañas activas hasta dentro de {0} minutos.", UPDATE_TIME));
 
             iNextCampaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(now, actualTimespan, actualTimespan.Add(UPDATE_TIME)).ToList();
+            Log.Information("Campañas obtenidas con exito");
 
         }
 
@@ -216,8 +308,9 @@ namespace DigitalSignage.BLL
         /// </summary>
         private void GetNextActiveCampaignsLoop()
         {
+            Log.Information(String.Format("Iniciando bucle para obtener campañas a mostrar en {0} minutos.", UPDATE_TIME.Minutes));
 
-            RunPeriodicAsync(GetActiveCampaigns, UPDATE_TIME, cancellationToken);
+            RunPeriodicAsync(GetNextActiveCampaigns, UPDATE_TIME, cancellationToken);
 
         }
 
@@ -228,6 +321,7 @@ namespace DigitalSignage.BLL
         private void UpdateCampaignListsLoop()
         {
 
+            Log.Information(String.Format("Iniciando bucle para actualizar campañas a mostrar cada {0} Segundos.", REFRESH_TIME.Seconds));
 
             RunPeriodicAsync(UpdateCampaignLists, REFRESH_TIME, cancellationToken);
 
@@ -238,23 +332,23 @@ namespace DigitalSignage.BLL
         /// </summary>
         private void UpdateCampaignLists()
         {
-                // Verifica que las campañas que se estan mostrando no se hayan vencido
-                iCurrentCampaigns.RemoveAll(c => !c.IsActiveNow());
+            // Verifica que las campañas que se estan mostrando no se hayan vencido
+            iCurrentCampaigns.RemoveAll(c => !c.IsActiveNow());
 
-                // Verifica que no haya nuevas campañas para agregar
-                foreach (Campaign campaign in iNextCampaigns)
+            // Verifica que no haya nuevas campañas para agregar
+            foreach (Campaign campaign in iNextCampaigns)
+            {
+
+                if (campaign.IsActiveNow())
                 {
-
-                    if (campaign.IsActiveNow())
-                    {
-                        iCurrentCampaigns.Add(campaign);
-                    }
-
+                    iCurrentCampaigns.Add(campaign);
                 }
-                // Elimina los elementos de la lista de next campaigns
-                iNextCampaigns.RemoveAll(c => c.IsActiveNow());
 
-            
+            }
+            // Elimina los elementos de la lista de next campaigns
+            iNextCampaigns.RemoveAll(c => c.IsActiveNow());
+
+
         }
 
 
@@ -285,6 +379,8 @@ namespace DigitalSignage.BLL
         /// </summary>
         private void UpdateCurrentImageIndex()
         {
+            Log.Information("Actualizando indice de imagenes de campañas activas.");
+
             // Verifica que no se haya terminado de recorrer la lista de imagenes
             iCurrentImageIndex++;
             if (iCurrentImageIndex >= iCurrentImages.Count)
@@ -305,6 +401,8 @@ namespace DigitalSignage.BLL
                 foreach (var observer in observers)
                 {
                     observer.OnNext(iCurrentImages[iCurrentImageIndex].Data);
+                    Log.Information("Imagen notificada a observadores.");
+
                 }
 
                 // Pospone la actualizacion dependiendo de la duracion de la imagen actual
@@ -318,6 +416,8 @@ namespace DigitalSignage.BLL
                 foreach (var observer in observers)
                 {
                     observer.OnNext(iDefaultImage);
+                    Log.Information("Imagen por defecto notificada a observadores.");
+
                 }
 
                 // Pospone la siguiente actualizacion en un tiempo por defecto
@@ -326,7 +426,8 @@ namespace DigitalSignage.BLL
             }
 
             // Corre una tarea de espera para volver a actualizar el indice
-            Task.Run(async () => {
+            Task.Run(async () =>
+            {
 
                 // Espera que se ejecute la tarea de espera
                 await Task.Delay(interval, cancellationToken);
@@ -346,15 +447,15 @@ namespace DigitalSignage.BLL
         /// </summary>
         private void UpdateCurrentImages()
         {
+            Log.Information("Actualizando imagenes de campañas activas.");
+
             // Vacia la lista de imagenes
             iCurrentImages.Clear();
 
             //Agrega las imagenes de las siguientes campañas
             foreach (Campaign campaign in iCurrentCampaigns)
             {
-
                 iCurrentImages.AddRange(campaign.Images);
-
             }
         }
 
@@ -375,7 +476,7 @@ namespace DigitalSignage.BLL
                 {
                     // Envia al nuevo observador la imagen actual.
                     observer.OnNext(iCurrentImages[iCurrentImageIndex].Data);
-
+                    Log.Information("Se ha subscrito un nuevo observador al servicio de campaña");
                 }
                 else
                 {

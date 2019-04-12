@@ -128,7 +128,7 @@ namespace DigitalSignage.UI.Campaign_Forms
                     }
                     catch (Exception exc)
                     {
-                        new NotificationForm(MessageBoxButtons.OK,exc.Message, "Error").ShowDialog();
+                        new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
                     }
                     break;
                 case "Buscar por fecha":
@@ -173,7 +173,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// <param name="e"></param>
         private void searchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(searchComboBox.SelectedItem)
+            switch (searchComboBox.SelectedItem)
             {
                 case "Mostrar todas las campañas":
                     searchTextBox.Visible = true;
@@ -196,7 +196,7 @@ namespace DigitalSignage.UI.Campaign_Forms
                     break;
             }
         }
-        
+
         /// <summary>
         /// Dispara la busqueda de campañas
         /// </summary>

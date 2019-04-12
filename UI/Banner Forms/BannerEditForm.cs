@@ -64,13 +64,14 @@ namespace DigitalSignage.UI.Banner_Forms
                 {
                     Close();
                 }
-            } else
+            }
+            else
             {
                 Close();
             }
 
         }
-        
+
         private void sourceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (sourceComboBox.SelectedItem)
@@ -104,16 +105,17 @@ namespace DigitalSignage.UI.Banner_Forms
 
             if (Banner.Source != null && Banner.Source.GetType() == typeof(RSSSourceDTO))
             {
-                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,Banner.Source.Id);
+                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService, Banner.Source.Id);
 
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
                     RSSSource = rSSManageForm.RSSSourceSelected;
                     pictureBox1.Visible = true;
                 }
-            } else
+            }
+            else
             {
-                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService,0);
+                RSSManageForm rSSManageForm = new RSSManageForm(rSSSourceService, 0);
 
                 if (rSSManageForm.ShowDialog() == DialogResult.OK)
                 {
@@ -196,7 +198,8 @@ namespace DigitalSignage.UI.Banner_Forms
             {
                 errorProvider.SetError(endMinComboBox, "El tiempo de inicio debe ser menor al de fin");
             }
-            else {
+            else
+            {
                 if (ValidateChildren(ValidationConstraints.Enabled))
                 {
                     try
@@ -358,8 +361,8 @@ namespace DigitalSignage.UI.Banner_Forms
 
         private bool anyChange()
         {
-            bool change= false;
-            change = (Banner.Name != nameTextBox.Text) ? true : change ; 
+            bool change = false;
+            change = (Banner.Name != nameTextBox.Text) ? true : change;
             change = (Banner.Description != descTextBox.Text) ? true : change;
             change = (Banner.InitialDate != initDateTimePicker.Value) ? true : change;
             change = (Banner.EndDate != endDateTimePicker.Value) ? true : change;

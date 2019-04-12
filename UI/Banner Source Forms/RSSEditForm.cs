@@ -17,7 +17,7 @@ namespace DigitalSignage.UI.RSS_Forms
         private RSSSourceDTO iRSSSource;
         private IRSSReader iRSSReader;
 
-        public RSSEditForm(IRSSReader rSSReader,RSSSourceDTO pRSSSource)
+        public RSSEditForm(IRSSReader rSSReader, RSSSourceDTO pRSSSource)
         {
             InitializeComponent();
 
@@ -34,7 +34,7 @@ namespace DigitalSignage.UI.RSS_Forms
                 this.loadSource();
             }
         }
-        
+
         public RSSSourceDTO RSSSource { get => iRSSSource; set => iRSSSource = value; }
         public IRSSReader RSSReader { get => iRSSReader; set => iRSSReader = value; }
 
@@ -74,7 +74,7 @@ namespace DigitalSignage.UI.RSS_Forms
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren(ValidationConstraints.Enabled))
-            { 
+            {
                 try
                 {
                     this.saveSource();
@@ -85,7 +85,7 @@ namespace DigitalSignage.UI.RSS_Forms
                 {
                     new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
                 }
-        }
+            }
         }
 
 
@@ -117,7 +117,8 @@ namespace DigitalSignage.UI.RSS_Forms
             if (!Uri.TryCreate(urlTextBox.Text.Trim(), UriKind.Absolute, out uri))
             {
                 new NotificationForm(MessageBoxButtons.OK, "La URL ingresada no es válida.", "URL Erronea").ShowDialog();
-            } else
+            }
+            else
             {
                 verifyButton.Enabled = false;
                 saveButton.Enabled = false;
@@ -158,7 +159,7 @@ namespace DigitalSignage.UI.RSS_Forms
 
             if (e.Error != null)
             {
-                new NotificationForm(MessageBoxButtons.OK, "Error: "+ e.Error.Message, "Error al obtener feeds.").ShowDialog();
+                new NotificationForm(MessageBoxButtons.OK, "Error: " + e.Error.Message, "Error al obtener feeds.").ShowDialog();
 
             }
             else if (!e.Cancelled)

@@ -22,8 +22,8 @@ namespace DigitalSignage.Test
             {
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
-                InitialTime = new TimeSpan(0,0,1),
-                EndTime = new TimeSpan(0,0,30),
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2018, 02, 08),
                 Images = new List<Image>
@@ -70,8 +70,8 @@ namespace DigitalSignage.Test
             {
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
-                InitialTime = new TimeSpan(0,0,1),
-                EndTime = new TimeSpan(0,0,30),
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2018, 02, 08),
                 Images = new List<Image>
@@ -103,7 +103,8 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            Campaign updatedCampaign = new Campaign() {
+            Campaign updatedCampaign = new Campaign()
+            {
                 Id = campaign.Id,
                 Name = "Prueba2",
                 Description = "Prueba de una campaña2",
@@ -121,7 +122,7 @@ namespace DigitalSignage.Test
                             Data = File.ReadAllBytes("../../../assets/images/1.jpg")
                         },
                 },
-                };
+            };
             uow.CampaignRepository.Update(updatedCampaign);
 
             uow.Complete();
@@ -140,8 +141,8 @@ namespace DigitalSignage.Test
             {
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
-                InitialTime = new TimeSpan(0,0,1),
-                EndTime = new TimeSpan(0,0,30),
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2018, 02, 08),
                 Images = new List<Image>
@@ -191,8 +192,8 @@ namespace DigitalSignage.Test
             {
                 Name = "Prueba",
                 Description = "Prueba de una campaña",
-                InitialTime = new TimeSpan(0,0,1),
-                EndTime = new TimeSpan(0,0,30),
+                InitialTime = new TimeSpan(0, 0, 1),
+                EndTime = new TimeSpan(0, 0, 30),
                 InitialDate = new DateTime(2018, 02, 07),
                 EndDate = new DateTime(2018, 02, 08),
                 Images = new List<Image>

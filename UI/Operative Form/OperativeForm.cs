@@ -56,7 +56,7 @@ namespace DigitalSignage.UI.Operative_Form
             InitializeComponent();
             this.iCampaignService = campaignService;
             this.iBannerService = bannerService;
-            this.bannerText.Text = WHITE_SPACE+ "Cargando Banners";
+            this.bannerText.Text = WHITE_SPACE + "Cargando Banners";
             iBannerUnsubscriber = (Unsubscriber<string>)iBannerService.Subscribe(this);
             iCampaignUnsubscriber = (Unsubscriber<byte[]>)this.iCampaignService.Subscribe(this);
 
@@ -98,7 +98,7 @@ namespace DigitalSignage.UI.Operative_Form
         }
 
         private void moveBannerText()
-        {            
+        {
             if (string.IsNullOrEmpty(bannerText.Text))
             {
                 bannerText.Text = iCurrentText;
@@ -121,12 +121,10 @@ namespace DigitalSignage.UI.Operative_Form
 
         public void OnCompleted()
         {
-            throw new NotImplementedException();
         }
 
         public void OnError(Exception error)
         {
-            throw new NotImplementedException();
         }
 
         public void OnNext(byte[] value)
@@ -168,7 +166,7 @@ namespace DigitalSignage.UI.Operative_Form
 
         void updateTimeLabel()
         {
-            this.timeLabel.Text = DateTime.Now.ToShortDateString() + " - "+ DateTime.Now.ToShortTimeString();
+            this.timeLabel.Text = DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToShortTimeString();
         }
     }
 }

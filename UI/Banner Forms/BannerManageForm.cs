@@ -40,19 +40,19 @@ namespace DigitalSignage.UI.Banner_Forms
         private void button2_Click(object sender, EventArgs e)
         {
             BannerEditForm bef = new BannerEditForm((BannerDTO)bannersGridView.SelectedRows[0].DataBoundItem);
-            if(bef.ShowDialog() == DialogResult.OK)
+            if (bef.ShowDialog() == DialogResult.OK)
             {
                 //try
                 //{
-                    this.iBannerService.Update(bef.Banner);
-                    new NotificationForm(MessageBoxButtons.OK, "Se ha modificado el banner", "Exito al modificar el banner").ShowDialog();
-                    getBanners();
-            //}
-            //    catch (Exception ex)
-            //{
-            //    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar el banner").ShowDialog();
-            //}
-        }
+                this.iBannerService.Update(bef.Banner);
+                new NotificationForm(MessageBoxButtons.OK, "Se ha modificado el banner", "Exito al modificar el banner").ShowDialog();
+                getBanners();
+                //}
+                //    catch (Exception ex)
+                //{
+                //    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar el banner").ShowDialog();
+                //}
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -65,12 +65,12 @@ namespace DigitalSignage.UI.Banner_Forms
                     this.iBannerService.Create(bef.Banner);
                     new NotificationForm(MessageBoxButtons.OK, "Se ha creado el banner", "Exito al crear el banner").ShowDialog();
                     getBanners();
-            }
+                }
                 catch (Exception ex)
-            {
-                new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear el banner").ShowDialog();
+                {
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear el banner").ShowDialog();
+                }
             }
-        }
         }
 
 
@@ -124,7 +124,7 @@ namespace DigitalSignage.UI.Banner_Forms
                 case "Buscar por nombre":
                     try
                     {
-                        IEnumerable<BannerDTO> resultBanners= this.iBannerService.getBannersByName(searchTextBox.Text);
+                        IEnumerable<BannerDTO> resultBanners = this.iBannerService.getBannersByName(searchTextBox.Text);
                         if (resultBanners.Count() == 0)
                         {
                             new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña con el nombre ingresado.", "Error en la búsqueda").ShowDialog();

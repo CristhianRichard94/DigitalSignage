@@ -27,7 +27,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// Campaña siendo creada/modificada
         /// </summary>
         private CampaignDTO iCampaign = new CampaignDTO();
-        
+
         /// <summary>
         /// Lista de imagenes
         /// </summary>
@@ -67,17 +67,18 @@ namespace DigitalSignage.UI.Campaign_Forms
         }
 
 
-            /// <summary>
-            /// Boton para volver
-            /// </summary>
-            /// <param name="sender"></param>
-            /// <param name="e"></param>
+        /// <summary>
+        /// Boton para volver
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             if (!anyChange())
             {
                 Close();
-            } else
+            }
+            else
             {
                 var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea cancelar las operaciones realizadas? se perderan los cambios",
                          "Cancelar");
@@ -159,7 +160,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             //Campaign.Images = list;
             Campaign.Images = Images;
         }
-        
+
 
         /// <summary>
         /// Abre form para agregar una nueva imagen
@@ -173,7 +174,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             if (imgform.ShowDialog(this) == DialogResult.OK)
             {
                 try
-                { 
+                {
 
                     var newImage = imgform.Image;
                     var lastIndex = imgGridView.RowCount + 1;
@@ -195,10 +196,10 @@ namespace DigitalSignage.UI.Campaign_Forms
 
                 }
                 catch (Exception ex)
-            {
-                    new NotificationForm(MessageBoxButtons.OK, "Error: "+ ex.Message, "Error").ShowDialog();
+                {
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error").ShowDialog();
                 }
-        }
+            }
         }
 
         /// <summary>
@@ -214,7 +215,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             if (imgform.ShowDialog(this) == DialogResult.OK)
             {
                 try
-                { 
+                {
                     var updatedImage = imgform.Image;
 
                     // Si se modifico el orden de la imagen
@@ -422,7 +423,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             bool change = false;
             change = (Campaign.Name != nameTextBox.Text) ? true : change;
             change = (Campaign.Description != descTextBox.Text) ? true : change;
-           change = (Campaign.Images.Count != Images.Count) ? true : change;
+            change = (Campaign.Images.Count != Images.Count) ? true : change;
 
             return change;
         }

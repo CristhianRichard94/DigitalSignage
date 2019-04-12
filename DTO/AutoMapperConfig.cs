@@ -18,7 +18,8 @@ namespace DigitalSignage.DTO
         /// </summary>
         public static void RegisterMappings()
         {
-            Mapper.Initialize(cfg => {
+            Mapper.Initialize(cfg =>
+            {
 
                 cfg.CreateMap<BannerSource, BannerSourceDTO>().ReverseMap();
                 cfg.CreateMap<RSSSource, RSSSourceDTO>()

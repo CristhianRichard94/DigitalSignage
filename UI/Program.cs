@@ -1,6 +1,7 @@
 ﻿using DigitalSignage.DAL.EntityFramework;
 using DigitalSignage.Domain;
 using DigitalSignage.DTO;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ namespace DigitalSignage.UI
 {
     static class Program
     {
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -23,8 +25,21 @@ namespace DigitalSignage.UI
             Application.SetCompatibleTextRenderingDefault(false);
             AutoMapperConfig.RegisterMappings();
             //addTestData();
+
+            Log.Logger = new LoggerConfiguration()
+                               .MinimumLevel.Debug()
+                               .WriteTo.File("logs\\Logs.txt", rollingInterval: RollingInterval.Day)
+                               .CreateLogger();
+
             Application.Run(new HomeForm());
         }
+
+
+
+
+
+
+
 
         /// <summary>
         /// agrega datos de prueba a la DB 
