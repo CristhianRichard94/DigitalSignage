@@ -229,22 +229,30 @@ namespace DigitalSignage.BLL
                 {
                     var source = (RSSSource)banner.Source;
 
-
-                    Task.Run(() => {
-                            IRSSReader rSSReader = new XMLRSSReader();
-                            Uri uri;
-                            Uri.TryCreate(source.Url, UriKind.Absolute, out uri);
-                            var newRSSItems = rSSReader.Read(uri).ToList();
-                            if (newRSSItems != null && newRSSItems.Count > 0)
-                            {
-                                source.RSSItems = AutoMapper.Mapper.Map<IList<RSSItemDTO>, IList<RSSItem>>(newRSSItems);
-                            }
-
-                    });
+                    Task.Run(() => readFeeds(source));
 
                 }
 
             }
+        }
+
+        private void readFeeds(RSSSource source)
+        {
+            try
+            {
+                IRSSReader rSSReader = new XMLRSSReader();
+                Uri uri;
+                Uri.TryCreate(source.Url, UriKind.Absolute, out uri);
+                var newRSSItems = rSSReader.Read(uri).ToList();
+                if (newRSSItems != null && newRSSItems.Count > 0)
+                {
+                    source.RSSItems = AutoMapper.Mapper.Map<IList<RSSItemDTO>, IList<RSSItem>>(newRSSItems);
+                }
+            }
+            catch (Exception)
+            {
+            }
+
         }
 
 
@@ -268,24 +276,6 @@ namespace DigitalSignage.BLL
                 if (interval > TimeSpan.Zero)
                     await Task.Delay(interval, token);
             }
-        }
-
-
-
-
-
-
-
-        public void RefreshActiveBanners()
-        {
-            tokenSource.Cancel();
-            tokenSource.Dispose();
-
-            tokenSource = new CancellationTokenSource();
-            cancellationToken = tokenSource.Token;
-
-            GetNextActiveBannersLoop();
-            UpdateBannerListsLoop();
         }
 
 

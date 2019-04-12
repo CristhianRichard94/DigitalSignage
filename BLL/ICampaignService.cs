@@ -25,7 +25,5 @@ namespace DigitalSignage.BLL
         IEnumerable<CampaignDTO> getCampaignsByName(string pName);
 
         IEnumerable<CampaignDTO> GetCampaignsActiveInDate(DateTime pDate);
-
-        void RefreshActiveCampaigns();
     }
 }

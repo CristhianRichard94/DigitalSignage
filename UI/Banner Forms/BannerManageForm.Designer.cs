@@ -189,7 +189,7 @@ namespace DigitalSignage.UI.Banner_Forms
             this.searchComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.searchComboBox.FormattingEnabled = true;
             this.searchComboBox.Items.AddRange(new object[] {
-            "Mostrar todas las campañas",
+            "Mostrar todos los banners",
             "Buscar por nombre",
             "Buscar por fecha",
             "Buscar por ID"});
@@ -253,7 +253,7 @@ namespace DigitalSignage.UI.Banner_Forms
             this.Id.ReadOnly = true;
             this.Id.Width = 50;
             // 
-            // Name
+            // BannerName
             // 
             this.BannerName.DataPropertyName = "Name";
             this.BannerName.HeaderText = "Nombre";

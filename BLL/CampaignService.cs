@@ -360,26 +360,6 @@ namespace DigitalSignage.BLL
 
 
         /// <summary>
-        /// Reinicia todas las tareas asincronas del servicio
-        /// </summary>
-        public void RefreshActiveCampaigns()
-        {
-
-            // Cancela las tareas actuales por medio del token
-            tokenSource.Cancel();
-            tokenSource.Dispose();
-
-            // Genera un nuevo token
-            cancellationToken = new CancellationTokenSource().Token;
-
-            // Vuelve a correr bucles de actualizacion de campañas e imagenes
-            GetNextActiveCampaignsLoop();
-            UpdateCampaignListsLoop();
-            UpdateCurrentImageIndex();
-        }
-
-
-        /// <summary>
         /// Subscripcion para recibir las imagenes de la campaña actual
         /// </summary>
         /// <param name="observer">Nuevo observador que desea subscribirse</param>

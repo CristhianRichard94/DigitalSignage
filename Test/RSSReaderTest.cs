@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using DigitalSignage.BLL.RSSReader;
+using DigitalSignage.DTO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 

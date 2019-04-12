@@ -52,11 +52,8 @@ namespace DigitalSignage.Test
 
             uow.Complete();
 
-            IEnumerable<RSSSource> result = uow.RSSSourceRepository.GetAll();
 
-            IEnumerator<RSSSource> e = result.GetEnumerator();
-            e.MoveNext();
-            Assert.IsNotNull(e.Current);
+            Assert.IsNotNull(uow.RSSSourceRepository.Get(sourceRSS.Id));
         }
 
         /// <summary>
@@ -98,14 +95,10 @@ namespace DigitalSignage.Test
             uow.RSSSourceRepository.Add(sourceRSS);
 
             uow.Complete();
-
-            IEnumerable<RSSSource> result = uow.RSSSourceRepository.GetAll();
-
-            IEnumerator<RSSSource> e = result.GetEnumerator();
-            e.MoveNext();
-
+            
             //Actualizando fuente
-            RSSSource source2 = e.Current;
+            RSSSource source2 = new RSSSource();
+            source2.Id = sourceRSS.Id;
             source2.Description = "Fuente RSS2";
             source2.Url = "URL2";
             source2.RSSItems = new List<RSSItem>()
@@ -121,9 +114,10 @@ namespace DigitalSignage.Test
 
             uow.RSSSourceRepository.Update(sourceRSS);
             uow.Complete();
+            var result = uow.RSSSourceRepository.Get(source2.Id);
 
-            Assert.AreNotEqual(sourceRSS, uow.RSSSourceRepository.Get(source2.Id));
-
+            Assert.IsNotNull(result);
+            
         }
 
         /// <summary>

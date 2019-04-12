@@ -25,7 +25,5 @@ namespace DigitalSignage.BLL
         IEnumerable<BannerDTO> getBannersByName(string pName);
 
         IEnumerable<BannerDTO> getBannersActiveInDate(DateTime pDate);
-
-        void RefreshActiveBanners();
     }
 }

@@ -129,14 +129,23 @@ namespace DigitalSignage.UI.RSS_Forms
 
         private void BwRSSReader_DoWork(object sender, DoWorkEventArgs e)
         {
-            e.Result = iRSSReader.Read((Uri)e.Argument);
-
-            BwRSSReader.ReportProgress(1,e.Result);
-            if (BwRSSReader.CancellationPending)
+            try
             {
-                e.Cancel = true;
-                return;
+                e.Result = iRSSReader.Read((Uri)e.Argument);
+
+                BwRSSReader.ReportProgress(1, e.Result);
+                if (BwRSSReader.CancellationPending)
+                {
+                    e.Cancel = true;
+                    return;
+                }
             }
+            catch (Exception ex)
+            {
+                new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al leer feeds").ShowDialog();
+
+            }
+
         }
 
         private void BwRSSReader_ProgressChanged(object sender, ProgressChangedEventArgs e)

@@ -41,8 +41,11 @@ namespace DigitalSignage.DAL.EntityFramework
         {
             RSSSource source = base.Get(pId);
 
-            this.iDbContext.Entry(source).Collection(p => p.RSSItems).Load();
-            
+            if (source != null)
+            {
+                this.iDbContext.Entry(source).Collection(p => p.RSSItems).Load();
+            }
+
             return source;
         }
 
