@@ -97,10 +97,16 @@ namespace DigitalSignage.BLL
                 Log.Information(String.Format("Obteniendo banner con Id {0}.", pId));
                 var banner = iUnitOfWork.BannerRepository.Get(pId);
                 Log.Information("Banner obtenido con exito.");
-
-                var bannerDTO = new BannerDTO();
-                AutoMapper.Mapper.Map(banner, bannerDTO);
-                return bannerDTO;
+                if (banner == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var bannerDTO = new BannerDTO();
+                    AutoMapper.Mapper.Map(banner, bannerDTO);
+                    return bannerDTO;
+                }
             }
             catch (Exception)
             {
@@ -343,8 +349,7 @@ namespace DigitalSignage.BLL
             }
             catch (Exception)
             {
-                Log.Error("Error al actualizar Fuentes RSS");
-                throw;
+                Log.Error("Error al actualizar Fuentes RSS.");
             }
 
         }

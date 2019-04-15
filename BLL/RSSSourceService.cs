@@ -133,10 +133,16 @@ namespace DigitalSignage.BLL
                 Log.Information(String.Format("Obteniendo fuente RSS con Id {0}.", pId));
                 var source = iUnitOfWork.RSSSourceRepository.Get(pId);
                 Log.Information("Fuente RSS obtenida con exito.");
+                if (source == null)
+                {
+                    return null;
+                } else
+                {
+                    var sourceDTO = new RSSSourceDTO();
+                    AutoMapper.Mapper.Map(source, sourceDTO);
+                    return sourceDTO;
+                }
 
-                var sourceDTO = new RSSSourceDTO();
-                AutoMapper.Mapper.Map(source, sourceDTO);
-                return sourceDTO;
             }
             catch (Exception)
             {
@@ -167,6 +173,22 @@ namespace DigitalSignage.BLL
             {
                 Log.Error("Error al obtener todas las fuentes RSS.");
 
+                throw;
+            }
+        }
+
+        public IEnumerable<RSSSourceDTO> GetSourcesByURL(string pURL)
+        {
+            try
+            {
+                Log.Information(String.Format("Obteniendo fuentes que contengan '{0}' en su URL.", pURL));
+                IEnumerable<RSSSource> sources = iUnitOfWork.RSSSourceRepository.GetSourcesByURL(pURL);
+                Log.Information("Fuentes obtenidas con exito.");
+                return AutoMapper.Mapper.Map<IEnumerable<RSSSourceDTO>>(sources);
+            }
+            catch (Exception)
+            {
+                Log.Error("Error al obtener las fuentes por URL.");
                 throw;
             }
         }

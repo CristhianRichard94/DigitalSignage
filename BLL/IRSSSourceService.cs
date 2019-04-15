@@ -21,5 +21,7 @@ namespace DigitalSignage.BLL
         void Create(RSSSourceDTO pRSSSourceDTO);
 
         void Remove(RSSSourceDTO pRSSSourceDTO);
+
+        IEnumerable<RSSSourceDTO> GetSourcesByURL(string text);
     }
 }

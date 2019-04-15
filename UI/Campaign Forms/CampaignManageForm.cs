@@ -19,7 +19,7 @@ namespace DigitalSignage.UI.Campaign_Forms
     public partial class CampaignManageForm : Form
     {
         /// <summary>
-        /// instancia del servicio de campañas - FALTA IMPLEMENTAR CONTAINER IOC
+        /// instancia del servicio de campañas
         /// </summary>
         private readonly ICampaignService iCampaignService;
 
@@ -28,20 +28,29 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         private IEnumerable<CampaignDTO> iCampaigns;
 
+        public IEnumerable<CampaignDTO> Campaigns { get => iCampaigns; set => iCampaigns = value; }
+
+
         /// <summary>
         /// Constructor, obtiene todas las campañas y las muestra
         /// </summary>
         public CampaignManageForm(ICampaignService pCampaignService)
         {
-            this.iCampaignService = pCampaignService;
-            iCampaigns = new List<CampaignDTO>();
+            iCampaignService = pCampaignService;
+            Campaigns = new List<CampaignDTO>();
             InitializeComponent();
-            campaignsGridView.AutoGenerateColumns = false;
+            campaignsDataGridView.AutoGenerateColumns = false;
 
             // Opcion de mostrar todas las campañas
             searchComboBox.SelectedIndex = 0;
-
-            getCampaigns();
+            try
+            {
+                getCampaigns();
+            }
+            catch (Exception exc)
+            {
+                new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
+            }
         }
 
         /// <summary>
@@ -49,9 +58,9 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         /// <summary>
@@ -61,19 +70,18 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// <param name="e"></param>
         private void editButton_Click(object sender, EventArgs e)
         {
-            CampaignEditForm cef = new CampaignEditForm((CampaignDTO)campaignsGridView.SelectedRows[0].DataBoundItem);
+            CampaignEditForm cef = new CampaignEditForm((CampaignDTO)campaignsDataGridView.SelectedRows[0].DataBoundItem);
             if (cef.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-
                     this.iCampaignService.Update(cef.Campaign);
                     new NotificationForm(MessageBoxButtons.OK, "Se ha modificado la campaña", "Exito al modificar la campaña").ShowDialog();
                     getCampaigns();
                 }
                 catch (Exception ex)
                 {
-                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al modificar la campaña").ShowDialog();
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error").ShowDialog();
                 }
             }
         }
@@ -112,56 +120,45 @@ namespace DigitalSignage.UI.Campaign_Forms
             switch (searchComboBox.SelectedItem)
             {
                 case "Mostrar todas las campañas":
-                    this.iCampaigns = this.iCampaignService.GetAll();
-                    campaignsGridView.DataSource = this.iCampaigns;
+                    Campaigns = this.iCampaignService.GetAll();
+                    campaignsDataGridView.DataSource = Campaigns;
+                    if (Campaigns.Count() == 0)
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "No hay campañas cargadas en el sistema.", "No hay campañas").ShowDialog();
+                    }
                     break;
                 case "Buscar por nombre":
-                    try
+                    IEnumerable<CampaignDTO> resultCampaigns = this.iCampaignService.getCampaignsByName(searchTextBox.Text);
+                    if (resultCampaigns.Count() == 0)
                     {
-                        IEnumerable<CampaignDTO> resultCampaigns = this.iCampaignService.getCampaignsByName(searchTextBox.Text);
-                        if (resultCampaigns.Count() == 0)
-                        {
-                            new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña con el nombre ingresado.", "Error en la búsqueda").ShowDialog();
-                        }
-                        this.iCampaigns = resultCampaigns;
-                        campaignsGridView.DataSource = this.iCampaigns;
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña con el nombre ingresado.", "No hay camapñas").ShowDialog();
                     }
-                    catch (Exception exc)
-                    {
-                        new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
-                    }
+                    Campaigns = resultCampaigns;
+                    campaignsDataGridView.DataSource = Campaigns;
+
                     break;
                 case "Buscar por fecha":
-                    try
+                    resultCampaigns = this.iCampaignService.GetCampaignsActiveInDate(searchDateTimePicker.Value);
+                    if (resultCampaigns.Count() == 0)
                     {
-                        IEnumerable<CampaignDTO> resultCampaigns = this.iCampaignService.GetCampaignsActiveInDate(this.searchDateTimePicker.Value);
-                        if (resultCampaigns.Count() == 0)
-                        {
-                            new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña en la fecha ingresada.", "Error en la búsqueda").ShowDialog();
-                        }
-                        this.iCampaigns = resultCampaigns;
-                        campaignsGridView.DataSource = this.iCampaigns;
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña en la fecha ingresada.", "No hay camapñas").ShowDialog();
                     }
-                    catch (Exception exc)
-                    {
-                        new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
-                    }
-
+                    Campaigns = resultCampaigns;
+                    campaignsDataGridView.DataSource = Campaigns;
                     break;
                 case "Buscar por ID":
                     List<CampaignDTO> campaigns = new List<CampaignDTO>();
                     CampaignDTO resultCampaign = this.iCampaignService.Get(Convert.ToInt32(searchTextBox.Text));
-                    if (resultCampaign.Name == null)
-                    {
-                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado la campaña con el ID ingresado.", "Error en la búsqueda").ShowDialog();
-
-                    }
-                    else
+                    if (resultCampaign != null)
                     {
                         campaigns.Add(resultCampaign);
+                    } else
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna campaña con el ID especificado.", "No hay camapñas").ShowDialog();
+
                     }
-                    this.iCampaigns = campaigns;
-                    campaignsGridView.DataSource = this.iCampaigns;
+                    Campaigns = campaigns;
+                    campaignsDataGridView.DataSource = Campaigns;
                     break;
             }
         }
@@ -204,8 +201,17 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// <param name="e"></param>
         private void searchButton_Click(object sender, EventArgs e)
         {
-            //Comprobaciones del campo de busqueda
-            getCampaigns();
+            if (ValidateChildren(ValidationConstraints.Enabled))
+            {
+                try
+                {
+                    getCampaigns();
+                }
+                catch (Exception ex)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, ex.Message, "Error").ShowDialog();
+                }
+            }
         }
 
 
@@ -221,10 +227,50 @@ namespace DigitalSignage.UI.Campaign_Forms
             confirmResult.ShowDialog();
             if (confirmResult.DialogResult == DialogResult.Yes)
             {
-                var selectedCampaign = (CampaignDTO)this.campaignsGridView.SelectedRows[0].DataBoundItem;
-                this.iCampaignService.Remove(selectedCampaign);
-                getCampaigns();
+                try
+                {
+                    var selectedCampaign = (CampaignDTO)campaignsDataGridView.SelectedRows[0].DataBoundItem;
+                    this.iCampaignService.Remove(selectedCampaign);
+                    getCampaigns();
+                }
+                catch (Exception ex)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, ex.Message, "Error").ShowDialog();
+                }
+
             }
+        }
+
+        private void searchTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            string error = null;
+            switch (searchComboBox.SelectedItem)
+            {
+                case "Buscar por nombre":
+                    if (searchTextBox.Text.Length == 0)
+                    {
+                        error = "Ingrese un nombre de campaña a buscar.";
+                        e.Cancel = true;
+                    }
+                    break;
+                case "Buscar por ID":
+                    if (searchTextBox.Text.Length == 0)
+                    {
+                        error = "Ingrese un ID de campaña a buscar.";
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        int result;
+                        if (!int.TryParse(searchTextBox.Text, out result))
+                        {
+                            error = "El ID debe ser un valor numérico.";
+                            e.Cancel = true;
+                        }
+                    }
+                    break;
+            }
+            errorProvider.SetError((Control)sender, error);
         }
     }
 }

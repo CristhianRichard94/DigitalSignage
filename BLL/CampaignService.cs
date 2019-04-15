@@ -125,9 +125,16 @@ namespace DigitalSignage.BLL
                 Log.Information(String.Format("Obteniendo campaña con Id {0}.", pId));
                 var campaign = iUnitOfWork.CampaignRepository.Get(pId);
                 Log.Information("Campaña obtenida con exito.");
-                var campaignDTO = new CampaignDTO();
-                AutoMapper.Mapper.Map(campaign, campaignDTO);
-                return campaignDTO;
+                if (campaign == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    var campaignDTO = new CampaignDTO();
+                    AutoMapper.Mapper.Map(campaign, campaignDTO);
+                    return campaignDTO;
+                }
             }
             catch (Exception)
             {

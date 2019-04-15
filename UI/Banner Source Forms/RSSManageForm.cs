@@ -21,7 +21,7 @@ namespace DigitalSignage.UI.RSS_Forms
     public partial class RSSManageForm : Form
     {
         /// <summary>
-        /// Instancia del servicio de fuentes RSS - FALTA IMPLEMENTAR CONTAINER IOC
+        /// Instancia del servicio de fuentes RSS
         /// </summary>
         private readonly IRSSSourceService iRSSSourceService;
 
@@ -31,8 +31,6 @@ namespace DigitalSignage.UI.RSS_Forms
         /// Lista de fuentes RSS
         /// </summary>
         private IEnumerable<RSSSourceDTO> iRSSSources;
-        string ALL_SOURCES = "Mostrar todas las Fuentes";
-        string ID_SOURCE = "Buscar por ID";
         private StandardKernel kernel;
 
         public IEnumerable<RSSSourceDTO> RSSSources { get => iRSSSources; set => iRSSSources = value; }
@@ -45,8 +43,6 @@ namespace DigitalSignage.UI.RSS_Forms
         {
             InitializeComponent();
             this.iRSSSourceService = pRSSSourceService;
-            this.searchComboBox.Items.Add(ALL_SOURCES);
-            this.searchComboBox.Items.Add(ID_SOURCE);
 
             // Opcion de mostrar todas las fuentes
             this.searchComboBox.SelectedIndex = 0;
@@ -54,16 +50,16 @@ namespace DigitalSignage.UI.RSS_Forms
             // Caso de que se inicie desde pantalla principal 
             if (pId == -1)
             {
-                this.button2.Visible = true;
-                this.button1.Visible = false;
-                this.button3.Visible = false;
+                this.cancelButton.Visible = true;
+                this.selectButton.Visible = false;
+                this.cancelSelectButton.Visible = false;
                 this.label1.Visible = false;
             }
             else // Caso de que se inicie desde seleccionar fuente en banner, sin una fuente previa
             {
-                this.button2.Visible = false;
-                this.button1.Visible = true;
-                this.button3.Visible = true;
+                this.cancelButton.Visible = false;
+                this.selectButton.Visible = true;
+                this.cancelSelectButton.Visible = true;
                 this.label1.Visible = true;
                 if (pId > 0) // Caso de que se inicie desde seleccionar fuente en banner, con una fuente previa
                 {
@@ -80,7 +76,7 @@ namespace DigitalSignage.UI.RSS_Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
+        private void selectButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -100,7 +96,7 @@ namespace DigitalSignage.UI.RSS_Forms
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button2_Click(object sender, EventArgs e)
+        private void createButton_Click(object sender, EventArgs e)
         {
             this.kernel = HomeForm.CreateKernel();
             this.kernel.Load(Assembly.GetExecutingAssembly());
@@ -117,7 +113,7 @@ namespace DigitalSignage.UI.RSS_Forms
                 }
                 catch (Exception ex)
                 {
-                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error al crear la fuente RSS").ShowDialog();
+                    new NotificationForm(MessageBoxButtons.OK, "Error: " + ex.Message, "Error").ShowDialog();
                 }
             }
 
@@ -154,23 +150,34 @@ namespace DigitalSignage.UI.RSS_Forms
         {
             switch (searchComboBox.SelectedItem)
             {
-                case "Mostrar todas las Fuentes":
+                case "Mostrar todas las fuentes RSS":
                     this.RSSSources = this.iRSSSourceService.GetAll();
                     rSSGridView1.DataSource = this.RSSSources;
+                    if (this.RSSSources.Count() == 0)
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "No hay fuentes cargadas en el sistema.", "No hay fuentes").ShowDialog();
+                    }
                     break;
                 case "Buscar por ID":
                     List<RSSSourceDTO> sources = new List<RSSSourceDTO>();
                     RSSSourceDTO resultSource = this.iRSSSourceService.Get(Convert.ToInt32(searchTextBox.Text));
-                    if (resultSource.Url == null)
-                    {
-                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado la campaña con el ID ingresado.", "Error en la búsqueda").ShowDialog();
-
-                    }
-                    else
+                    if (resultSource != null)
                     {
                         sources.Add(resultSource);
                     }
+                    else
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna fuente con el ID ingresado.", "Error en la búsqueda").ShowDialog();
+                    }
                     this.RSSSources = sources;
+                    rSSGridView1.DataSource = this.RSSSources;
+                    break;
+                case "Buscar por URL":
+                    this.RSSSources = this.iRSSSourceService.GetSourcesByURL(searchTextBox.Text);
+                    if (this.RSSSources.Count() == 0)
+                    {
+                        new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna fuente con la URL ingresada.", "Error en la búsqueda").ShowDialog();
+                    }
                     rSSGridView1.DataSource = this.RSSSources;
                     break;
             }
@@ -191,7 +198,17 @@ namespace DigitalSignage.UI.RSS_Forms
 
         private void searchButton_Click(object sender, EventArgs e)
         {
-            getSources();
+            if (ValidateChildren(ValidationConstraints.Enabled))
+            {
+                try
+                {
+                    getSources();
+                }
+                catch (Exception exc)
+                {
+                    new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
+                }
+            }
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -215,7 +232,7 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void cancelSelectButton_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea salir sin seleccionar una fuente?",
                          "Cancelar");
@@ -226,14 +243,41 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
-        private void button2_Click_1(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void rSSGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void searchTextBox_Validating(object sender, CancelEventArgs e)
         {
-
+            string error = null;
+            switch (searchComboBox.SelectedItem)
+            {
+                case "Buscar por URL":
+                    if (searchTextBox.Text.Length == 0)
+                    {
+                        error = "Ingrese una parte de la URL de fuente a buscar.";
+                        e.Cancel = true;
+                    }
+                    break;
+                case "Buscar por ID":
+                    if (searchTextBox.Text.Length == 0)
+                    {
+                        error = "Ingrese un ID de fuente a buscar.";
+                        e.Cancel = true;
+                    }
+                    else
+                    {
+                        int result;
+                        if (!int.TryParse(searchTextBox.Text, out result))
+                        {
+                            error = "El ID debe ser un valor numérico.";
+                            e.Cancel = true;
+                        }
+                    }
+                    break;
+            }
+            errorProvider.SetError((Control)sender, error);
         }
     }
 }

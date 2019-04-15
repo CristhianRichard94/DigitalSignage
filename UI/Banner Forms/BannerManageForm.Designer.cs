@@ -30,17 +30,18 @@ namespace DigitalSignage.UI.Banner_Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BannerManageForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.editButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.logoPanel = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
+            this.createButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.searchDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.searchComboBox = new System.Windows.Forms.ComboBox();
@@ -51,39 +52,41 @@ namespace DigitalSignage.UI.Banner_Forms
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bannersGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(0, 199);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(310, 50);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Location = new System.Drawing.Point(0, 199);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(310, 50);
+            this.cancelButton.TabIndex = 0;
+            this.cancelButton.Text = "Volver";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button2
+            // editButton
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(0, 99);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(310, 50);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Editar";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.editButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.editButton.FlatAppearance.BorderSize = 0;
+            this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.editButton.Location = new System.Drawing.Point(0, 99);
+            this.editButton.Margin = new System.Windows.Forms.Padding(0);
+            this.editButton.Name = "editButton";
+            this.editButton.Size = new System.Drawing.Size(310, 50);
+            this.editButton.TabIndex = 1;
+            this.editButton.Text = "Editar";
+            this.editButton.UseVisualStyleBackColor = false;
+            this.editButton.Click += new System.EventHandler(this.editButton_Click);
             // 
             // panel2
             // 
@@ -136,29 +139,29 @@ namespace DigitalSignage.UI.Banner_Forms
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(43)))), ((int)(((byte)(64)))));
             this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Controls.Add(this.button3);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
+            this.flowLayoutPanel1.Controls.Add(this.createButton);
+            this.flowLayoutPanel1.Controls.Add(this.editButton);
             this.flowLayoutPanel1.Controls.Add(this.deleteButton);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.cancelButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(310, 749);
             this.flowLayoutPanel1.TabIndex = 8;
             // 
-            // button3
+            // createButton
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(0, 49);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(310, 50);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Crear";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.createButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.createButton.FlatAppearance.BorderSize = 0;
+            this.createButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createButton.Location = new System.Drawing.Point(0, 49);
+            this.createButton.Margin = new System.Windows.Forms.Padding(0);
+            this.createButton.Name = "createButton";
+            this.createButton.Size = new System.Drawing.Size(310, 50);
+            this.createButton.TabIndex = 5;
+            this.createButton.Text = "Crear";
+            this.createButton.UseVisualStyleBackColor = false;
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // deleteButton
             // 
@@ -282,6 +285,7 @@ namespace DigitalSignage.UI.Banner_Forms
             this.searchButton.TabIndex = 12;
             this.searchButton.Text = "Buscar";
             this.searchButton.UseVisualStyleBackColor = false;
+            this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
             // 
             // searchTextBox
             // 
@@ -289,6 +293,12 @@ namespace DigitalSignage.UI.Banner_Forms
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(116, 21);
             this.searchTextBox.TabIndex = 17;
+            this.searchTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.searchTextBox_Validating);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // BannerManageForm
             // 
@@ -315,6 +325,7 @@ namespace DigitalSignage.UI.Banner_Forms
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bannersGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -322,14 +333,14 @@ namespace DigitalSignage.UI.Banner_Forms
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox logoPanel;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.DateTimePicker searchDateTimePicker;
         private System.Windows.Forms.ComboBox searchComboBox;
         private System.Windows.Forms.Label searchLabel;
@@ -340,5 +351,6 @@ namespace DigitalSignage.UI.Banner_Forms
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn BannerName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

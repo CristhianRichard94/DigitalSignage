@@ -91,5 +91,25 @@ namespace DigitalSignage.DAL.EntityFramework
                 this.iDbContext.SaveChanges();
             }
         }
+
+        /// <summary>
+        /// Obtiene las fuentes RSS que posean en su URL parte del parámetro ingresado
+        /// </summary>
+        /// <param name="pURL">parte de URL a buscar</param>
+        /// <returns>Lista de fuentes RSS</returns>
+        public IEnumerable<RSSSource> GetSourcesByURL(string pURL)
+        {
+            List<RSSSource> sources = base.iDbContext.Set<RSSSource>()
+                //Busca las fuentes que contengan la url especificada
+                .Where(c => c.Url.IndexOf(pURL) >= 0)
+                .ToList();
+
+            foreach (RSSSource source in sources)
+            {
+                //Incluye los items de la fuente
+                this.iDbContext.Entry(source).Collection(p => p.RSSItems).Load();
+            }
+            return sources;
+        }
     }
 }

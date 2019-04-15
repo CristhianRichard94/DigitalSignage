@@ -21,10 +21,17 @@ namespace DigitalSignage.DAL
         void Update(RSSSource updatedRssSource);
 
         /// <summary>
-        /// obtiene los banners que estan asociados a una fuente RSS especifica
+        /// Obtiene los banners que estan asociados a una fuente RSS especifica
         /// </summary>
         /// <param name="pSourceId"></param>
         /// <returns></returns>
         IEnumerable<Banner> GetBannersWithSource(int pSourceId);
+
+        /// <summary>
+        /// Obtiene las fuentes RSS que posean en su URL parte del parámetro ingresado
+        /// </summary>
+        /// <param name="pURL">parte de URL a buscar</param>
+        /// <returns>Lista de fuentes RSS</returns>
+        IEnumerable<RSSSource> GetSourcesByURL(string pURL);
     }
 }

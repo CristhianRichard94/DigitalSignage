@@ -95,7 +95,7 @@ namespace DigitalSignage.DAL.EntityFramework
 
             return base.iDbContext.Set<Banner>()
                 //Busca los banners que contengan el nombre especificado
-                .Where(c => c.Name.IndexOf(pName, StringComparison.Ordinal) >= 0)
+                .Where(c => c.Name.IndexOf(pName) >= 0)
                 .Include("Source")
                 .ToList();
         }

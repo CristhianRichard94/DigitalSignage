@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CampaignManageForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.editButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.logoPanel = new System.Windows.Forms.PictureBox();
@@ -39,7 +40,7 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.createButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.campaignsGridView = new System.Windows.Forms.DataGridView();
+            this.campaignsDataGridView = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CampaignName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,30 +49,34 @@
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
             this.searchDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.campaignsGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.campaignsDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button1.Location = new System.Drawing.Point(0, 199);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(310, 58);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Volver";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.CausesValidation = false;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.cancelButton.Location = new System.Drawing.Point(0, 199);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(310, 58);
+            this.cancelButton.TabIndex = 1;
+            this.cancelButton.Text = "Volver";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // editButton
             // 
             this.editButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.editButton.CausesValidation = false;
             this.editButton.FlatAppearance.BorderSize = 0;
             this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -138,7 +143,7 @@
             this.flowLayoutPanel1.Controls.Add(this.createButton);
             this.flowLayoutPanel1.Controls.Add(this.editButton);
             this.flowLayoutPanel1.Controls.Add(this.deleteButton);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
+            this.flowLayoutPanel1.Controls.Add(this.cancelButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -148,6 +153,7 @@
             // createButton
             // 
             this.createButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.createButton.CausesValidation = false;
             this.createButton.FlatAppearance.BorderSize = 0;
             this.createButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.createButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -163,6 +169,7 @@
             // deleteButton
             // 
             this.deleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.deleteButton.CausesValidation = false;
             this.deleteButton.FlatAppearance.BorderSize = 0;
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -175,37 +182,37 @@
             this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
-            // campaignsGridView
+            // campaignsDataGridView
             // 
-            this.campaignsGridView.AllowUserToAddRows = false;
-            this.campaignsGridView.AllowUserToDeleteRows = false;
-            this.campaignsGridView.AllowUserToOrderColumns = true;
-            this.campaignsGridView.AllowUserToResizeColumns = false;
-            this.campaignsGridView.AllowUserToResizeRows = false;
-            this.campaignsGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            this.campaignsGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.campaignsGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.campaignsDataGridView.AllowUserToAddRows = false;
+            this.campaignsDataGridView.AllowUserToDeleteRows = false;
+            this.campaignsDataGridView.AllowUserToOrderColumns = true;
+            this.campaignsDataGridView.AllowUserToResizeColumns = false;
+            this.campaignsDataGridView.AllowUserToResizeRows = false;
+            this.campaignsDataGridView.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
+            this.campaignsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.campaignsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.CampaignName,
             this.Description});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.campaignsGridView.DefaultCellStyle = dataGridViewCellStyle1;
-            this.campaignsGridView.Location = new System.Drawing.Point(399, 99);
-            this.campaignsGridView.MultiSelect = false;
-            this.campaignsGridView.Name = "campaignsGridView";
-            this.campaignsGridView.ReadOnly = true;
-            this.campaignsGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.campaignsGridView.RowHeadersVisible = false;
-            this.campaignsGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.campaignsGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.campaignsGridView.Size = new System.Drawing.Size(959, 513);
-            this.campaignsGridView.TabIndex = 7;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.campaignsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.campaignsDataGridView.Location = new System.Drawing.Point(399, 99);
+            this.campaignsDataGridView.MultiSelect = false;
+            this.campaignsDataGridView.Name = "campaignsDataGridView";
+            this.campaignsDataGridView.ReadOnly = true;
+            this.campaignsDataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.campaignsDataGridView.RowHeadersVisible = false;
+            this.campaignsDataGridView.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.campaignsDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.campaignsDataGridView.Size = new System.Drawing.Size(959, 513);
+            this.campaignsDataGridView.TabIndex = 7;
             // 
             // Id
             // 
@@ -215,7 +222,7 @@
             this.Id.ReadOnly = true;
             this.Id.Width = 50;
             // 
-            // Name
+            // CampaignName
             // 
             this.CampaignName.DataPropertyName = "Name";
             this.CampaignName.HeaderText = "Nombre";
@@ -279,15 +286,21 @@
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(116, 21);
             this.searchTextBox.TabIndex = 10;
+            this.searchTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.searchTextBox_Validating);
             // 
             // searchDateTimePicker
             // 
             this.searchDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.searchDateTimePicker.Location = new System.Drawing.Point(778, 66);
+            this.searchDateTimePicker.Location = new System.Drawing.Point(778, 67);
             this.searchDateTimePicker.Name = "searchDateTimePicker";
             this.searchDateTimePicker.Size = new System.Drawing.Size(116, 21);
             this.searchDateTimePicker.TabIndex = 11;
             this.searchDateTimePicker.Visible = false;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // CampaignManageForm
             // 
@@ -299,7 +312,7 @@
             this.Controls.Add(this.searchTextBox);
             this.Controls.Add(this.searchComboBox);
             this.Controls.Add(this.searchLabel);
-            this.Controls.Add(this.campaignsGridView);
+            this.Controls.Add(this.campaignsDataGridView);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.searchButton);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -312,21 +325,22 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.campaignsGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.campaignsDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button editButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox logoPanel;
         private System.Windows.Forms.Label title;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.DataGridView campaignsGridView;
+        private System.Windows.Forms.DataGridView campaignsDataGridView;
         private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.ComboBox searchComboBox;
@@ -337,5 +351,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn CampaignName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

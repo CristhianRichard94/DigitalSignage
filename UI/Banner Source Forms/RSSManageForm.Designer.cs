@@ -30,10 +30,11 @@ namespace DigitalSignage.UI.RSS_Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RSSManageForm));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.button1 = new System.Windows.Forms.Button();
-            this.addButton = new System.Windows.Forms.Button();
+            this.selectButton = new System.Windows.Forms.Button();
+            this.createButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.logoPanel = new System.Windows.Forms.PictureBox();
             this.title = new System.Windows.Forms.Label();
@@ -42,8 +43,8 @@ namespace DigitalSignage.UI.RSS_Forms
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.editButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.cancelSelectButton = new System.Windows.Forms.Button();
             this.rSSGridView1 = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,40 +53,44 @@ namespace DigitalSignage.UI.RSS_Forms
             this.searchLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.searchTextBox = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.panel3.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.rSSGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // selectButton
             // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(70)))), ((int)(((byte)(120)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(0, 249);
-            this.button1.Margin = new System.Windows.Forms.Padding(0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(310, 50);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Seleccionar";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.selectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(70)))), ((int)(((byte)(120)))));
+            this.selectButton.CausesValidation = false;
+            this.selectButton.FlatAppearance.BorderSize = 0;
+            this.selectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.selectButton.Location = new System.Drawing.Point(0, 249);
+            this.selectButton.Margin = new System.Windows.Forms.Padding(0);
+            this.selectButton.Name = "selectButton";
+            this.selectButton.Size = new System.Drawing.Size(310, 50);
+            this.selectButton.TabIndex = 0;
+            this.selectButton.Text = "Seleccionar";
+            this.selectButton.UseVisualStyleBackColor = false;
+            this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
             // 
-            // addButton
+            // createButton
             // 
-            this.addButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.addButton.FlatAppearance.BorderSize = 0;
-            this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.addButton.Location = new System.Drawing.Point(0, 49);
-            this.addButton.Margin = new System.Windows.Forms.Padding(0);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(310, 50);
-            this.addButton.TabIndex = 1;
-            this.addButton.Text = "Agregar";
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.button2_Click);
+            this.createButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.createButton.CausesValidation = false;
+            this.createButton.FlatAppearance.BorderSize = 0;
+            this.createButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.createButton.Location = new System.Drawing.Point(0, 49);
+            this.createButton.Margin = new System.Windows.Forms.Padding(0);
+            this.createButton.Name = "createButton";
+            this.createButton.Size = new System.Drawing.Size(310, 50);
+            this.createButton.TabIndex = 1;
+            this.createButton.Text = "Agregar";
+            this.createButton.UseVisualStyleBackColor = false;
+            this.createButton.Click += new System.EventHandler(this.createButton_Click);
             // 
             // panel2
             // 
@@ -151,12 +156,12 @@ namespace DigitalSignage.UI.RSS_Forms
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(19)))), ((int)(((byte)(43)))), ((int)(((byte)(64)))));
             this.flowLayoutPanel1.Controls.Add(this.panel2);
-            this.flowLayoutPanel1.Controls.Add(this.addButton);
+            this.flowLayoutPanel1.Controls.Add(this.createButton);
             this.flowLayoutPanel1.Controls.Add(this.editButton);
             this.flowLayoutPanel1.Controls.Add(this.deleteButton);
-            this.flowLayoutPanel1.Controls.Add(this.button2);
-            this.flowLayoutPanel1.Controls.Add(this.button1);
-            this.flowLayoutPanel1.Controls.Add(this.button3);
+            this.flowLayoutPanel1.Controls.Add(this.cancelButton);
+            this.flowLayoutPanel1.Controls.Add(this.selectButton);
+            this.flowLayoutPanel1.Controls.Add(this.cancelSelectButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -166,6 +171,7 @@ namespace DigitalSignage.UI.RSS_Forms
             // editButton
             // 
             this.editButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.editButton.CausesValidation = false;
             this.editButton.FlatAppearance.BorderSize = 0;
             this.editButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.editButton.Location = new System.Drawing.Point(0, 99);
@@ -180,6 +186,7 @@ namespace DigitalSignage.UI.RSS_Forms
             // deleteButton
             // 
             this.deleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.deleteButton.CausesValidation = false;
             this.deleteButton.FlatAppearance.BorderSize = 0;
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -192,33 +199,35 @@ namespace DigitalSignage.UI.RSS_Forms
             this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
-            // button2
+            // cancelButton
             // 
-            this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(0, 199);
-            this.button2.Margin = new System.Windows.Forms.Padding(0);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(310, 50);
-            this.button2.TabIndex = 17;
-            this.button2.Text = "Volver";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.cancelButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(60)))), ((int)(((byte)(79)))));
+            this.cancelButton.CausesValidation = false;
+            this.cancelButton.FlatAppearance.BorderSize = 0;
+            this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelButton.Location = new System.Drawing.Point(0, 199);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(310, 50);
+            this.cancelButton.TabIndex = 17;
+            this.cancelButton.Text = "Volver";
+            this.cancelButton.UseVisualStyleBackColor = false;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
-            // button3
+            // cancelSelectButton
             // 
-            this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(70)))), ((int)(((byte)(120)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(0, 299);
-            this.button3.Margin = new System.Windows.Forms.Padding(0);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(310, 50);
-            this.button3.TabIndex = 18;
-            this.button3.Text = "Cancelar";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.cancelSelectButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(70)))), ((int)(((byte)(120)))));
+            this.cancelSelectButton.CausesValidation = false;
+            this.cancelSelectButton.FlatAppearance.BorderSize = 0;
+            this.cancelSelectButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cancelSelectButton.Location = new System.Drawing.Point(0, 299);
+            this.cancelSelectButton.Margin = new System.Windows.Forms.Padding(0);
+            this.cancelSelectButton.Name = "cancelSelectButton";
+            this.cancelSelectButton.Size = new System.Drawing.Size(310, 50);
+            this.cancelSelectButton.TabIndex = 18;
+            this.cancelSelectButton.Text = "Cancelar";
+            this.cancelSelectButton.UseVisualStyleBackColor = false;
+            this.cancelSelectButton.Click += new System.EventHandler(this.cancelSelectButton_Click);
             // 
             // rSSGridView1
             // 
@@ -238,7 +247,6 @@ namespace DigitalSignage.UI.RSS_Forms
             this.rSSGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.rSSGridView1.Size = new System.Drawing.Size(959, 513);
             this.rSSGridView1.TabIndex = 9;
-            this.rSSGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.rSSGridView1_CellContentClick);
             // 
             // Id
             // 
@@ -265,8 +273,13 @@ namespace DigitalSignage.UI.RSS_Forms
             // 
             // searchComboBox
             // 
+            this.searchComboBox.CausesValidation = false;
             this.searchComboBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.searchComboBox.FormattingEnabled = true;
+            this.searchComboBox.Items.AddRange(new object[] {
+            "Mostrar todas las fuentes RSS",
+            "Buscar por ID",
+            "Buscar por URL"});
             this.searchComboBox.Location = new System.Drawing.Point(513, 65);
             this.searchComboBox.Name = "searchComboBox";
             this.searchComboBox.Size = new System.Drawing.Size(205, 21);
@@ -306,6 +319,12 @@ namespace DigitalSignage.UI.RSS_Forms
             this.searchTextBox.Name = "searchTextBox";
             this.searchTextBox.Size = new System.Drawing.Size(116, 21);
             this.searchTextBox.TabIndex = 15;
+            this.searchTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.searchTextBox_Validating);
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // RSSManageForm
             // 
@@ -333,6 +352,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.panel3.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.rSSGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,8 +360,8 @@ namespace DigitalSignage.UI.RSS_Forms
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button addButton;
+        private System.Windows.Forms.Button selectButton;
+        private System.Windows.Forms.Button createButton;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox logoPanel;
         private System.Windows.Forms.Label title;
@@ -355,10 +375,11 @@ namespace DigitalSignage.UI.RSS_Forms
         private System.Windows.Forms.TextBox searchTextBox;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button cancelSelectButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Url;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
