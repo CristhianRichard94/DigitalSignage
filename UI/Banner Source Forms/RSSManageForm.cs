@@ -72,7 +72,7 @@ namespace DigitalSignage.UI.RSS_Forms
         }
 
         /// <summary>
-        /// Cierra el form
+        /// Selecciona la fuente RSS para un banner
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -146,6 +146,9 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
+        /// <summary>
+        /// Obtiene las fuentes en base a la opcion y valor de busqueda ingresados
+        /// </summary>
         public void getSources()
         {
             switch (searchComboBox.SelectedItem)
@@ -183,9 +186,10 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
+        
         private void searchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((string)searchComboBox.SelectedItem == "Mostrar todas las fuentes")
+            if ((string)searchComboBox.SelectedItem == "Mostrar todas las fuentes RSS")
             {
                 searchTextBox.Enabled = false;
             }
@@ -196,6 +200,11 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
+        /// <summary>
+        /// Ordena la busqueda de fuentes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren(ValidationConstraints.Enabled))
@@ -211,6 +220,11 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
+        /// <summary>
+        /// Solicita la eliminacion de la fuente seleccionada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteButton_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar la fuente seleccionada?",
@@ -232,6 +246,11 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
+        /// <summary>
+        /// Cancela la seleccion de fuente
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelSelectButton_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea salir sin seleccionar una fuente?",
@@ -243,10 +262,19 @@ namespace DigitalSignage.UI.RSS_Forms
             }
         }
 
+        /// <summary>
+        /// Cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
+
+                        // Validaciones de campos
+
 
         private void searchTextBox_Validating(object sender, CancelEventArgs e)
         {

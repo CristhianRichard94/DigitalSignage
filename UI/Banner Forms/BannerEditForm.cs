@@ -15,6 +15,9 @@ using System.Windows.Forms;
 
 namespace DigitalSignage.UI.Banner_Forms
 {
+    /// <summary>
+    /// Form de creación y edición de banners
+    /// </summary>
     public partial class BannerEditForm : Form
     {
         private BannerDTO iBanner;
@@ -31,11 +34,13 @@ namespace DigitalSignage.UI.Banner_Forms
             InitializeComponent();
             sourceComboBox.Items.Add(RSS_SOURCE);
             sourceComboBox.Items.Add(TEXT_SOURCE);
+            // Editando
             if (pBanner != null)
             {
                 Banner = pBanner;
                 loadBanner();
             }
+            // Creando un banner
             else
             {
                 Banner = new BannerDTO();
@@ -50,9 +55,22 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+        /// <summary>
+        /// Instancia del banner a creando/modificando
+        /// </summary>
         public BannerDTO Banner { get => iBanner; set => iBanner = value; }
+
+        /// <summary>
+        /// Instancia de la fuente RSS, en caso de que exista
+        /// </summary>
         public RSSSourceDTO RSSSource { get => iRSSSource; set => iRSSSource = value; }
 
+
+        /// <summary>
+        /// Verifica si se realizaron cambios en el form y cancela
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             if (anyChange())
@@ -72,6 +90,11 @@ namespace DigitalSignage.UI.Banner_Forms
 
         }
 
+        /// <summary>
+        /// Cambio en el selector de fuente de banner
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void sourceComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (sourceComboBox.SelectedItem)
@@ -97,6 +120,11 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+        /// <summary>
+        /// Botón de selección de fuente RSS despliega pantalla de gestion de fuentes RSS
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void selectRSSButton_Click(object sender, EventArgs e)
         {
             kernel = HomeForm.CreateKernel();
@@ -121,12 +149,22 @@ namespace DigitalSignage.UI.Banner_Forms
                 {
                     RSSSource = rSSManageForm.RSSSourceSelected;
                     pictureBox1.Visible = true;
-
+                    rSSSourceLabel.Text = string.Format(
+                                            "Id: {1}{0} Descripción: {2}{0} Url: {3}{0}",
+                                            Environment.NewLine,
+                                            RSSSource.Id,
+                                            RSSSource.Description,
+                                            RSSSource.Url
+                                        );
                 }
             }
 
         }
 
+
+        /// <summary>
+        /// Carga el banner del modelo en el form
+        /// </summary>
         private void loadBanner()
         {
             idLabel.Visible = true;
@@ -169,6 +207,10 @@ namespace DigitalSignage.UI.Banner_Forms
 
         }
 
+
+        /// <summary>
+        /// Guarda el banner con los valores especificados en la vista al modelo
+        /// </summary>
         private void saveBanner()
         {
             Banner.Name = nameTextBox.Text;
@@ -192,6 +234,11 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+        /// <summary>
+        /// Guarda el banner de la vista si se cumplen las validaciones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (compareTimes())
@@ -217,6 +264,9 @@ namespace DigitalSignage.UI.Banner_Forms
             }
 
         }
+
+                //  Validaciones de campos
+
 
         private void nameTextBox_Validating(object sender, CancelEventArgs e)
         {
@@ -343,13 +393,24 @@ namespace DigitalSignage.UI.Banner_Forms
 
         }
 
-        /// FUNCIONES AUXILIARES DE COMPARACION
+        // Funciones auxiliares de comparacion
 
+
+        /// <summary>
+        /// Verifica si la fecha de inicio es anterior a la hora de fin
+        /// </summary>
+        /// <returns></returns>
         private bool compareDates()
         {
             return initDateTimePicker.Value.CompareTo(endDateTimePicker.Value) > 0;
         }
 
+
+
+        /// <summary>
+        /// Verifica si la hora de inicio es anterior a la hora de fin
+        /// </summary>
+        /// <returns></returns>
         private bool compareTimes()
         {
             TimeSpan initTime = new TimeSpan(Convert.ToInt32(initHourComboBox.SelectedItem), Convert.ToInt32(initMinComboBox.SelectedItem), 0);
@@ -359,6 +420,11 @@ namespace DigitalSignage.UI.Banner_Forms
             return initTime.CompareTo(endTime) > 0;
         }
 
+
+        /// <summary>
+        /// Verifica si se modifico el form para obtener confirmación al cerrar
+        /// </summary>
+        /// <returns></returns>
         private bool anyChange()
         {
             bool change = false;

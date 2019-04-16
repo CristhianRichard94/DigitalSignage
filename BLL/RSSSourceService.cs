@@ -15,6 +15,10 @@ namespace DigitalSignage.BLL
     /// </summary>
     public class RSSSourceService : IRSSSourceService
     {
+
+        /// <summary>
+        /// Instancia de unidad de trabajo
+        /// </summary>
         private UnitOfWork iUnitOfWork;
 
 
@@ -59,7 +63,7 @@ namespace DigitalSignage.BLL
 
 
         /// <summary>
-        /// Eliminar una fuente RSS
+        /// Elimina una fuente RSS
         /// </summary>
         /// <param name="pRssSourceDTO">fuente RSS que se desea eliminar</param>
         public void Remove(RSSSourceDTO pRSSSourceDTO)
@@ -67,6 +71,7 @@ namespace DigitalSignage.BLL
 
             try
             {
+                // Verifica si existen banners que tengan asignada la fuente
                 var asociatedBanners = iUnitOfWork.RSSSourceRepository.GetBannersWithSource(pRSSSourceDTO.Id);
 
                 if (asociatedBanners.ToList().Count == 0)
@@ -83,9 +88,9 @@ namespace DigitalSignage.BLL
                     throw new Exception("No se puede eliminar la fuente RSS ya que esta siendo usada.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Log.Error(String.Format("Error al eliminar fuente RSS con Id {0}.", pRSSSourceDTO.Id));
+                Log.Error(String.Format("Error al eliminar fuente RSS con Id {0}. "+ ex.Message, pRSSSourceDTO.Id));
                 throw;
             }
         }
@@ -99,21 +104,20 @@ namespace DigitalSignage.BLL
             try
             {
                 Log.Information(String.Format("Actualizando fuente RSS con Id {0}.", pRSSSourceDTO.Id));
-                ///fuente RSS actualizada
+                // Fuente RSS actualizada
                 var source = new RSSSource();
                 AutoMapper.Mapper.Map(pRSSSourceDTO, source);
 
-                //fuente RSS anterior
+                // Fuente RSS anterior
                 iUnitOfWork.RSSSourceRepository.Update(source);
 
-                //Guardando los cambios
                 iUnitOfWork.Complete();
                 Log.Information("Fuente RSS actualizada con exito.");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Log.Error(String.Format("Error al actualizar la fuente RSS con Id {0}.", pRSSSourceDTO.Id));
+                Log.Error(String.Format("Error al actualizar la fuente RSS con Id {0}. "+ ex.Message , pRSSSourceDTO.Id));
                 throw;
             }
 
@@ -144,9 +148,9 @@ namespace DigitalSignage.BLL
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Log.Error(String.Format("Error al obtener la fuente RSS con id: {0}.", pId));
+                Log.Error(String.Format("Error al obtener la fuente RSS con id: {0}. "+ ex.Message, pId));
                 throw;
             }
 
@@ -177,6 +181,12 @@ namespace DigitalSignage.BLL
             }
         }
 
+
+        /// <summary>
+        /// Obtiene las fuentes RSS que contengan en su URL la especificada
+        /// </summary>
+        /// <param name="pURL"></param>
+        /// <returns></returns>
         public IEnumerable<RSSSourceDTO> GetSourcesByURL(string pURL)
         {
             try

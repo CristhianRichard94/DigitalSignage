@@ -64,11 +64,18 @@ namespace DigitalSignage.BLL
         /// </summary>
         private TimeSpan REFRESH_TIME = new TimeSpan(0, 0, 10);
 
+
         /// <summary>
         /// Token para cancelar tareas asincronas
         /// </summary>
-        private CancellationToken cancellationToken;
         private CancellationTokenSource tokenSource;
+
+
+        /// <summary>
+        /// Token para verificar si existen solicitudes de cancelacion
+        /// </summary>
+        private CancellationToken cancellationToken;
+
 
 
         /// <summary>
@@ -85,10 +92,6 @@ namespace DigitalSignage.BLL
 
             tokenSource = new CancellationTokenSource();
             cancellationToken = tokenSource.Token;
-
-            GetNextActiveCampaignsLoop();
-            UpdateCampaignListsLoop();
-            UpdateCurrentImageIndex();
         }
 
         /// <summary>
@@ -270,34 +273,12 @@ namespace DigitalSignage.BLL
 
         }
 
+
         /// <summary>
-        /// Obtiene todas las camapañas activas en un momento determinado
+        /// Obtiene las campañas que se encontraran activas en algun momento de los siguientes <UPDATE_TIME_IN_MINUTES> minutos
         /// </summary>
-        /// <param name="pDate">Fecha</param>
-        /// <returns></returns>
-        public IEnumerable<CampaignDTO> GetCampaignsActiveInRange(DateTime pDate, TimeSpan pFromTime, TimeSpan pToTime)
-        {
-            try
-            {
-                Log.Information(String.Format("Obteniendo campañas activas en: {0}.", pDate));
-                IEnumerable<Campaign> campaigns = iUnitOfWork.CampaignRepository.GetCampaignsActiveInRange(pDate, pFromTime, pToTime);
-                Log.Information("Campañas obtenidas con exito.");
-                return AutoMapper.Mapper.Map<IEnumerable<Campaign>, IEnumerable<CampaignDTO>>(campaigns);
-
-            }
-            catch (Exception)
-            {
-                Log.Error("Error al obtener todas las campañas activos en fecha.");
-
-                throw;
-            }
-
-
-        }
-
         public void GetNextActiveCampaigns()
         {
-            // Obtiene las campañas que se encontraran activas en algun momento de los siguientes <UPDATE_TIME_IN_MINUTES> minutos
             var now = DateTime.Now;
             var actualTimespan = new TimeSpan(now.Hour, now.Minute, 0);
 
@@ -497,6 +478,26 @@ namespace DigitalSignage.BLL
             return new Unsubscriber<byte[]>(observers, observer);
         }
 
+
+        /// <summary>
+        /// Inicia la ejecución de procesos para la actualización de imagenes
+        /// </summary>
+        public void StartAsyncTasks()
+        {
+            GetNextActiveCampaignsLoop();
+            UpdateCampaignListsLoop();
+            UpdateCurrentImageIndex();
+        }
+
+
+        /// <summary>
+        /// Solicita la cancelación de las tareas asincronas corriendo
+        /// </summary>
+        public void CancelAsyncTasks()
+        {
+            tokenSource.Cancel();
+
+        }
     }
 
 }

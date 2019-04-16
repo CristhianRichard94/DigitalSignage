@@ -15,7 +15,14 @@ namespace DigitalSignage.UI.Banner_Forms
     public partial class BannerManageForm : Form
     {
 
+        /// <summary>
+        /// Instancia del servicio de banner
+        /// </summary>
         private readonly IBannerService iBannerService;
+
+        /// <summary>
+        /// Lista de banners
+        /// </summary>
         private IEnumerable<BannerDTO> iBanners;
 
         public IEnumerable<BannerDTO> Banners { get => iBanners; set => iBanners = value; }
@@ -28,7 +35,7 @@ namespace DigitalSignage.UI.Banner_Forms
             Banners = new List<BannerDTO>();
             bannersGridView.AutoGenerateColumns = false;
 
-            // Opcion de mostrar todas las campañas
+            // Opcion de mostrar todos los banners
             searchComboBox.SelectedIndex = 0;
             try
             {
@@ -41,11 +48,21 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+        /// <summary>
+        /// Cierra el form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// Abre pantalla para editar el banner seleccionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void editButton_Click(object sender, EventArgs e)
         {
             BannerEditForm bef = new BannerEditForm((BannerDTO)bannersGridView.SelectedRows[0].DataBoundItem);
@@ -64,6 +81,11 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+        /// <summary>
+        /// Abre pantalla para crear banner
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void createButton_Click(object sender, EventArgs e)
         {
             BannerEditForm bef = new BannerEditForm(null);
@@ -83,7 +105,11 @@ namespace DigitalSignage.UI.Banner_Forms
         }
 
 
-
+        /// <summary>
+        /// solicita la eliminacion del banner seleccionado
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteButton_Click(object sender, EventArgs e)
         {
             var confirmResult = new NotificationForm(MessageBoxButtons.YesNo, "¿Está seguro que desea eliminar el banner seleccionado?",
@@ -104,6 +130,11 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+        /// <summary>
+        /// Cambia la opcion de busqueda de banners
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (searchComboBox.SelectedItem)
@@ -129,6 +160,10 @@ namespace DigitalSignage.UI.Banner_Forms
                     break;
             }
         }
+
+        /// <summary>
+        /// Obtiene banners en base a la opcion de busqueda y valor ingresados
+        /// </summary>
         public void getBanners()
         {
             switch (searchComboBox.SelectedItem)
@@ -175,6 +210,8 @@ namespace DigitalSignage.UI.Banner_Forms
             }
         }
 
+
+        // Validacion de campo de busqueda
         private void searchTextBox_Validating(object sender, CancelEventArgs e)
         {
             string error = null;
@@ -207,6 +244,11 @@ namespace DigitalSignage.UI.Banner_Forms
             errorProvider.SetError((Control)sender, error);
         }
 
+        /// <summary>
+        /// Ordena la busqueda de banners
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void searchButton_Click(object sender, EventArgs e)
         {
             if (ValidateChildren(ValidationConstraints.Enabled))

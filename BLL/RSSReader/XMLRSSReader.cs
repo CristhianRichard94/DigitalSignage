@@ -18,6 +18,11 @@ namespace DigitalSignage.BLL.RSSReader
         {
         }
 
+        /// <summary>
+        /// Lee los items RSS disponibles en una fuente pUri
+        /// </summary>
+        /// <param name="pUri"></param>
+        /// <returns></returns>
         public override IEnumerable<RSSItemDTO> Read(Uri pUri)
         {
             if (pUri == null)

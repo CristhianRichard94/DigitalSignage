@@ -146,6 +146,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 .Include("Source")
                 .ToList();
 
+            // Para todos los banners, si su fuente es RSS, obtiene los Items RSS de la misma
             foreach (Banner banner in banners)
             {
                 if (banner.Source is RSSSource)

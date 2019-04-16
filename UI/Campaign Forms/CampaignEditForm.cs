@@ -150,14 +150,6 @@ namespace DigitalSignage.UI.Campaign_Forms
             Campaign.EndDate = endDateTimePicker.Value;
             Campaign.InitialTime = new TimeSpan(Convert.ToInt32(initHourComboBox.Text), Convert.ToInt32(initMinComboBox.Text), 0);
             Campaign.EndTime = new TimeSpan(Convert.ToInt32(endHourComboBox.Text), Convert.ToInt32(endMinComboBox.Text), 0);
-
-            // Obtiene las imagenes del datagrid y las asigna a la campaña
-            //List<ImageDTO> list = new List<ImageDTO>();
-            //foreach (DataGridViewRow image in imgGridView.Rows)
-            //{
-            //    list.Add((ImageDTO)image.DataBoundItem);
-            //}
-            //Campaign.Images = list;
             Campaign.Images = Images;
         }
 
@@ -292,7 +284,7 @@ namespace DigitalSignage.UI.Campaign_Forms
 
         }
 
-        // Validaciones de los datos
+                        // Validaciones de los datos
 
         private void nameTextBox_Validating(object sender, CancelEventArgs e)
         {
@@ -402,13 +394,21 @@ namespace DigitalSignage.UI.Campaign_Forms
 
 
 
-        /// FUNCIONES AUXILIARES DE COMPARACION
+        // Funciones auxiliares de comparacion
 
+        /// <summary>
+        /// Verifica si la fecha de inicio es anterior a la hora de fin
+        /// </summary>
+        /// <returns></returns>
         private bool compareDates()
         {
             return initDateTimePicker.Value.CompareTo(endDateTimePicker.Value) > 0;
         }
 
+        /// <summary>
+        /// Verifica si la hora de inicio es anterior a la hora de fin
+        /// </summary>
+        /// <returns></returns>
         private bool compareTimes()
         {
             TimeSpan initTime = new TimeSpan(Convert.ToInt32(initHourComboBox.SelectedItem), Convert.ToInt32(initMinComboBox.SelectedItem), 0);
@@ -418,6 +418,11 @@ namespace DigitalSignage.UI.Campaign_Forms
             return initTime.CompareTo(endTime) > 0;
         }
 
+
+        /// <summary>
+        /// Verifica si se modifico el form para obtener confirmación al cerrar
+        /// </summary>
+        /// <returns></returns>
         private bool anyChange()
         {
             bool change = false;

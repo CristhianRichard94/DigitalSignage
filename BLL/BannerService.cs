@@ -46,14 +46,24 @@ namespace DigitalSignage.BLL
         /// </summary>
         private TimeSpan REFRESH_TIME = new TimeSpan(0, 0, 10);
 
+        /// <summary>
+        /// Texto a mostrar cuando no hay banners activos
+        /// </summary>
         private const string EMPTY_BANNERS_TEXT = "No hay ningun banner activo en este momento";
 
+        /// <summary>
+        /// Texto actual a mostrar, enviado a los observadores
+        /// </summary>
         private string iCurrentText = "";
+
+        /// <summary>
+        /// Token para verificar si existen solicitudes de cancelacion
+        /// </summary>
+        private CancellationToken cancellationToken;
 
         /// <summary>
         ///  Token para cancelar tareas asincronas
         /// </summary>
-        private CancellationToken cancellationToken;
         private CancellationTokenSource tokenSource;
 
 
@@ -67,12 +77,13 @@ namespace DigitalSignage.BLL
             tokenSource = new CancellationTokenSource();
             cancellationToken = tokenSource.Token;
 
-
-            GetNextActiveBannersLoop();
-            UpdateBannerListsLoop();
-
         }
 
+
+        /// <summary>
+        /// Obtiene todos los banners
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<BannerDTO> GetAll()
         {
             try
@@ -90,6 +101,12 @@ namespace DigitalSignage.BLL
 
         }
 
+
+        /// <summary>
+        /// Obtiene el banner del ID especificado
+        /// </summary>
+        /// <param name="pId"></param>
+        /// <returns></returns>
         public BannerDTO Get(int pId)
         {
             try
@@ -117,6 +134,11 @@ namespace DigitalSignage.BLL
 
         }
 
+
+        /// <summary>
+        /// Actualiza el banner especficado
+        /// </summary>
+        /// <param name="pBanner"></param>
         public void Update(BannerDTO pBanner)
         {
             try
@@ -137,6 +159,10 @@ namespace DigitalSignage.BLL
 
         }
 
+        /// <summary>
+        /// Crea el banner especificado
+        /// </summary>
+        /// <param name="pBanner"></param>
         public void Create(BannerDTO pBanner)
         {
             try
@@ -162,6 +188,10 @@ namespace DigitalSignage.BLL
 
         }
 
+        /// <summary>
+        /// Elimina el banner especificado
+        /// </summary>
+        /// <param name="pBanner"></param>
         public void Remove(BannerDTO pBanner)
         {
             try
@@ -181,6 +211,12 @@ namespace DigitalSignage.BLL
             }
         }
 
+
+        /// <summary>
+        /// Obtiene los banners que contienen en su nombre pName
+        /// </summary>
+        /// <param name="pName"></param>
+        /// <returns></returns>
         public IEnumerable<BannerDTO> getBannersByName(string pName)
         {
             try
@@ -199,6 +235,12 @@ namespace DigitalSignage.BLL
 
         }
 
+
+        /// <summary>
+        /// Obtiene los banners activos en cierta fecha
+        /// </summary>
+        /// <param name="pDate"></param>
+        /// <returns></returns>
         public IEnumerable<BannerDTO> getBannersActiveInDate(DateTime pDate)
         {
             try
@@ -218,13 +260,18 @@ namespace DigitalSignage.BLL
         }
 
 
-
+        /// <summary>
+        /// Inicia una tarea asincrona de actualización de siguientes banners
+        /// </summary>
         private void GetNextActiveBannersLoop()
         {
             Log.Information(String.Format("Iniciando bucle para obtener banners a mostrar en {0} Minutos.", UPDATE_TIME.Minutes));
             RunPeriodicAsync(GetNextActiveBanners, UPDATE_TIME, cancellationToken);
         }
 
+        /// <summary>
+        /// Inicia una tarea asincrona de actualización de banners
+        /// </summary>
         private void UpdateBannerListsLoop()
         {
             Log.Information(String.Format("Iniciando bucle para actualizar banners a mostrar cada {0} Segundos.", REFRESH_TIME.Seconds));
@@ -232,6 +279,9 @@ namespace DigitalSignage.BLL
 
         }
 
+        /// <summary>
+        /// Actualiza la lista de banners activos en base a iNextBanners
+        /// </summary>
         private void UpdateBannerLists()
         {
             bool change = false;
@@ -271,10 +321,14 @@ namespace DigitalSignage.BLL
             }
         }
 
+        /// <summary>
+        /// Actualiza el texto actual a mostrar con el texto de los banners y lo notifica a los observadores
+        /// </summary>
         private void UpdateCurrentText()
         {
             Log.Information("Actualizando texto de banners activos.");
             string updatedText = "";
+            // Concatena los textos de los banners activos
             foreach (Banner banner in iCurrentBanners)
             {
 
@@ -284,6 +338,7 @@ namespace DigitalSignage.BLL
 
             iCurrentText = updatedText;
 
+            // Si no hay banners activos, envia texto por defecto 
             if (iCurrentBanners.Count == 0)
             {
                 iCurrentText = EMPTY_BANNERS_TEXT;
@@ -314,6 +369,10 @@ namespace DigitalSignage.BLL
             UpdateRSSSources();
         }
 
+
+        /// <summary>
+        /// Ejecuta tareas de actualizacion de feeds de las fuentes RSS activas 
+        /// </summary>
         private void UpdateRSSSources()
         {
             Log.Information("Actualizando fuentes RSS.");
@@ -332,6 +391,10 @@ namespace DigitalSignage.BLL
             }
         }
 
+        /// <summary>
+        /// Actualiza los feeds de una fuente RSS
+        /// </summary>
+        /// <param name="source"></param>
         private void readFeeds(RSSSource source)
         {
             try
@@ -341,9 +404,10 @@ namespace DigitalSignage.BLL
                 Uri.TryCreate(source.Url, UriKind.Absolute, out uri);
                 Log.Information("Leyendo fuente RSS.");
                 var newRSSItems = rSSReader.Read(uri).ToList();
-                Log.Information("Asignando items RSS a la fuente.");
+                // Si se pudo conectar y obtuvo al menos un feed nuevo, actualiza la lista almacenada
                 if (newRSSItems != null && newRSSItems.Count > 0)
                 {
+                    Log.Information("Asignando items RSS a la fuente.");
                     source.RSSItems = AutoMapper.Mapper.Map<IList<RSSItemDTO>, IList<RSSItem>>(newRSSItems);
                 }
             }
@@ -395,6 +459,25 @@ namespace DigitalSignage.BLL
                 observer.OnNext(iCurrentText);
             }
             return new Unsubscriber<string>(observers, observer);
+        }
+
+
+        /// <summary>
+        /// Inicia tareas asincronas de actualizacion de banners a mostrar
+        /// </summary>
+        public void StartAsyncTasks()
+        {
+            GetNextActiveBannersLoop();
+            UpdateBannerListsLoop();
+        }
+
+
+        /// <summary>
+        /// Solicita la cancelación de las tareas asincronas corriendo
+        /// </summary>
+        public void CancelAsyncTasks()
+        {
+            tokenSource.Cancel();
         }
     }
 

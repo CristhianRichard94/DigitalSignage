@@ -149,6 +149,9 @@ namespace DigitalSignage.UI.Campaign_Forms
             return ms.ToArray();
         }
 
+
+        // Validaciones de campos 
+
         private void imgBox_Validating(object sender, CancelEventArgs e)
         {
             string error = null;
@@ -206,6 +209,11 @@ namespace DigitalSignage.UI.Campaign_Forms
             errorProvider.SetError((Control)sender, error);
         }
 
+
+        /// <summary>
+        /// Verifica si se modifico el form para obtener confirmación al cerrar
+        /// </summary>
+        /// <returns></returns>
         private bool anyChange()
         {
             bool change = false;

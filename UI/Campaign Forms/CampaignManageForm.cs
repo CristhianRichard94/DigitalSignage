@@ -241,6 +241,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             }
         }
 
+        // Validacion del campo de busqueda
         private void searchTextBox_Validating(object sender, CancelEventArgs e)
         {
             string error = null;

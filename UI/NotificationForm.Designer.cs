@@ -92,8 +92,8 @@
             // 
             this.infoLabel.AutoSize = true;
             this.infoLabel.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.infoLabel.Location = new System.Drawing.Point(34, 76);
-            this.infoLabel.MaximumSize = new System.Drawing.Size(408, 35);
+            this.infoLabel.Location = new System.Drawing.Point(36, 57);
+            this.infoLabel.MaximumSize = new System.Drawing.Size(408, 60);
             this.infoLabel.Name = "infoLabel";
             this.infoLabel.Size = new System.Drawing.Size(31, 13);
             this.infoLabel.TabIndex = 3;

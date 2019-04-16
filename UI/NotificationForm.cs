@@ -28,6 +28,7 @@ namespace DigitalSignage.UI
             this.titleLabel.Text = pTitle;
             this.infoLabel.Text = pText;
 
+            // Verifica si es un mensaje de informacion o confirmacion
             if (pMessageBoxButtons == MessageBoxButtons.YesNo)
             {
                 this.acceptButton.Visible = true;
