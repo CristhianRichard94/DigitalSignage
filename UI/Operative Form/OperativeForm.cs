@@ -50,6 +50,10 @@ namespace DigitalSignage.UI.Operative_Form
         /// </summary>
         private string WHITE_SPACE = new String(' ', 80);
 
+        /// <summary>
+        /// Imagen por defecto
+        /// </summary>
+        private Image iDefaultImage = Properties.Resources.no_campaigns;
 
         /// <summary>
         /// Constructor, obtiene instancias de servicios de banner y campaña
@@ -131,7 +135,13 @@ namespace DigitalSignage.UI.Operative_Form
         /// <param name="value"></param>
         public void OnNext(byte[] value)
         {
-            imgBox.Image = byteArrayToImage(value);
+            if (value != null)
+            {
+                imgBox.Image = byteArrayToImage(value);
+            } else
+            {
+                imgBox.Image = iDefaultImage;
+            }
         }
 
         /// <summary>

@@ -49,11 +49,6 @@ namespace DigitalSignage.BLL
         private int iCurrentImageIndex = 0;
 
         /// <summary>
-        /// Imagen por defecto
-        /// </summary>
-        private byte[] iDefaultImage = File.ReadAllBytes("../../../assets/images/no_campaigns.png");
-
-        /// <summary>
         /// Intervalo de tiempo en minutos en que se vuelve a actualizar la lista actual de campañas
         /// </summary>
         private TimeSpan UPDATE_TIME = new TimeSpan(0, 10, 0);
@@ -400,10 +395,10 @@ namespace DigitalSignage.BLL
             else
             {
 
-                // Notifica a los observadores con la imagen por default
+                // Notifica a los observadores con nulo para que usen la imagen por defecto
                 foreach (var observer in observers)
                 {
-                    observer.OnNext(iDefaultImage);
+                    observer.OnNext(null);
                     Log.Information("Imagen por defecto notificada a observadores.");
 
                 }
@@ -469,8 +464,8 @@ namespace DigitalSignage.BLL
                 else
                 {
 
-                    // Envia al nuevo observador la imagen por defecto
-                    observer.OnNext(iDefaultImage);
+                    // Envia al nuevo observador valor nulo para usar imagen por defecto
+                    observer.OnNext(null);
 
                 }
 

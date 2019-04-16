@@ -103,6 +103,16 @@ namespace DigitalSignage.UI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap no_campaigns {
+            get {
+                object obj = ResourceManager.GetObject("no_campaigns", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NY_Signage__1_ {
             get {
                 object obj = ResourceManager.GetObject("NY-Signage (1)", resourceCulture);
