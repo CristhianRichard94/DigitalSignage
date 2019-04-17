@@ -208,6 +208,7 @@ namespace DigitalSignage.UI.Banner_Forms
                     bannersGridView.DataSource = Banners;
                     break;
             }
+            checkRowCount();
         }
 
 
@@ -261,6 +262,23 @@ namespace DigitalSignage.UI.Banner_Forms
                 {
                     new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Verifica si hay una fila seleccionada y sino deshabilita botones de editar y eliminar
+        /// </summary>
+        private void checkRowCount()
+        {
+            if (bannersGridView.SelectedRows.Count == 0)
+            {
+                editButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            else
+            {
+                editButton.Enabled = true;
+                deleteButton.Enabled = true;
             }
         }
     }

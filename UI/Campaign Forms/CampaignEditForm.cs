@@ -62,6 +62,7 @@ namespace DigitalSignage.UI.Campaign_Forms
                 Images = new List<ImageDTO>();
                 Campaign.Name = "";
                 Campaign.Description = "";
+                checkRowCount();
             }
             imgGridView.ForeColor = Color.Black;
         }
@@ -281,7 +282,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             Images = Images.OrderBy(i => i.Position).ToList();
             imgGridView.DataSource = Images;
             imgGridView.Update();
-
+            //checkRowCount();
         }
 
                         // Validaciones de los datos
@@ -432,5 +433,23 @@ namespace DigitalSignage.UI.Campaign_Forms
 
             return change;
         }
+
+        /// <summary>
+        /// Verifica si hay una fila seleccionada y sino deshabilita botones de editar y eliminar
+        /// </summary>
+        private void checkRowCount()
+        {
+            if (imgGridView.SelectedRows.Count == 0)
+            {
+                editImageButton.Enabled = false;
+                deleteImageButton.Enabled = false;
+            }
+            else
+            {
+                editImageButton.Enabled = true;
+                deleteImageButton.Enabled = true;
+            }
+        }
+
     }
 }

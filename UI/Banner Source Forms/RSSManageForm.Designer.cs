@@ -45,7 +45,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.deleteButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.cancelSelectButton = new System.Windows.Forms.Button();
-            this.rSSGridView1 = new System.Windows.Forms.DataGridView();
+            this.rSSDataGridView = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Url = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,7 +58,7 @@ namespace DigitalSignage.UI.RSS_Forms
             ((System.ComponentModel.ISupportInitialize)(this.logoPanel)).BeginInit();
             this.panel3.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.rSSGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rSSDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -229,24 +229,24 @@ namespace DigitalSignage.UI.RSS_Forms
             this.cancelSelectButton.UseVisualStyleBackColor = false;
             this.cancelSelectButton.Click += new System.EventHandler(this.cancelSelectButton_Click);
             // 
-            // rSSGridView1
+            // rSSDataGridView
             // 
-            this.rSSGridView1.AllowUserToAddRows = false;
-            this.rSSGridView1.AllowUserToDeleteRows = false;
-            this.rSSGridView1.AllowUserToOrderColumns = true;
-            this.rSSGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.rSSGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.rSSDataGridView.AllowUserToAddRows = false;
+            this.rSSDataGridView.AllowUserToDeleteRows = false;
+            this.rSSDataGridView.AllowUserToOrderColumns = true;
+            this.rSSDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.rSSDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
             this.Url,
             this.Description});
-            this.rSSGridView1.Location = new System.Drawing.Point(399, 99);
-            this.rSSGridView1.Name = "rSSGridView1";
-            this.rSSGridView1.RowHeadersVisible = false;
+            this.rSSDataGridView.Location = new System.Drawing.Point(399, 99);
+            this.rSSDataGridView.Name = "rSSDataGridView";
+            this.rSSDataGridView.RowHeadersVisible = false;
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
-            this.rSSGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.rSSGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.rSSGridView1.Size = new System.Drawing.Size(959, 513);
-            this.rSSGridView1.TabIndex = 9;
+            this.rSSDataGridView.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.rSSDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.rSSDataGridView.Size = new System.Drawing.Size(959, 513);
+            this.rSSDataGridView.TabIndex = 9;
             // 
             // Id
             // 
@@ -336,7 +336,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.Controls.Add(this.searchComboBox);
             this.Controls.Add(this.searchLabel);
             this.Controls.Add(this.searchButton);
-            this.Controls.Add(this.rSSGridView1);
+            this.Controls.Add(this.rSSDataGridView);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -351,7 +351,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.rSSGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rSSDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -368,7 +368,7 @@ namespace DigitalSignage.UI.RSS_Forms
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button editButton;
-        private System.Windows.Forms.DataGridView rSSGridView1;
+        private System.Windows.Forms.DataGridView rSSDataGridView;
         private System.Windows.Forms.ComboBox searchComboBox;
         private System.Windows.Forms.Label searchLabel;
         private System.Windows.Forms.Button searchButton;

@@ -51,6 +51,7 @@ namespace DigitalSignage.UI.Campaign_Forms
             {
                 new NotificationForm(MessageBoxButtons.OK, exc.Message, "Error").ShowDialog();
             }
+
         }
 
         /// <summary>
@@ -161,6 +162,7 @@ namespace DigitalSignage.UI.Campaign_Forms
                     campaignsDataGridView.DataSource = Campaigns;
                     break;
             }
+            checkRowCount();
         }
 
         /// <summary>
@@ -272,6 +274,23 @@ namespace DigitalSignage.UI.Campaign_Forms
                     break;
             }
             errorProvider.SetError((Control)sender, error);
+        }
+
+        /// <summary>
+        /// Verifica si hay una fila seleccionada y sino deshabilita botones de editar y eliminar
+        /// </summary>
+        private void checkRowCount()
+        {
+            if (campaignsDataGridView.SelectedRows.Count == 0)
+            {
+                editButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            else
+            {
+                editButton.Enabled = true;
+                deleteButton.Enabled = true;
+            }
         }
     }
 }

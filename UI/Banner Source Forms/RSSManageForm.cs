@@ -46,7 +46,7 @@ namespace DigitalSignage.UI.RSS_Forms
 
             // Opcion de mostrar todas las fuentes
             this.searchComboBox.SelectedIndex = 0;
-            this.rSSGridView1.AutoGenerateColumns = false;
+            this.rSSDataGridView.AutoGenerateColumns = false;
             // Caso de que se inicie desde pantalla principal 
             if (pId == -1)
             {
@@ -80,7 +80,7 @@ namespace DigitalSignage.UI.RSS_Forms
         {
             try
             {
-                this.RSSSourceSelected = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
+                this.RSSSourceSelected = (RSSSourceDTO)this.rSSDataGridView.SelectedRows[0].DataBoundItem;
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -130,7 +130,7 @@ namespace DigitalSignage.UI.RSS_Forms
             this.kernel = HomeForm.CreateKernel();
             this.kernel.Load(Assembly.GetExecutingAssembly());
             var rSSReader = this.kernel.Get<IRSSReader>();
-            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader, (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem);
+            RSSEditForm rSSEditForm = new RSSEditForm(rSSReader, (RSSSourceDTO)this.rSSDataGridView.SelectedRows[0].DataBoundItem);
             if (rSSEditForm.ShowDialog() == DialogResult.OK)
             {
                 try
@@ -155,7 +155,7 @@ namespace DigitalSignage.UI.RSS_Forms
             {
                 case "Mostrar todas las fuentes RSS":
                     this.RSSSources = this.iRSSSourceService.GetAll();
-                    rSSGridView1.DataSource = this.RSSSources;
+                    rSSDataGridView.DataSource = this.RSSSources;
                     if (this.RSSSources.Count() == 0)
                     {
                         new NotificationForm(MessageBoxButtons.OK, "No hay fuentes cargadas en el sistema.", "No hay fuentes").ShowDialog();
@@ -173,7 +173,7 @@ namespace DigitalSignage.UI.RSS_Forms
                         new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna fuente con el ID ingresado.", "Error en la búsqueda").ShowDialog();
                     }
                     this.RSSSources = sources;
-                    rSSGridView1.DataSource = this.RSSSources;
+                    rSSDataGridView.DataSource = this.RSSSources;
                     break;
                 case "Buscar por URL":
                     this.RSSSources = this.iRSSSourceService.GetSourcesByURL(searchTextBox.Text);
@@ -181,9 +181,10 @@ namespace DigitalSignage.UI.RSS_Forms
                     {
                         new NotificationForm(MessageBoxButtons.OK, "No se ha encontrado ninguna fuente con la URL ingresada.", "Error en la búsqueda").ShowDialog();
                     }
-                    rSSGridView1.DataSource = this.RSSSources;
+                    rSSDataGridView.DataSource = this.RSSSources;
                     break;
             }
+            checkRowCount();
         }
 
         
@@ -234,7 +235,7 @@ namespace DigitalSignage.UI.RSS_Forms
             {
                 try
                 {
-                    var selectedSource = (RSSSourceDTO)this.rSSGridView1.SelectedRows[0].DataBoundItem;
+                    var selectedSource = (RSSSourceDTO)this.rSSDataGridView.SelectedRows[0].DataBoundItem;
                     this.iRSSSourceService.Remove(selectedSource);
                     getSources();
                 }
@@ -306,6 +307,24 @@ namespace DigitalSignage.UI.RSS_Forms
                     break;
             }
             errorProvider.SetError((Control)sender, error);
+        }
+
+
+        /// <summary>
+        /// Verifica si hay una fila seleccionada y sino deshabilita botones de editar y eliminar
+        /// </summary>
+        private void checkRowCount()
+        {
+            if (rSSDataGridView.SelectedRows.Count == 0)
+            {
+                editButton.Enabled = false;
+                deleteButton.Enabled = false;
+            }
+            else
+            {
+                editButton.Enabled = true;
+                deleteButton.Enabled = true;
+            }
         }
     }
 }
