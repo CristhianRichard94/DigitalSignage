@@ -319,11 +319,13 @@ namespace DigitalSignage.UI.RSS_Forms
             {
                 editButton.Enabled = false;
                 deleteButton.Enabled = false;
+                selectButton.Enabled = false;
             }
             else
             {
                 editButton.Enabled = true;
                 deleteButton.Enabled = true;
+                selectButton.Enabled = true;
             }
         }
     }

@@ -109,13 +109,16 @@ namespace DigitalSignage.UI.Banner_Forms
                     textSourceTextBox.Visible = false;
                     selectRSSButton.Visible = true;
                     rSSSourceLabel.Visible = true;
-                    rSSSourceLabel.Text = string.Format(
+                    if (RSSSource != null)
+                    {
+                        rSSSourceLabel.Text = string.Format(
                         "Id: {1}{0} Descripción: {2}{0} Url: {3}{0}",
                         Environment.NewLine,
                         RSSSource.Id,
                         RSSSource.Description,
                         RSSSource.Url
                     );
+                    }
                     break;
             }
         }
