@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DigitalSignage.UI.Operative_Form
 {
-    public partial class OperativeForm : Form, IObserver<string>, IObserver<byte[]>
+    public partial class OperativeForm : Form, IObserver<IList<string>>, IObserver<byte[]>
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace DigitalSignage.UI.Operative_Form
         /// <summary>
         /// Variable para eliminar subscripcion del servicio de banner
         /// </summary>
-        private Unsubscriber<string> iBannerUnsubscriber;
+        private Unsubscriber<IList<string>> iBannerUnsubscriber;
 
         /// <summary>
         /// Variable para eliminar subscripcion del servicio de campaña
@@ -56,6 +56,11 @@ namespace DigitalSignage.UI.Operative_Form
         private Image iDefaultImage = Properties.Resources.no_campaigns;
 
         /// <summary>
+        /// Texto a mostrar cuando no hay banners activos
+        /// </summary>
+        private const string EMPTY_BANNERS_TEXT = "No hay ningun banner activo en este momento";
+
+        /// <summary>
         /// Constructor, obtiene instancias de servicios de banner y campaña
         /// Se subscribe a los mismos
         /// Ordena el inicio de tareas de actualizacion 
@@ -68,7 +73,7 @@ namespace DigitalSignage.UI.Operative_Form
             this.iCampaignService = campaignService;
             this.iBannerService = bannerService;
             this.bannerText.Text = "";
-            iBannerUnsubscriber = (Unsubscriber<string>)iBannerService.Subscribe(this);
+            iBannerUnsubscriber = (Unsubscriber<IList<string>>)iBannerService.Subscribe(this);
             iCampaignUnsubscriber = (Unsubscriber<byte[]>)this.iCampaignService.Subscribe(this);
             iBannerService.StartAsyncTasks();
             iCampaignService.StartAsyncTasks();
@@ -148,9 +153,21 @@ namespace DigitalSignage.UI.Operative_Form
         /// Recibe nuevo texto del servicio del banners
         /// </summary>
         /// <param name="text"></param>
-        public void OnNext(string text)
+        public void OnNext(IList<string> texts)
         {
-            iCurrentText = WHITE_SPACE + text;
+            if (texts.Count > 0)
+            {
+                iCurrentText = WHITE_SPACE;
+                foreach (string text in texts)
+                {
+                    iCurrentText += text + " ----///---- ";
+                }
+
+            }
+            else
+            {
+                iCurrentText = WHITE_SPACE + EMPTY_BANNERS_TEXT;
+            }
         }
 
         /// <summary>

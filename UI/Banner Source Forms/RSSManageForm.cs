@@ -315,7 +315,7 @@ namespace DigitalSignage.UI.RSS_Forms
         /// </summary>
         private void checkRowCount()
         {
-            if (rSSDataGridView.SelectedRows.Count == 0)
+            if (rSSDataGridView.RowCount == 0)
             {
                 editButton.Enabled = false;
                 deleteButton.Enabled = false;

@@ -270,7 +270,7 @@ namespace DigitalSignage.UI.Banner_Forms
         /// </summary>
         private void checkRowCount()
         {
-            if (bannersGridView.SelectedRows.Count == 0)
+            if (bannersGridView.RowCount == 0)
             {
                 editButton.Enabled = false;
                 deleteButton.Enabled = false;

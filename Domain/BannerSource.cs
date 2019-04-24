@@ -10,7 +10,7 @@ namespace DigitalSignage.Domain
     /// <summary>
     /// Clase abstracta que representa una fuente de banner
     /// </summary>
-    public abstract class BannerSource
+    public abstract class BannerSource : IBannerSource
     {
         /// <summary>
         /// Id de la fuente
@@ -21,6 +21,6 @@ namespace DigitalSignage.Domain
         /// Todo banner debe implementar este método para devolver su texto
         /// </summary>
         /// <returns>Texto que será mostrado en pantalla</returns>
-        public abstract string GetText();
+        public abstract IList<string> GetText();
     }
 }

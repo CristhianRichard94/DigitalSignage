@@ -439,7 +439,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         private void checkRowCount()
         {
-            if (imgGridView.SelectedRows.Count == 0)
+            if (imgGridView.RowCount == 0)
             {
                 editImageButton.Enabled = false;
                 deleteImageButton.Enabled = false;

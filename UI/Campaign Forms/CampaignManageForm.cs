@@ -281,7 +281,7 @@ namespace DigitalSignage.UI.Campaign_Forms
         /// </summary>
         private void checkRowCount()
         {
-            if (campaignsDataGridView.SelectedRows.Count == 0)
+            if (campaignsDataGridView.RowCount == 0)
             {
                 editButton.Enabled = false;
                 deleteButton.Enabled = false;

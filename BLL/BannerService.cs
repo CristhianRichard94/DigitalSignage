@@ -23,7 +23,7 @@ namespace DigitalSignage.BLL
         /// <summary>
         /// Lista de subscriptos para obtener el texto del banner actual
         /// </summary>
-        private List<IObserver<string>> observers;
+        private List<IObserver<IList<string>>> observers;
 
         /// <summary>
         /// Lista de banners activos en el proximo <UPDATE_TIME>
@@ -47,14 +47,9 @@ namespace DigitalSignage.BLL
         private TimeSpan REFRESH_TIME = new TimeSpan(0, 0, 10);
 
         /// <summary>
-        /// Texto a mostrar cuando no hay banners activos
-        /// </summary>
-        private const string EMPTY_BANNERS_TEXT = "No hay ningun banner activo en este momento";
-
-        /// <summary>
         /// Texto actual a mostrar, enviado a los observadores
         /// </summary>
-        private string iCurrentText = "";
+        private IList <string> iCurrentText = new List<string>();
 
         /// <summary>
         /// Token para verificar si existen solicitudes de cancelacion
@@ -71,7 +66,7 @@ namespace DigitalSignage.BLL
         public BannerService()
         {
             iUnitOfWork = new UnitOfWork(new DigitalSignageDbContext());
-            observers = new List<IObserver<string>>();
+            observers = new List<IObserver<IList<string>>>();
             iCurrentBanners = new List<Banner>();
 
             tokenSource = new CancellationTokenSource();
@@ -327,26 +322,33 @@ namespace DigitalSignage.BLL
         private void UpdateCurrentText()
         {
             Log.Information("Actualizando texto de banners activos.");
-            string updatedText = "";
+            List<string> updatedText = new List<string>();
             // Concatena los textos de los banners activos
             foreach (Banner banner in iCurrentBanners)
             {
-
-                updatedText += banner.GetText() + " /// ";
-
+                IList<string> bannerTexts = banner.GetText();
+                foreach (string text in bannerTexts)
+                {
+                    updatedText.Add(text);
+                }
             }
 
             iCurrentText = updatedText;
 
-            // Si no hay banners activos, envia texto por defecto 
-            if (iCurrentBanners.Count == 0)
-            {
-                iCurrentText = EMPTY_BANNERS_TEXT;
-            }
             foreach (var observer in observers)
             {
 
-                observer.OnNext(iCurrentText);
+
+                if (iCurrentBanners.Count > 0)
+                {
+                    // Envia al nuevo observador el texto actual.
+                    observer.OnNext(iCurrentText);
+                }
+                else
+                {
+                    // Envia al nuevo observador una lista vacía para indicar que no hay banners.
+                    observer.OnNext(new List<String>());
+                }
                 Log.Information("Texto notificado a observadores.");
 
             }
@@ -448,17 +450,27 @@ namespace DigitalSignage.BLL
         /// </summary>
         /// <param name="observer"></param>
         /// <returns></returns>
-        public IDisposable Subscribe(IObserver<string> observer)
+        public IDisposable Subscribe(IObserver<IList<string>> observer)
         {
             // verifica que el observador no exista en la lista
             if (!observers.Contains(observer))
             {
                 Log.Information("Se ha subscrito un nuevo observador al servicio de banner");
                 observers.Add(observer);
-                // Envia al nuevo observador el texto actual.
-                observer.OnNext(iCurrentText);
+                if (iCurrentBanners.Count > 0)
+                {
+                    // Envia al nuevo observador el texto actual.
+                    observer.OnNext(iCurrentText);
+                } else
+                {
+                    // Envia al nuevo observador una lista vacía para indicar que no hay banners.
+                    observer.OnNext(new List<String>());
+                }
+                Log.Information("Texto notificado a nuevo observador.");
+
+
             }
-            return new Unsubscriber<string>(observers, observer);
+            return new Unsubscriber<IList<string>>(observers, observer);
         }
 
 

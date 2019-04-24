@@ -10,7 +10,7 @@ namespace DigitalSignage.BLL
     /// <summary>
     /// Interfaz del servicio de Banners
     /// </summary>
-    public interface IBannerService : IObservable<string>
+    public interface IBannerService : IObservable<IList<string>>
     {
         IEnumerable<BannerDTO> GetAll();
 

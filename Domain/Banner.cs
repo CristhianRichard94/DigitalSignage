@@ -49,7 +49,7 @@ namespace DigitalSignage.Domain
         /// <summary>
         /// Fuente del banner, puede ser de diferentes tipos
         /// </summary>
-        public virtual BannerSource Source { get; set; }
+        public BannerSource Source { get; set; }
 
         /// <summary>
         /// Clave foránea para la fuente del banner
@@ -75,7 +75,7 @@ namespace DigitalSignage.Domain
         /// Obtiene el texto del banner
         /// </summary>
         /// <returns>Texto del banner</returns>
-        public string GetText()
+        public IList<string> GetText()
         {
 
             return Source.GetText();

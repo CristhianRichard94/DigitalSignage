@@ -20,9 +20,11 @@ namespace DigitalSignage.Domain
         /// Obtiene el texto de la fuente
         /// </summary>
         /// <returns>Texto a mostrar</returns>
-        public override string GetText()
+        public override IList<string> GetText()
         {
-            return Data;
+            IList<string> list = new List<string>();
+            list.Add(Data);
+            return list;
         }
     }
 }

@@ -33,9 +33,9 @@ namespace DigitalSignage.Domain
         /// Obtiene el texto de cada item
         /// </summary>
         /// <returns>Texto con todos los items RSS</returns>
-        public override string GetText()
+        public override IList<string> GetText()
         {
-            string text = "";
+            List<string> list = new List<string>();
 
             using (var enumerator = RSSItems.GetEnumerator())
             {
@@ -44,13 +44,13 @@ namespace DigitalSignage.Domain
                 {
 
                     var current = enumerator.Current;
-                    text += current.Title + " : " + current.Description + " | ";
+                    list.Add(current.Title + " : " + current.Description);
 
                 }
 
             }
 
-            return text;
+            return list;
 
         }
     }
