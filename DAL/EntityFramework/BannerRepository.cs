@@ -65,19 +65,30 @@ namespace DigitalSignage.DAL.EntityFramework
             oldBanner.EndTime = updatedBanner.EndTime;
             oldBanner.Name = updatedBanner.Name;
 
-            if (updatedBanner.Source.Id > 0)
+            //if (updatedBanner.Source.Id > 0)
+            //{
+
+            //    oldBanner.SourceId = updatedBanner.Source.Id;
+
+            //}
+            //else
+            //{
+
+            //    oldBanner.Source = updatedBanner.Source;
+
+            //}
+
+
+
+            if (oldBanner.Source is TextSource)
             {
-
-                oldBanner.SourceId = updatedBanner.Source.Id;
-
-            }
-            else
-            {
-
+                TextSource oldSource = (TextSource)oldBanner.Source;
                 oldBanner.Source = updatedBanner.Source;
-
+                this.iDbContext.TextSources.Remove(oldSource);
+            } else
+            {
+                oldBanner.Source = updatedBanner.Source;
             }
-
             //Guardando los cambios
             this.iDbContext.SaveChanges();
 
