@@ -29,7 +29,7 @@ namespace DigitalSignage.DAL.EntityFramework
             IEnumerable<Banner> banners = base.GetAll();
             foreach (Banner banner in banners)
             {
-                //Incluye las fuentes de los banners
+                // Incluye las fuentes de los banners
                 this.iDbContext.Entry(banner).Reference(p => p.Source).Load();
             }
             return banners;
@@ -57,7 +57,7 @@ namespace DigitalSignage.DAL.EntityFramework
             var oldBanner = this.iDbContext.Banners
                 .SingleOrDefault(p => p.Id == updatedBanner.Id);
 
-            //Actualiza los datos
+            // Actualiza los datos
             oldBanner.Description = updatedBanner.Description;
             oldBanner.InitialDate = updatedBanner.InitialDate;
             oldBanner.EndDate = updatedBanner.EndDate;
@@ -65,31 +65,17 @@ namespace DigitalSignage.DAL.EntityFramework
             oldBanner.EndTime = updatedBanner.EndTime;
             oldBanner.Name = updatedBanner.Name;
 
-            //if (updatedBanner.Source.Id > 0)
-            //{
-
-            //    oldBanner.SourceId = updatedBanner.Source.Id;
-
-            //}
-            //else
-            //{
-
-            //    oldBanner.Source = updatedBanner.Source;
-
-            //}
-
-
-
+            // Si poseía una fuente de texto, la elimina
             if (oldBanner.Source is TextSource)
             {
                 TextSource oldSource = (TextSource)oldBanner.Source;
                 oldBanner.Source = updatedBanner.Source;
                 this.iDbContext.TextSources.Remove(oldSource);
             } else
-            {
+            { // Asigna la nueva fuente
                 oldBanner.Source = updatedBanner.Source;
             }
-            //Guardando los cambios
+            // Guardando los cambios
             this.iDbContext.SaveChanges();
 
         }
@@ -105,7 +91,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 throw new ArgumentNullException("pName");
 
             return base.iDbContext.Set<Banner>()
-                //Busca los banners que contengan el nombre especificado
+                // Busca los banners que contengan el nombre especificado
                 .Where(c => c.Name.IndexOf(pName) >= 0)
                 .Include("Source")
                 .ToList();
@@ -122,7 +108,7 @@ namespace DigitalSignage.DAL.EntityFramework
                 throw new ArgumentNullException("pDate");
 
             return base.iDbContext.Set<Banner>()
-                //Compara si el banner esta activo en la fecha
+                // Compara si el banner esta activo en la fecha
                 .Where(c => DbFunctions.TruncateTime(c.InitialDate) <= DbFunctions.TruncateTime(pDate))
                 .Where(c => DbFunctions.TruncateTime(c.EndDate) >= DbFunctions.TruncateTime(pDate))
                 .Include("Source")
@@ -149,10 +135,10 @@ namespace DigitalSignage.DAL.EntityFramework
                 throw new InvalidOperationException("El tiempo de inicio debe ser menor al de fin");
 
             List<Banner> banners = base.iDbContext.Set<Banner>()
-                //Compara si el banner esta activo en la fecha
+                // Compara si el banner esta activo en la fecha
                 .Where(b => DbFunctions.TruncateTime(b.InitialDate) <= DbFunctions.TruncateTime(pDate))
                 .Where(b => DbFunctions.TruncateTime(b.EndDate) >= DbFunctions.TruncateTime(pDate))
-                //Compara si el banner esta activo en el rango horario
+                // Compara si el banner esta activo en el rango horario
                 .Where(b => b.InitialTime <= pToTime && b.EndTime >= pFromTime)
                 .Include("Source")
                 .ToList();
